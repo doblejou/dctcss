@@ -62,6 +62,12 @@ gzip; el tamaño de Tailwind depende de la aplicación.
 
 ## Desarrollo, comprobación y publicación
 
+- En el clon Git, activar los hooks de `.githooks/` antes de hacer commits o
+  pushes. Pasar Gitleaks con redacción y detener la operación si falla o no
+  está instalado. Publicar releases de GitHub mediante `make github-release`,
+  que analiza el historial y los adjuntos exactos antes de crear la release.
+  No omitir los hooks ni publicar desde la interfaz web saltándose el análisis.
+
 - `make build` regenera las salidas; `make serve` sirve solo `public/`.
   Las herramientas provisionadas en `/opt/dctserver/` y `/opt/dctfrw/` se
   consideran confiables por ubicación. Una nueva dependencia externa fuera de

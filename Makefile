@@ -1,4 +1,4 @@
-.PHONY: build check check-release contract-test config-test visual-check serve
+.PHONY: build check check-release contract-test config-test visual-check serve github-release
 
 build:
 	sh scripts/build.sh
@@ -8,7 +8,12 @@ check:
 
 check-release:
 	php scripts/validate.php --assert-production
+	gitleaks detect --redact --no-banner --no-git --source public
+	gitleaks detect --redact --no-banner --no-git --source dist
 	sh scripts/check.sh
+
+github-release:
+	sh scripts/github-release.sh
 
 contract-test:
 	sh scripts/test-contract-validator.sh

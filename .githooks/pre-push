@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+
+# Incluye también los objetos enviados desde un SHA sin rama o etiqueta local.
+revisions=--all
+while read -r _ local_oid _; do
+  case "$local_oid" in
+    *[!0]*) revisions="$revisions $local_oid" ;;
+  esac
+done
+exec gitleaks detect --redact --no-banner --log-opts="$revisions"

@@ -67,6 +67,22 @@ sh scripts/serve.sh
 
 Si `make` está disponible, los atajos equivalentes son `make build`, `make check` y `make serve`. Antes de publicar, ejecuta además `make check-release`; aplica todas las comprobaciones con reglas de producción y rechaza configuraciones locales.
 
+### Commits, pushes y releases de GitHub
+
+Instala Gitleaks (probado con 8.16.0). En cada clon ejecuta una vez
+`git config --local core.hooksPath .githooks` para activar los hooks del proyecto.
+Si ya usas hooks propios, integra ambos antes de cambiar esa configuración.
+Cada commit analiza los cambios preparados y cada push el historial. Un hallazgo
+o un fallo del escáner bloquea la operación; los resultados se redactan.
+
+Para publicar en GitHub, sube la etiqueta `v` seguida de `VERSION` y ejecuta
+`make github-release` desde ese commit, con `origin` apuntando al proyecto y
+GitHub CLI autenticado. El comando comprueba la etiqueta remota, extrae `dist/`
+del commit etiquetado, verifica sus checksums y analiza el historial y los
+adjuntos antes de subirlos. Para el despliegue web, `make check-release` analiza
+también `public/` y `dist/`. Los hooks son locales: un clon nuevo necesita
+activarlos y la interfaz web de GitHub no los ejecuta.
+
 Las regresiones visuales se comparan con los cuatro PNG de `scripts/visual-baselines/`. Tras revisar un cambio visual deliberado en ambos tamaños y temas, actualízalos explícitamente con `sh scripts/visual-check.sh public /tmp/dctcss-visual --update-baselines` y vuelve a ejecutar `sh scripts/check.sh`.
 
 El servidor local expone exclusivamente el document root generado `public/` en `http://localhost:8000/`. El puerto puede cambiarse con `PORT=8080 sh scripts/serve.sh`; ajusta también `SITE_URL`, ejecuta de nuevo el build y abre la URL correspondiente.
