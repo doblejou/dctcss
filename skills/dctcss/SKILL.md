@@ -1,9 +1,9 @@
 ---
 name: dctcss
-description: Usa dctcss 1.6.4 para construir aplicaciones web con su API CSS estable, accesible y legible por agentes.
+description: Usa dctcss 1.6.5 para construir aplicaciones web con su API CSS estable, accesible y legible por agentes.
 ---
 
-# dctcss 1.6.4
+# dctcss 1.6.5
 
 Usa esta skill para generar marcado con dctcss. El framework solo aporta CSS: la aplicación controla datos, validación, estado interactivo, foco y navegación. `references/dctcss-api.json`, con `schemaVersion: 2`, inventaría la API, `references/RECIPES.md` contiene composiciones completas y `references/CHANGELOG.md` permite evaluar actualizaciones.
 

@@ -1,13 +1,13 @@
 {
     "schemaVersion": 1,
     "name": "dctcss",
-    "version": "1.6.4",
+    "version": "1.6.5",
     "releaseDate": "2026-11-26",
-    "changelog": "http://localhost:8000/changelog.html",
+    "changelog": "https://dctcss.com/changelog.html",
     "artifacts": {
-        "css": "http://localhost:8000/downloads/dct.css",
-        "cssMinified": "http://localhost:8000/downloads/dct.min.css",
-        "api": "http://localhost:8000/downloads/dctcss-api.json",
-        "validator": "http://localhost:8000/downloads/dctcss-validate.php"
+        "css": "https://dctcss.com/downloads/dct.css",
+        "cssMinified": "https://dctcss.com/downloads/dct.min.css",
+        "api": "https://dctcss.com/downloads/dctcss-api.json",
+        "validator": "https://dctcss.com/downloads/dctcss-validate.php"
     }
 }

@@ -123,7 +123,12 @@ function validate_public(
                 fail("Invalid $property in $path.");
             }
         }
-        $expectedAbsoluteUrls = [$canonical, $canonical];
+        $repositoryUrl = 'https://github.com/doblejou/dctcss';
+        $githubLinks = [$repositoryUrl];
+        if ($slug === 'index') {
+            $githubLinks[] = "$repositoryUrl/releases";
+        }
+        $expectedAbsoluteUrls = [$canonical, $canonical, ...$githubLinks];
         if ($slug === 'index') {
             $expectedAbsoluteUrls[] = "$siteUrl/downloads/$minifiedName";
         }
@@ -167,6 +172,9 @@ function validate_public(
                     fail("Unsupported $attribute on <$tag> in $path.");
                 }
                 $reference = $element->getAttribute($attribute);
+                if ($tag === 'a' && $attribute === 'href' && in_array($reference, $githubLinks, true)) {
+                    continue;
+                }
                 if ($tag === 'link' && $attribute === 'href' && $element->getAttribute('rel') === 'canonical') {
                     continue;
                 }

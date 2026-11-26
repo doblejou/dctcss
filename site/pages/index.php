@@ -130,6 +130,7 @@ HTML
         <div class="dct-stack">
           <p class="dct-meta">03 / Descargas</p>
           <h2 class="dct-title" id="downloads-title">La release actual, en dos variantes.</h2>
+          <p>Descarga la versión actual desde esta web o consulta las <a href="<?= escape(GITHUB_REPOSITORY) ?>/releases">versiones anteriores en GitHub</a>.</p>
           <p class="dct-text-muted">Estas URLs son <em>latest</em>: siempre contienen la versión publicada más reciente y no son enlaces históricos inmutables. Consulta <a href="release.json"><code>release.json</code></a> para descubrir la versión y <a href="changelog.html">Cambios</a> antes de actualizar. El <a href="downloads/dctcss-validate.php" download>validador PHP</a> y su <a href="downloads/dctcss-api.json" download>manifiesto</a> permiten comprobar HTML consumidor en CI.</p>
         </div>
         <div class="dct-grid">

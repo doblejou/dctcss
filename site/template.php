@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+const GITHUB_REPOSITORY = 'https://github.com/doblejou/dctcss';
+
 const SITE_PAGES = [
     'index' => 'Inicio',
     'fundamentals' => 'Fundamentos',
@@ -330,7 +332,7 @@ function render_page(array $page, array $build): string
       <div class="dct-container site-footer-grid">
         <div><a class="site-footer-brand" href="index.html"><span class="site-brand-mark" aria-hidden="true">d</span>dctcss</a><p>CSS moderno para interfaces<br>que deben durar.</p></div>
         <nav aria-label="Enlaces del pie"><strong>Producto</strong><a href="components.html">Componentes</a><a href="application.html">Aplicación</a><a href="index.html#downloads">Descargas</a></nav>
-        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Documentación</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a></nav>
+        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Documentación</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a><a href="<?= escape(GITHUB_REPOSITORY) ?>">Código fuente en GitHub</a></nav>
         <div class="site-footer-meta"><span class="site-version">v<?= escape($version) ?></span><p>MIT License<br>Hecho con CSS nativo.</p></div>
       </div>
       <div class="dct-container site-footer-bottom"><span>© <?= escape(substr($build['releaseDate'], 0, 4)) ?> dctcss</span><span>Sitio oficial para humanos. Contratos para agentes.</span></div>

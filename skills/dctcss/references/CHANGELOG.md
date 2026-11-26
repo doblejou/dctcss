@@ -2,6 +2,11 @@
 
 Todos los cambios relevantes de dctcss se documentan en este archivo.
 
+## 1.6.5 - 2026-11-26
+
+- La web enlaza al código fuente y a las releases de GitHub. Las descargas actuales siguen en el sitio oficial y el mismo build estático sirve para desarrollo y producción.
+- Añadidos scripts para preparar las reglas compartidas como ficheros normales y desplegar desde la rama remota. El despliegue valida la configuración y la release antes de activar `public/`.
+
 ## 1.6.4 - 2026-11-26
 
 - Añadidas dos recetas optativas: resumen adaptable al ancho del contenedor y acordeones exclusivos por grupo con `details[name]`. La web y la skill muestran cómo usarlas sin JavaScript.

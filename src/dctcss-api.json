@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "name": "dctcss",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "prefix": "dct-",
   "stability": "stable",
   "attributeInventoryScope": "The attributes inventory lists attributes required or restricted by dctcss contracts. It is not an HTML allowlist and does not prohibit ordinary semantic attributes such as type, name, autocomplete, action or accept.",

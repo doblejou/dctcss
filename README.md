@@ -1,6 +1,6 @@
 # dctcss
 
-Framework CSS reutilizable basado en CSS moderno nativo, sin JavaScript ni dependencias externas de ejecución. La versión actual es `1.6.4` y toda su API pública usa el prefijo `dct-`.
+Framework CSS reutilizable basado en CSS moderno nativo, sin JavaScript ni dependencias externas de ejecución. La versión actual es `1.6.5` y toda su API pública usa el prefijo `dct-`.
 
 dctcss está diseñado principalmente para agentes de IA. El [manifiesto estructurado](src/dctcss-api.json) contiene el inventario de la API y la [skill](skills/dctcss/SKILL.md) define el marcado, las decisiones y las reglas de accesibilidad.
 
@@ -54,10 +54,12 @@ En `development` se permite una URL HTTP de loopback, como los valores predeterm
 
 ```ini
 DCTCSS_ENV=development
-SITE_URL=http://localhost:8000
+SITE_URL=https://dctcss.com
 ```
 
-En `production`, `SITE_URL` debe usar HTTPS y no puede ser local, de loopback, link-local, privada ni tener un hostname de una sola etiqueta. Cualquier cambio de configuración requiere regenerar `public/`.
+`SITE_URL` identifica el sitio oficial, no la dirección donde se abre la vista previa. Con el valor anterior, un único `make build` sirve tanto para `http://dctcss.local/` como para `https://dctcss.com/`: navegación, estilos y botones de descarga usan el servidor que visitas. Las URLs absolutas de los metadatos, `release.json` y el ejemplo de instalación apuntan siempre al sitio oficial. Cambiar de entorno no requiere regenerar `public/` si se mantiene `SITE_URL`.
+
+En `production`, `SITE_URL` debe usar HTTPS y no puede ser local, de loopback, link-local, privada ni tener un hostname de una sola etiqueta.
 
 ```sh
 sh scripts/build.sh
@@ -75,6 +77,21 @@ Si ya usas hooks propios, integra ambos antes de cambiar esa configuración.
 Cada commit analiza los cambios preparados y cada push el historial. Un hallazgo
 o un fallo del escáner bloquea la operación; los resultados se redactan.
 
+Para publicar los enlaces locales de `.ai-rules/` como ficheros normales:
+
+```sh
+sh scripts/prepare-rules-commit.sh URL_DEL_REMOTO ../dctcss-publicacion
+cd ../dctcss-publicacion
+git diff --cached
+git commit -m "Actualiza las reglas compartidas"
+git push
+```
+
+El script exige un destino nuevo fuera del proyecto, clona la rama predeterminada
+del remoto y prepara únicamente `.ai-rules/`, incluidas las bajas respecto al
+remoto. El clon usa los hooks de la carpeta de trabajo original. Si la preparación
+falla, no uses ese clon para publicar; corrige el fallo y repite con un destino nuevo.
+
 Para publicar en GitHub, sube la etiqueta `v` seguida de `VERSION` y ejecuta
 `make github-release` desde ese commit, con `origin` apuntando al proyecto y
 GitHub CLI autenticado. El comando comprueba la etiqueta remota, extrae `dist/`
@@ -85,9 +102,39 @@ activarlos y la interfaz web de GitHub no los ejecuta.
 
 Las regresiones visuales se comparan con los cuatro PNG de `scripts/visual-baselines/`. Tras revisar un cambio visual deliberado en ambos tamaños y temas, actualízalos explícitamente con `sh scripts/visual-check.sh public /tmp/dctcss-visual --update-baselines` y vuelve a ejecutar `sh scripts/check.sh`.
 
-El servidor local expone exclusivamente el document root generado `public/` en `http://localhost:8000/`. El puerto puede cambiarse con `PORT=8080 sh scripts/serve.sh`; ajusta también `SITE_URL`, ejecuta de nuevo el build y abre la URL correspondiente.
+El servidor local expone exclusivamente el document root generado `public/` en `http://localhost:8000/`. El puerto puede cambiarse con `PORT=8080 sh scripts/serve.sh`, sin cambiar `SITE_URL`. Para usar `http://dctcss.local/`, configura ese dominio en el servidor local con el mismo document root `public/`.
 
 ## Publicación
+
+### Despliegue desde el servidor
+
+Usa un clon de `https://github.com/doblejou/dctcss` con la rama que quieras
+publicar siguiendo su rama remota. En la raíz del clon crea un `.env` local:
+
+```dotenv
+DCTCSS_ENV=production
+SITE_URL=https://dctcss.com
+```
+
+Desde ese clon ejecuta en cada despliegue:
+
+```sh
+sh scripts/deploy.sh /srv/www/dctcss
+```
+
+La raíz web se llama **`public/` en los dos entornos**: en local es `public/`
+del proyecto y en el servidor es `/srv/www/dctcss/public`. Configúrala sin
+ejecución de PHP. El destino debe ser escribible por el usuario de despliegue.
+El script usa `git fetch` y construye el commit remoto en un directorio privado
+con el `.env` del servidor (las variables de proceso mantienen su prioridad).
+Necesita Git, `flock` y las herramientas habituales de `make build` y
+`make check-release`, incluido el minificador de `/opt/dctfrw/` y Gitleaks.
+Solo cambia el enlace `public` después de pasar las comprobaciones. Si el
+servidor ya apunta a `current`, realiza un despliegue con este script y cambia
+la raíz web a `public`. Conserva las
+publicaciones anteriores en `release.*`; se pueden retirar las que ya no se usen.
+
+### Despliegue manual
 
 Ejecuta `make check-release` con `DCTCSS_ENV=production` y el `SITE_URL` público definitivo. Después despliega el contenido generado de `public/` haciendo que ese directorio sea el document root del dominio. No publiques la raíz del repositorio: `site/`, `src/`, `dist/`, `skills/`, `scripts/` y `.env` no forman parte de la superficie web.
 

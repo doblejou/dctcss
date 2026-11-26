@@ -62,6 +62,14 @@ gzip; el tamaño de Tailwind depende de la aplicación.
 
 ## Desarrollo, comprobación y publicación
 
+- Si se solicita un commit, push o release con cambios locales de este árbol,
+  preparar el commit en un clon aparte con `sh scripts/prepare-rules-commit.sh
+  URL_DEL_REMOTO CLON_NUEVO`. El script prepara solo `.ai-rules/`: incorporar
+  también los demás cambios solicitados y revisar `git diff --cached` antes
+  del commit. Conservar los enlaces del árbol local y comprobar en el índice
+  del clon que las reglas se publicarán como ficheros normales. Si no se conoce
+  el remoto, pedir su URL. Realizar solo las operaciones de publicación solicitadas.
+
 - En el clon Git, activar los hooks de `.githooks/` antes de hacer commits o
   pushes. Pasar Gitleaks con redacción y detener la operación si falla o no
   está instalado. Publicar releases de GitHub mediante `make github-release`,
