@@ -21,10 +21,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
 <header class="site-doc-title dct-stack">
-            <p class="dct-meta">Referencia / Navegación</p>
-            <h1 class="dct-display">Orientación clara, comportamiento explícito.</h1>
-            <p>Estas APIs presentan rutas y estados de navegación. Cada <code>nav</code> del contrato acepta un nombre accesible mediante <code>aria-label</code> o <code>aria-labelledby</code>. dctcss aporta CSS; tu aplicación conserva URLs reales, estado actual y cualquier toggle interactivo.</p>
-            <p>El padding de navegación consume <code>--dct-navigation-padding-block</code> y <code>--dct-navigation-padding-inline</code>. Ambos se reducen por herencia dentro de <code>data-dct-density="compact"</code>.</p>
+            <h1 class="dct-display">Navegación</h1>
+            <p>Construye menús, rutas y paginadores con enlaces reales. Da un nombre a cada <code>nav</code> con <code>aria-label</code> o <code>aria-labelledby</code>.</p>
           </header>
 
           <section class="site-reference" id="skip-link" aria-labelledby="skip-link-title">

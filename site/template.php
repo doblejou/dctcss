@@ -15,6 +15,8 @@ const SITE_PAGES = [
     'application' => 'Aplicación',
     'recipes' => 'Recetas',
     'changelog' => 'Cambios',
+    'aviso-legal' => 'Aviso legal',
+    'privacidad' => 'Política de privacidad',
 ];
 
 const HEADER_PAGES = [
@@ -32,9 +34,44 @@ function escape(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_XML1, 'UTF-8');
 }
 
+################################################
+#
+#  comparison_size
+#
+#  Convierte bytes a KB decimales y conserva las estimaciones de origen.
+#
+################################################
+function comparison_size(int|string $size): string
+{
+    if (!ctype_digit((string) $size))
+    {
+        return (string) $size;
+    }
+
+    return number_format((int) $size / 1000, 2, ',', '.') . ' KB';
+}
+
 function canonical_url(string $siteUrl, string $slug): string
 {
     return $slug === 'index' ? $siteUrl . '/' : $siteUrl . '/' . $slug . '.html';
+}
+
+################################################
+#
+#  agent_install_prompt
+#
+#  Presenta el mismo encargo copiable en la portada y en la guía.
+#
+################################################
+function agent_install_prompt(): string
+{
+    return code_example(
+        'instalar-con-agente',
+        'Prompt para tu agente',
+        "Visita dctcss.com y sigue su guía para agentes.\n"
+        . "Instala la skill de dctcss en este proyecto y comprueba que puedes usarla.",
+        'instrucciones de instalación para el agente'
+    );
 }
 
 function code_example(string $id, string $language, string $source, string $label): string
@@ -233,7 +270,7 @@ function render_changelog(string $markdown): string
 
 function page_navigation(string $current): string
 {
-    $keys = array_keys(SITE_PAGES);
+    $keys = array_keys(array_diff_key(SITE_PAGES, ['aviso-legal' => true, 'privacidad' => true]));
     $position = array_search($current, $keys, true);
     if ($position === false || $current === 'index') {
         return '';
@@ -278,8 +315,8 @@ function render_page(array $page, array $build): string
     <title><?= escape($title) ?></title>
     <link rel="canonical" href="<?= escape($canonical) ?>">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="stylesheet" href="downloads/<?= escape($build['css']['filename']) ?>">
-    <link rel="stylesheet" href="assets/site.css">
+    <link rel="stylesheet" href="downloads/<?= escape($build['css']['filename']) ?>?v=<?= $build['frameworkCssTime'] ?>">
+    <link rel="stylesheet" href="assets/site.css?v=<?= $build['siteCssTime'] ?>">
     <script src="assets/site.js" defer></script>
   </head>
   <body class="site-page site-page-<?= escape($current) ?>">
@@ -294,8 +331,13 @@ function render_page(array $page, array $build): string
 <?php foreach (HEADER_PAGES as $slug => $label): ?>
           <a class="dct-navbar-item" href="<?= $slug ?>.html"<?= $slug === $headerCurrent ? ' aria-current="page"' : '' ?>><?= $label ?></a>
 <?php endforeach; ?>
-          <a class="dct-navbar-item" href="index.html#downloads">Descargas</a>
-          <div class="dct-navbar-actions"><span class="site-version">v<?= escape($version) ?></span><a class="dct-button dct-is-primary dct-is-small" href="index.html#downloads">Descargar</a></div>
+          <div class="dct-navbar-actions">
+            <span class="site-version">v<?= escape($version) ?></span>
+            <a class="dct-navbar-item" href="<?= escape(GITHUB_REPOSITORY) ?>" aria-label="Repositorio de dctcss en GitHub" title="GitHub">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .3a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.44.38.82 1.12.82 2.26v3.26c0 .32.22.7.83.58A12 12 0 0 0 12 .3Z"/></svg>
+            </a>
+            <a class="dct-button dct-is-primary dct-is-small" href="fundamentals.html#trabajar-con-ia">Usa el prompt</a>
+          </div>
         </div>
       </nav>
     </header>
@@ -332,10 +374,12 @@ function render_page(array $page, array $build): string
       <div class="dct-container site-footer-grid">
         <div><a class="site-footer-brand" href="index.html"><img src="assets/favicon.svg" width="32" height="32" alt="">dctcss</a><p>CSS nativo y ligero.<br>Diseñado para la IA.</p></div>
         <nav aria-label="Enlaces del pie"><strong>Producto</strong><a href="components.html">Componentes</a><a href="application.html">Aplicación</a><a href="index.html#downloads">Descargas</a></nav>
-        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Documentación</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a><a href="<?= escape(GITHUB_REPOSITORY) ?>">Código fuente en GitHub</a></nav>
-        <div class="site-footer-meta"><span class="site-version">v<?= escape($version) ?></span><p>MIT License<br>Hecho con CSS nativo.</p></div>
+        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Fundamentos</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a></nav>
       </div>
-      <div class="dct-container site-footer-bottom"><span>© <?= escape(substr($build['releaseDate'], 0, 4)) ?> dctcss</span><span>Sitio oficial para humanos. Contratos para agentes.</span></div>
+      <div class="dct-container site-footer-bottom">
+        <span>© <?= escape(substr($build['releaseDate'], 0, 4)) ?> <a href="https://daycomtech.com/">Daycom Technologies</a> · Licencia MIT</span>
+        <nav class="dct-cluster" aria-label="Información legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Política de privacidad</a></nav>
+      </div>
     </footer>
     <p class="dct-sr-only" role="status" aria-live="polite" data-site-status></p>
   </body>

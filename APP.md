@@ -77,6 +77,9 @@ gzip; el tamaño de Tailwind depende de la aplicación.
   No omitir los hooks ni publicar desde la interfaz web saltándose el análisis.
 
 - `make build` regenera las salidas; `make serve` sirve solo `public/`.
+  Los cambios exclusivos de la web comercial o su documentación no incrementan
+  `VERSION`. Para una release del sitio, usar una etiqueta independiente
+  `web-AAAA-MM-DD` y `WEB_RELEASE_TAG=web-AAAA-MM-DD make github-release`.
   Las herramientas provisionadas en `/opt/dctserver/` y `/opt/dctfrw/` se
   consideran confiables por ubicación. Una nueva dependencia externa fuera de
   esos árboles requiere justificación y aprobación.

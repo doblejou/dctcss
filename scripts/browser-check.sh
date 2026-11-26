@@ -106,7 +106,7 @@ const { pathToFileURL } = require("node:url");
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
-    await page.goto(pathToFileURL(resolve(process.argv[2], "index.html")).href);
+    await page.goto(pathToFileURL(resolve(process.argv[2], "fundamentals.html")).href);
     await page.evaluate(() => Object.defineProperty(navigator, "clipboard", {
       value: { writeText: async (text) => { window.__copiedText = text; } },
       configurable: true,

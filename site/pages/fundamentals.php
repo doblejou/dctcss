@@ -22,35 +22,36 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">01 / Fundamentos</p>
-          <h1 class="dct-display">Una base predecible antes de componer.</h1>
-          <p>Aprende qué nombres pertenecen al framework, cómo participa dctcss en la cascada y qué contratos puedes personalizar sin editar el artefacto distribuido.</p>
+          <h1 class="dct-display">Fundamentos</h1>
+          <p>Integra dctcss con tu agente y personaliza el diseño mediante tokens, densidad y temas.</p>
         </header>
 
         <section class="site-reference" id="trabajar-con-ia" aria-labelledby="ia-title">
-          <h2 id="ia-title">Trabajar con IA: de un encargo a una interfaz</h2>
-          <p>dctcss está creado para proyectos donde un agente escribe o modifica HTML. Si le pides «añade una ayuda desplegable», hay dos decisiones distintas: qué elemento ofrece esa interacción y qué clases lo presentan. La skill orienta la primera decisión; el manifiesto enumera los nombres y las relaciones que admite esta versión. Así puedes revisar la respuesta contra reglas concretas.</p>
-          <h3>1. Dale al agente las referencias de tu versión</h3>
-          <p>El navegador solo necesita el CSS. La skill es el manual para el agente. OpenCode, Codex y Claude Code pueden descubrirla en el proyecto y cargarla cuando una tarea lo requiere. También puedes invocarla directamente:</p>
-          <ul>
-            <li><strong>OpenCode:</strong> instala la skill en <code>.agents/skills/dctcss/</code> e invócala con <code>@dctcss</code>.</li>
-            <li><strong>Codex:</strong> usa la misma carpeta e invócala con <code>$dctcss</code>.</li>
-            <li><strong>Claude Code:</strong> usa <code>.claude/skills/dctcss/</code> e invócala con <code>/dctcss</code>. Si compartes proyecto con Codex, esa ruta puede ser un enlace simbólico a la carpeta ya instalada.</li>
-          </ul>
-          <p>Otros agentes compatibles con el formato Agent Skills pueden usar la misma carpeta completa. Consulta en la documentación de tu agente dónde busca las skills de proyecto y cómo se activan.</p>
-          <p>Para preparar un proyecto, ábrelo en tu agente y pega este encargo. El agente necesitará acceso a GitHub y permiso para escribir en el proyecto.</p>
+          <h2 id="ia-title">Trabajar con IA: instala la skill con un prompt</h2>
+          <p>Abre tu proyecto en un agente con acceso a la web y permiso para escribir archivos. Pega este mensaje:</p>
+          <?= agent_install_prompt() ?>
+          <details class="dct-disclosure">
+            <summary class="dct-disclosure-summary">Guía para agentes: instalación y comprobación</summary>
+            <div class="dct-disclosure-content">
+              <ol>
+                <li>Conserva la versión de dctcss que ya usa el proyecto. Si es la primera instalación, lee el campo <code>version</code> de <a href="release.json">release.json</a>.</li>
+                <li>En el repositorio oficial de GitHub, <code>doblejou/dctcss</code>, abre la etiqueta <code>v&lt;versión&gt;</code> y copia <code>skills/dctcss/</code> completa, con <code>SKILL.md</code>, <code>LICENSE</code> y <code>references/</code>. Conserva los cambios locales si ya existe una instalación.</li>
+                <li>Instálala en la raíz del proyecto: <code>.agents/skills/dctcss/</code> para OpenCode o Codex; <code>.claude/skills/dctcss/</code> para Claude Code. Para otros agentes, usa su ruta documentada de skills.</li>
+                <li>Lee el <code>SKILL.md</code> instalado y consulta el componente de tarjeta en <code>references/dctcss-api.json</code>. Indica qué versión has instalado, en qué ruta y qué clase se usa para el cuerpo de la tarjeta.</li>
+              </ol>
+            </div>
+          </details>
+          <h3 id="actualizar-con-ia">Actualizar un proyecto existente</h3>
           <?= code_example(
-              'instalar-con-agente',
-              'Instrucciones para tu agente',
-              "Integra dctcss en este proyecto desde el repositorio doblejou/dctcss de GitHub.\n"
-              . "Si ya usamos dctcss, conserva nuestra versión; si no, usa la etiqueta v$version.\n"
-              . "De esa etiqueta, instala skills/dctcss/ completa en la raíz del proyecto: usa .agents/skills/dctcss/ para OpenCode o Codex y .claude/skills/dctcss/ para Claude Code. Si eres otro agente compatible con Agent Skills, usa tu ruta documentada de skills de proyecto.\n"
-              . "Incluye SKILL.md, LICENSE y references/. Conserva los cambios locales si ya existe la carpeta.\n"
-              . "Si el CSS aún no está integrado, guarda dist/dct.min.css y su licencia en los recursos estáticos del proyecto y enlaza el CSS una sola vez desde la plantilla principal.\n"
-              . "Indícame qué versión quedó instalada, dónde se carga el CSS y cómo invocar la skill.",
-              'instrucciones de instalación para el agente'
+              'actualizar-con-agente',
+              'Prompt de actualización',
+              "Compara la versión de dctcss de mi proyecto con la publicada en dctcss.com/release.json.\n"
+              . "Si ya está al día, indícamelo. Si hay una nueva, revisa el historial de cambios y dime si hay incompatibilidades antes de aplicarlas.\n"
+              . "Actualiza el CSS y la skill a la misma versión en mi entorno de pruebas, conserva las personalizaciones y ejecuta las comprobaciones del proyecto.\n"
+              . "Resume los cambios y el resultado de las pruebas sin desplegar a producción.",
+              'prompt de actualización de dctcss'
           ) ?>
-          <h3>2. Pide un resultado que puedas probar</h3>
+          <h3>Prueba la skill con una tarea real</h3>
           <blockquote>Usa la skill dctcss. En el formulario de facturación, añade una ayuda titulada «¿Dónde encuentro mi número de cliente?». Debe empezar cerrada y poder abrirse con el teclado, sin JavaScript.</blockquote>
           <p>Prueba el resultado: lleva el foco a la pregunta con Tab y pulsa Intro para abrirla. El navegador gestiona el estado de <code>details</code>; dctcss da estilo al título y al contenido.</p>
           <?= html_example(

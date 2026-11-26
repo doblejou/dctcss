@@ -28,9 +28,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">Referencia / Componentes</p>
-          <h1 class="dct-display">Componentes visuales y nativos</h1>
-          <p>Elige una clase base, conserva su estructura semántica y combina solo los modificadores publicados. Las muestras usan el CSS distribuido de dctcss <?= escape($version) ?>.</p>
+          <h1 class="dct-display">Componentes</h1>
+          <p>Consulta el marcado de cada componente y prueba sus variantes.</p>
         </header>
 
         <section class="site-reference" id="content" aria-labelledby="content-title">

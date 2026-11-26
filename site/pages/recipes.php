@@ -30,9 +30,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">Recetas / v<?= escape($version) ?></p>
-          <h1 class="dct-display">Flujos completos, sin piezas implícitas.</h1>
-          <p>Toda API dctcss usada aquí pertenece al inventario estable. Cuando una receta necesita CSS o JavaScript de aplicación lo identifica expresamente y evita el prefijo <code>dct-</code>. Cada snippet conserva la semántica y las relaciones accesibles necesarias para adaptarlo directamente.</p>
+          <h1 class="dct-display">Recetas de interfaz</h1>
+          <p>Prueba cada ejemplo y copia su HTML. Cuando una receta requiere CSS o JavaScript de la aplicación, se indica junto al código.</p>
         </header>
 
         <section class="site-reference" id="shell-aplicacion" aria-labelledby="shell-aplicacion-title">

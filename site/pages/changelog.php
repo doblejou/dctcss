@@ -15,12 +15,11 @@ $page = [
 $page['content'] = static function (string $version, array $build): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">Releases / v<?= escape($version) ?></p>
-          <h1 class="dct-display">Cambios públicos, actualización deliberada.</h1>
-          <p><code>release.json</code> anuncia la versión estable actual. Este historial explica qué cambió antes de sustituir el CSS de una aplicación.</p>
+          <h1 class="dct-display">Historial de cambios</h1>
+          <p>Consulta qué ha cambiado entre tu versión y la actual (<?= escape($version) ?>).</p>
           <div class="dct-cluster">
             <a class="dct-button dct-is-primary" href="release.json">Consultar release.json</a>
-            <a class="dct-button" href="index.html#downloads">Ver descargas latest</a>
+            <a class="dct-button" href="fundamentals.html#actualizar-con-ia">Actualizar con IA</a>
           </div>
         </header>
 

@@ -134,10 +134,19 @@ if (!is_array($manifest) || ($manifest['version'] ?? null) !== $version || !is_a
 $css = artifact_metadata($stagedDistDirectory, (string) ($manifest['artifacts']['css'] ?? ''));
 $cssMinified = artifact_metadata($stagedDistDirectory, (string) ($manifest['artifacts']['cssMinified'] ?? ''));
 $changelog = read_required_file($projectRoot . '/CHANGELOG.md', 'CHANGELOG.md');
+$frameworkCssTime = filemtime($outputDirectory . '/downloads/' . $css['filename']);
+$siteCssTime = filemtime($outputDirectory . '/assets/site.css');
+if ($frameworkCssTime === false || $siteCssTime === false)
+{
+    throw new RuntimeException('Cannot read stylesheet modification times.');
+}
+
 $build = [
     'version' => $version,
     'siteUrl' => $siteUrl,
     'css' => $css,
+    'frameworkCssTime' => $frameworkCssTime,
+    'siteCssTime' => $siteCssTime,
     'cssMinified' => $cssMinified,
     'changelog' => $changelog,
     'releaseDate' => current_release_date($changelog, $version),

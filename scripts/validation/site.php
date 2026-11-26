@@ -125,14 +125,11 @@ function validate_public(
             }
         }
         $repositoryUrl = 'https://github.com/doblejou/dctcss';
-        $githubLinks = [$repositoryUrl];
+        $externalLinks = [$repositoryUrl, 'https://daycomtech.com/'];
         if ($slug === 'index') {
-            $githubLinks[] = "$repositoryUrl/releases";
+            $externalLinks[] = "$repositoryUrl/releases";
         }
-        $expectedAbsoluteUrls = [$canonical, $canonical, ...$githubLinks];
-        if ($slug === 'index') {
-            $expectedAbsoluteUrls[] = "$siteUrl/downloads/$minifiedName";
-        }
+        $expectedAbsoluteUrls = [$canonical, $canonical, ...$externalLinks];
         preg_match_all('~https?://[^\s"<>&]+~', html_entity_decode($htmlByPage[$slug], ENT_QUOTES | ENT_HTML5, 'UTF-8'), $absoluteMatches);
         exact_set($absoluteMatches[0], $expectedAbsoluteUrls, "Absolute URLs in $path");
 
@@ -173,7 +170,8 @@ function validate_public(
                     fail("Unsupported $attribute on <$tag> in $path.");
                 }
                 $reference = $element->getAttribute($attribute);
-                if ($tag === 'a' && $attribute === 'href' && in_array($reference, $githubLinks, true)) {
+                if ($tag === 'a' && $attribute === 'href' && (in_array($reference, $externalLinks, true)
+                    || (in_array($slug, ['aviso-legal', 'privacidad'], true) && $reference === 'mailto:jose.gm@daycomtech.com'))) {
                     continue;
                 }
                 if ($tag === 'link' && $attribute === 'href' && $element->getAttribute('rel') === 'canonical') {
@@ -264,9 +262,5 @@ function validate_public(
     $gzip = gzencode($minifiedContents, 9, ZLIB_ENCODING_GZIP);
     if ($gzip === false || !str_contains($index, strlen($gzip) . ' bytes')) {
         fail('Landing metadata lacks the current minified gzip size.');
-    }
-    $install = '<link rel="stylesheet" href="' . $siteUrl . '/downloads/' . $minifiedName . '">';
-    if (!str_contains(html_entity_decode($index, ENT_QUOTES | ENT_HTML5, 'UTF-8'), $install)) {
-        fail('The absolute installation snippet is missing or invalid.');
     }
 }

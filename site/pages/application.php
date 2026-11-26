@@ -26,9 +26,8 @@ $reportFilters = <<<'HTML'
 HTML;
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">Referencia visual / v<?= escape($version) ?></p>
-          <h1 class="dct-display">Una aplicación completa, sin maquillaje privado.</h1>
-          <p>El marco tramado pertenece a la documentación. Desde la raíz interior de la aplicación solo se usan clases y atributos públicos de dctcss, además de HTML y ARIA ordinarios.</p>
+          <h1 class="dct-display">Aplicación de referencia</h1>
+          <p>Explora un panel operativo construido con HTML y clases públicas de dctcss. El marco tramado delimita la demostración.</p>
         </header>
 
         <section class="site-reference" id="alcance" aria-labelledby="alcance-title">

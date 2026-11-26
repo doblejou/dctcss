@@ -24,9 +24,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
 <header class="site-doc-title dct-stack">
-            <p class="dct-meta">Referencia / Utilidades</p>
-            <h1 class="dct-display">Ajustes pequeños, contratos cerrados.</h1>
-            <p>Las 53 utilidades estables resuelven composiciones frecuentes sin convertir dctcss en un sistema utility-first. Esta página inventaria cada utilidad publicada en la API estable.</p>
+            <h1 class="dct-display">Utilidades</h1>
+            <p>Encuentra la clase para ajustar espaciado, alineación o visibilidad en distintos tamaños de pantalla.</p>
           </header>
 
           <section class="site-reference" id="display" aria-labelledby="display-title">

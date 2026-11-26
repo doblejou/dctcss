@@ -20,9 +20,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">02 / Layout</p>
-          <h1 class="dct-display">Primitivas pequeñas, composiciones resistentes.</h1>
-          <p>Elige una primitiva por la relación entre sus hijos: limitar ancho, apilar, agrupar, autoajustar columnas o separar navegación lateral y contenido principal.</p>
+          <h1 class="dct-display">Layout</h1>
+          <p>Limita el ancho del contenido, apila elementos o distribúyelos en columnas con una rejilla o una barra lateral.</p>
         </header>
 
         <section class="site-reference" id="container" aria-labelledby="container-title">

@@ -139,6 +139,10 @@ foreach (["css", "cssMinified", "api", "recipes", "changelog", "license", "check
   IFS= read -r VALIDATOR_NAME
 } < "$STAGING/artifact-names"
 
+latest_css_input="$ROOT_DIR/src/dct.css"
+if [ "$ROOT_DIR/VERSION" -nt "$latest_css_input" ]; then
+  latest_css_input="$ROOT_DIR/VERSION"
+fi
 {
   printf '/*! dctcss v%s | MIT License | Generated from src/; do not edit. */\n' "$VERSION"
   while IFS= read -r line || [ -n "$line" ]; do
@@ -146,6 +150,9 @@ foreach (["css", "cssMinified", "api", "recipes", "changelog", "license", "check
       '/* dct-include: '*' */')
         relative_path=${line#'/* dct-include: '}
         relative_path=${relative_path%' */'}
+        if [ "$ROOT_DIR/src/$relative_path" -nt "$latest_css_input" ]; then
+          latest_css_input="$ROOT_DIR/src/$relative_path"
+        fi
         printf '\n/* Source: %s */\n' "$relative_path"
         cat -- "$ROOT_DIR/src/$relative_path"
         ;;
@@ -153,6 +160,7 @@ foreach (["css", "cssMinified", "api", "recipes", "changelog", "license", "check
     esac
   done < "$ROOT_DIR/src/dct.css"
 } > "$STAGE_DIST/$CSS_NAME"
+touch -r "$latest_css_input" "$STAGE_DIST/$CSS_NAME"
 
 "$CSS_MINIFIER" --app-root "$ROOT_DIR" --input "$STAGE_DIST/$CSS_NAME" --output "$STAGING/dct.min.body.css"
 {
@@ -172,10 +180,10 @@ cp -- "$ROOT_DIR/CHANGELOG.md" "$STAGE_REFERENCES/CHANGELOG.md"
   sha256sum -- "$CSS_NAME" "$MINIFIED_NAME" "$API_NAME" "$RECIPE_NAME" "$CHANGELOG_NAME" "$LICENSE_NAME" "$VALIDATOR_NAME"
 ) > "$STAGE_DIST/$CHECKSUM_NAME"
 
-cp -- "$ROOT_DIR/site/site.css" "$STAGE_PUBLIC/assets/site.css"
+cp --preserve=timestamps -- "$ROOT_DIR/site/site.css" "$STAGE_PUBLIC/assets/site.css"
 cp -- "$ROOT_DIR/site/favicon.svg" "$STAGE_PUBLIC/assets/favicon.svg"
 cp -- "$ROOT_DIR/site/site.js" "$STAGE_PUBLIC/assets/site.js"
-cp -- "$STAGE_DIST/$CSS_NAME" "$STAGE_PUBLIC/downloads/$CSS_NAME"
+cp --preserve=timestamps -- "$STAGE_DIST/$CSS_NAME" "$STAGE_PUBLIC/downloads/$CSS_NAME"
 cp -- "$STAGE_DIST/$MINIFIED_NAME" "$STAGE_PUBLIC/downloads/$MINIFIED_NAME"
 cp -- "$STAGE_DIST/$API_NAME" "$STAGE_PUBLIC/downloads/$API_NAME"
 php "$ROOT_DIR/site/build.php" "$STAGE_PUBLIC" "$SITE_URL" "$STAGE_DIST"
@@ -198,7 +206,7 @@ fi
 DIST_TEMP=$(mktemp -d -- "$OUTPUT_ROOT/.dist.new.XXXXXX")
 PUBLIC_TEMP=$(mktemp -d -- "$OUTPUT_ROOT/.public.new.XXXXXX")
 cp -R --preserve=mode -- "$STAGE_DIST/." "$DIST_TEMP/"
-cp -R --preserve=mode -- "$STAGE_PUBLIC/." "$PUBLIC_TEMP/"
+cp -R --preserve=mode,timestamps -- "$STAGE_PUBLIC/." "$PUBLIC_TEMP/"
 chmod 0755 -- "$DIST_TEMP" "$PUBLIC_TEMP"
 if [ "$PUBLISH_REFERENCES" = true ]; then
   REFERENCES_TEMP=$(mktemp -d -- "$ROOT_DIR/.references.new.XXXXXX")

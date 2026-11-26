@@ -24,10 +24,8 @@ $page = array (
 $page['content'] = static function (string $version): void {
 ?>
         <header class="site-doc-title dct-stack">
-          <p class="dct-meta">Referencia / Formularios</p>
-          <h1 class="dct-display">Controles nativos, estructura predecible.</h1>
-          <p>dctcss presenta formularios sin reemplazar la semántica de HTML. Asocia cada control con su etiqueta, usa atributos nativos para sus estados y reserva los modificadores para comunicar el resultado de la validación.</p>
-          <p>Botones, inputs, selects y file inputs comparten los tokens de control. Para una región administrativa densa, aplica <code>data-dct-density="compact"</code> a un ancestro; no ajustes cada control ni inventes modificadores compactos.</p>
+          <h1 class="dct-display">Formularios</h1>
+          <p>Asocia controles con sus etiquetas, ayudas y mensajes de validación. Para compactar un formulario, aplica <code>data-dct-density="compact"</code> al contenedor.</p>
         </header>
 
         <section class="site-reference" id="estructura" aria-labelledby="estructura-title">

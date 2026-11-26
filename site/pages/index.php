@@ -12,16 +12,15 @@ $page = [
 $page['content'] = static function (string $version, array $build): void {
     $minified = $build['cssMinified'];
     $readable = $build['css'];
-    $install = '<link rel="stylesheet" href="' . $build['siteUrl'] . '/downloads/' . $minified['filename'] . '">';
 ?>
       <section class="site-hero">
         <div class="dct-container site-hero-grid">
           <div class="dct-stack site-hero-copy">
             <p class="site-eyebrow"><span aria-hidden="true"></span>CSS nativo. API estable. v<?= escape($version) ?></p>
             <h1>CSS nativo y ligero.<br><span>Diseñado para la IA.</span></h1>
-            <p class="site-hero-lead">dctcss es un framework CSS nativo para construir interfaces con HTML. Incluye componentes, layouts y una guía para trabajar con agentes de IA.</p>
+            <p class="site-hero-lead">Construye interfaces con HTML y una hoja de estilos. La skill guía a tu agente para que use los componentes y sus variantes.</p>
             <div class="dct-cluster site-hero-actions">
-              <a class="dct-button dct-is-primary dct-is-medium dct-is-fullwidth-mobile" href="downloads/<?= escape($minified['filename']) ?>" download>Descargar CSS</a>
+              <a class="dct-button dct-is-primary dct-is-medium dct-is-fullwidth-mobile" href="#uso-con-ia">Ver el prompt para mi agente de IA</a>
               <a class="dct-button dct-is-medium dct-is-fullwidth-mobile" href="components.html">Ver componentes <span aria-hidden="true">→</span></a>
             </div>
             <p class="site-hero-note"><span aria-hidden="true">✓</span> MIT · Sin JavaScript · Listo para producción</p>
@@ -61,8 +60,7 @@ $page['content'] = static function (string $version, array $build): void {
       <section class="dct-container site-section site-benefits" aria-labelledby="benefits-title">
         <div class="site-section-heading">
           <p class="site-kicker">Por qué dctcss</p>
-          <h2 id="benefits-title">Menos fricción entre la idea<br>y una interfaz fiable.</h2>
-          <p>Una base pequeña, explícita y moderna para que tu equipo componga más y depure menos.</p>
+          <h2 id="benefits-title">Qué aporta dctcss</h2>
         </div>
         <div class="site-benefit-grid">
           <article class="dct-card site-feature-card"><div class="dct-card-body"><span class="site-feature-number">01</span><h3 class="dct-card-title">CSS moderno nativo</h3><p class="dct-card-content">Custom properties, Grid, Flexbox y capas de cascada. Sin preprocesadores que oculten lo que llega al navegador.</p></div></article>
@@ -73,50 +71,38 @@ $page['content'] = static function (string $version, array $build): void {
         </div>
       </section>
 
-      <section class="dct-container dct-grid dct-p-6 site-section site-example" id="example" aria-labelledby="example-title">
+      <section class="dct-container site-section site-chapter site-agent" id="uso-con-ia" aria-labelledby="agent-title">
         <div class="dct-stack">
-          <p class="dct-meta">02 / Ejemplo inmediato</p>
-          <h2 class="dct-title" id="example-title">Vista y código comparten contrato.</h2>
-          <p class="dct-text-muted">La tarjeta requiere un body; el enlace navega y el botón representa una acción.</p>
+          <p class="dct-meta">02 / Uso con IA</p>
+          <h2 class="dct-title" id="agent-title">Crea interfaces con tu agente de IA.</h2>
+          <p>Abre tu proyecto en un agente con acceso a la web y permiso de escritura. Pega este mensaje para que instale la skill.</p>
+          <a href="fundamentals.html#trabajar-con-ia">Ver la guía de instalación y un ejemplo con IA →</a>
         </div>
-        <?= html_example(
-            'landing-card',
-            <<<'HTML'
-<article class="dct-card dct-is-elevated">
-  <div class="dct-card-body">
-    <p class="dct-card-subtitle">Proyecto activo</p>
-    <h2 class="dct-card-title">Atlas</h2>
-    <p class="dct-card-content">Panel de seguimiento para operaciones.</p>
-    <div class="dct-cluster dct-card-actions">
-      <a class="dct-button dct-is-primary" href="/proyectos/atlas">Abrir proyecto</a>
-      <button class="dct-button" type="button">Archivar</button>
-    </div>
-  </div>
-</article>
-HTML,
-            'HTML del ejemplo de tarjeta',
-            <<<'HTML'
-<article class="dct-card dct-is-elevated site-preview-card">
-  <div class="dct-card-body">
-    <p class="dct-card-subtitle">Proyecto activo</p>
-    <h3 class="dct-card-title">Atlas</h3>
-    <p class="dct-card-content">Panel de seguimiento para operaciones.</p>
-    <div class="dct-cluster dct-card-actions">
-      <a class="dct-button dct-is-primary" href="#example">Abrir proyecto</a>
-      <button class="dct-button" type="button">Archivar</button>
-    </div>
-  </div>
-</article>
-HTML
-        ) ?>
+        <?= agent_install_prompt() ?>
       </section>
 
-      <section class="dct-container dct-grid dct-p-6 site-section site-downloads" id="downloads" aria-labelledby="downloads-title">
+      <section class="dct-container site-section site-chapter" aria-labelledby="browser-support-title">
         <div class="dct-stack">
-          <p class="dct-meta">03 / Descargas</p>
-          <h2 class="dct-title" id="downloads-title">La release actual, en dos variantes.</h2>
-          <p>Descarga la versión actual desde esta web o consulta las <a href="<?= escape(GITHUB_REPOSITORY) ?>/releases">versiones anteriores en GitHub</a>.</p>
-          <p class="dct-text-muted">Estas URLs son <em>latest</em>: siempre contienen la versión publicada más reciente y no son enlaces históricos inmutables. Consulta <a href="release.json"><code>release.json</code></a> para descubrir la versión y <a href="changelog.html">Cambios</a> antes de actualizar.</p>
+          <p class="dct-meta">03 / Compatibilidad</p>
+          <h2 class="dct-title" id="browser-support-title">Comprueba tus navegadores objetivo</h2>
+          <p>Versiones mínimas para dctcss <?= escape($version) ?>.</p>
+        </div>
+        <div class="dct-stack">
+          <dl class="site-browser-list">
+<?php foreach ($build['browserMinimums'] as $browser => $minimum): ?>
+            <div><dt><?= escape($browser) ?></dt><dd><?= escape($minimum) ?>+</dd></div>
+<?php endforeach; ?>
+          </dl>
+          <p class="dct-text-muted">En Edge y Android WebView cuenta la versión de Chromium; en iOS, la de Safari/WebKit. Internet Explorer no es compatible.</p>
+        </div>
+      </section>
+
+      <section class="dct-container site-section site-chapter site-downloads" id="downloads" aria-labelledby="downloads-title">
+        <div class="dct-stack">
+          <p class="dct-meta">04 / Uso Manual</p>
+          <h2 class="dct-title" id="downloads-title">Descarga manual del CSS</h2>
+          <p>Elige un solo archivo: minificado para publicar o legible para inspeccionar el CSS.</p>
+          <p class="dct-text-muted">Ambos enlaces sirven la <a href="release.json">versión actual</a>. Consulta los <a href="changelog.html">cambios</a> o las <a href="<?= escape(GITHUB_REPOSITORY) ?>/releases">versiones anteriores en GitHub</a>.</p>
         </div>
         <div class="dct-grid">
 <?php foreach ([[$minified, 'Producción', 'CSS minificado recomendado'], [$readable, 'Desarrollo', 'CSS legible para inspección']] as [$artifact, $use, $description]): ?>
@@ -132,61 +118,40 @@ HTML
                 <div><dt>Tamaño minificado con gzip</dt><dd><data value="<?= $artifact['gzipBytes'] ?>"><?= $artifact['gzipBytes'] ?> bytes</data></dd></div>
 <?php endif; ?>
               </dl>
-              <div class="dct-card-actions dct-cluster"><a class="dct-button dct-is-primary" href="downloads/<?= escape($artifact['filename']) ?>" download>Descargar <?= escape($artifact['filename']) ?></a></div>
+              <div class="dct-card-actions dct-cluster"><a class="dct-button" href="downloads/<?= escape($artifact['filename']) ?>" download>Descargar <?= escape($artifact['filename']) ?></a></div>
             </div>
           </article>
 <?php endforeach; ?>
         </div>
       </section>
 
-      <section class="dct-container dct-grid dct-p-6 site-section site-install" id="install" aria-labelledby="install-title">
-        <div class="dct-stack">
-          <p class="dct-meta">04 / Inicio rápido</p>
-          <h2 class="dct-title" id="install-title">Un enlace absoluto y nada más.</h2>
-          <p class="dct-text-muted">Carga una sola variante. Personaliza después mediante tokens, sin editar el archivo generado.</p>
-          <p>La skill de dctcss funciona con OpenCode, Codex, Claude Code y otros agentes compatibles con Agent Skills. <a href="fundamentals.html#trabajar-con-ia">Copia las instrucciones para integrar dctcss con tu agente.</a></p>
-        </div>
-        <?= code_example('install', 'HTML', $install, 'HTML de instalación') ?>
-        <aside class="dct-message dct-is-warning" aria-labelledby="browser-support-title">
-          <div class="dct-message-body">
-            <h3 class="dct-message-title" id="browser-support-title">Comprueba tus navegadores objetivo</h3>
-            <p class="dct-message-content">dctcss <?= escape($version) ?> requiere como mínimo Chrome o Chromium <?= escape($build['browserMinimums']['Chrome y Chromium']) ?>, Firefox <?= escape($build['browserMinimums']['Firefox']) ?> y Safari <?= escape($build['browserMinimums']['Safari']) ?>. Edge y Android WebView necesitan un motor Chromium equivalente; en iOS se aplica el mínimo de Safari/WebKit. Internet Explorer y versiones anteriores no son compatibles. El framework no transpila CSS ni incluye polyfills.</p>
-          </div>
-        </aside>
-      </section>
-
-      <section class="dct-container dct-grid dct-p-6 site-section site-catalog" aria-labelledby="paths-title">
+      <section class="dct-container site-section site-chapter" aria-labelledby="paths-title">
         <div class="dct-stack">
           <p class="dct-meta">05 / Catálogo técnico</p>
-          <h2 class="dct-title" id="paths-title">Entra por la tarea que necesitas resolver.</h2>
+          <h2 class="dct-title" id="paths-title">Consulta el catálogo por tarea</h2>
         </div>
-        <div class="dct-grid">
-          <a class="dct-button" href="fundamentals.html">01 / Fundamentos / Tokens, capas y temas</a>
-          <a class="dct-button" href="layout.html">02 / Layout / Container, grid y sidebar</a>
-          <a class="dct-button" href="components.html">03 / Componentes / Partes, variantes y estados</a>
-          <a class="dct-button" href="forms.html">04 / Formularios / Controles y validación</a>
-          <a class="dct-button" href="navigation.html">05 / Navegación / Rutas, menús y navbar</a>
-          <a class="dct-button" href="utilities.html">06 / Utilidades / Inventario responsive</a>
-          <a class="dct-button" href="application.html">07 / Aplicación / Pantalla completa</a>
-          <a class="dct-button" href="recipes.html">08 / Recetas / Composiciones completas</a>
-          <a class="dct-button" href="changelog.html">09 / Cambios / Releases y actualización</a>
-        </div>
+        <nav class="site-topic-list" aria-labelledby="paths-title">
+          <div><h3>Configurar</h3><a href="fundamentals.html">Tokens y temas</a><a href="layout.html">Distribución de página</a><a href="utilities.html">Utilidades responsive</a></div>
+          <div><h3>Construir</h3><a href="components.html">Componentes</a><a href="forms.html">Formularios</a><a href="navigation.html">Menús y navegación</a></div>
+          <div><h3>Integrar</h3><a href="recipes.html">Recetas de interfaz</a><a href="application.html">Aplicación completa</a><a href="changelog.html">Cambios de versión</a></div>
+        </nav>
       </section>
 
-      <section class="dct-container dct-grid dct-p-6 site-section" aria-labelledby="sizes-title">
+      <section class="dct-container site-section site-chapter" aria-labelledby="sizes-title">
         <div class="dct-stack">
-          <p class="dct-meta">06 / Comparativa factual</p>
-          <h2 class="dct-title" id="sizes-title">Cuánto CSS llega realmente.</h2>
-          <p class="dct-text-muted">dctcss y las referencias con cifras en bytes son mediciones reproducibles de archivos completos. Los valores con <code>~</code> son rangos orientativos aportados y no se usan para calcular porcentajes. Gzip usa nivel 9 sin nombre ni fecha en la cabecera.</p>
+          <p class="dct-meta">06 / Comparativa de tamaño</p>
+          <h2 class="dct-title" id="sizes-title">¿Cuánto pesa el CSS?</h2>
+          <p><strong><?= comparison_size($minified['bytes']) ?></strong> minificado · <?= comparison_size($minified['gzipBytes']) ?> con gzip.</p>
+          <p class="dct-text-muted">1 KB = 1000 bytes. Las mediciones se redondean a dos decimales; <code>~</code> indica una estimación. Gzip usa el nivel 9.</p>
         </div>
         <div class="dct-table-wrap" tabindex="0" role="region" aria-label="Comparativa de tamaños CSS minificados">
-          <table class="dct-table dct-is-striped dct-is-hoverable">
+          <table class="dct-table dct-is-striped dct-is-hoverable site-size-table">
             <caption class="dct-table-caption">CSS completo, sin JavaScript, iconos ni fuentes</caption>
             <thead><tr><th scope="col">Framework</th><th scope="col">Versión</th><th class="dct-is-numeric" scope="col">CSS minificado</th><th class="dct-is-numeric" scope="col">Con gzip</th><th scope="col">Medición</th></tr></thead>
             <tbody>
-              <tr class="dct-is-selected"><th scope="row">dctcss</th><td><?= escape($version) ?></td><td class="dct-is-numeric"><?= $minified['bytes'] ?> bytes</td><td class="dct-is-numeric"><?= $minified['gzipBytes'] ?> bytes</td><td>Exacta, build actual</td></tr>
+              <tr class="dct-is-selected"><th scope="row">dctcss</th><td><?= escape($version) ?></td><td class="dct-is-numeric"><?= comparison_size($minified['bytes']) ?></td><td class="dct-is-numeric"><?= comparison_size($minified['gzipBytes']) ?></td><td>Build actual</td></tr>
 <?php foreach ($build['benchmarks'] as $benchmark): ?>
-              <tr><th scope="row"><?= escape($benchmark['name']) ?></th><td><?= escape($benchmark['version']) ?></td><td class="dct-is-numeric"><?= escape(ctype_digit($benchmark['bytes']) ? $benchmark['bytes'] . ' bytes' : $benchmark['bytes']) ?></td><td class="dct-is-numeric"><?= escape(ctype_digit($benchmark['gzipBytes']) ? $benchmark['gzipBytes'] . ' bytes' : $benchmark['gzipBytes']) ?></td><td><?= ctype_digit($benchmark['bytes']) ? 'Exacta, referencia fijada' : ($benchmark['bytes'] === 'variable' ? 'Depende del proyecto' : 'Rango orientativo') ?></td></tr>
+              <tr><th scope="row"><?= escape($benchmark['name']) ?></th><td><?= escape($benchmark['version']) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['bytes'])) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['gzipBytes'])) ?></td><td><?= ctype_digit($benchmark['bytes']) ? 'Referencia fijada' : ($benchmark['bytes'] === 'variable' ? 'Depende del proyecto' : 'Rango orientativo') ?></td></tr>
 <?php endforeach; ?>
             </tbody>
           </table>
@@ -203,12 +168,12 @@ HTML
 
       <section class="site-cta" aria-labelledby="cta-title">
         <div class="dct-container site-cta-inner">
-          <p class="site-kicker">Empieza sin fricción</p>
-          <h2 id="cta-title">Tu próxima interfaz<br>necesita menos capas.</h2>
-          <p>Descarga el CSS, enlázalo y empieza a componer con una API que no te obliga a adivinar.</p>
+          <p class="site-kicker">Siguiente paso</p>
+          <h2 id="cta-title">Crea tu primera interfaz</h2>
+          <p>Instala la skill con tu agente o elige una receta de HTML para adaptarla a tu proyecto.</p>
           <div class="dct-cluster">
-            <a class="dct-button dct-is-primary dct-is-medium" href="downloads/<?= escape($minified['filename']) ?>" download>Descargar <?= escape($minified['filename']) ?></a>
-            <a class="dct-button dct-is-medium" href="fundamentals.html">Leer la documentación</a>
+            <a class="dct-button dct-is-primary dct-is-medium" href="#uso-con-ia">Usa el prompt</a>
+            <a class="dct-button dct-is-medium" href="recipes.html">Explorar recetas</a>
           </div>
         </div>
       </section>
