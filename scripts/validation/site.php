@@ -203,19 +203,8 @@ function validate_public(
             fail('The public reference application page is missing.');
         }
         validate_reference_application($documents['application'], "$publicDirectory/application.html");
-        if (!isset($documents['fundamentals'])) {
-            fail('The fundamentals page is missing.');
-        }
-        validate_documented_token_values($root, $documents['fundamentals'], $manifest);
     }
 
-    foreach (['classNames', 'modifierNames', 'tokens', 'animations', 'attributeNames'] as $section) {
-        foreach ($manifest[$section] as $name) {
-            if (!str_contains($documentation, $name)) {
-                fail("Public documentation does not cover $name.");
-            }
-        }
-    }
     validate_documented_api($documentation, $manifest, 'Public documentation');
 
     $robots = "User-agent: *\nAllow: /\nSitemap: $siteUrl/sitemap.xml\n";

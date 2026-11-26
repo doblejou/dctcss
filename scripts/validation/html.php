@@ -114,53 +114,6 @@ function validate_reference_application(DOMDocument $document, string $path): vo
     }
 }
 
-function normalize_css_value(string $value): string
-{
-    return trim(preg_replace('/\s+/', ' ', html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? $value);
-}
-
-function validate_documented_token_values(string $root, DOMDocument $fundamentals, array $manifest): void
-{
-    $source = '';
-    foreach (preg_split('/\R/', read_file("$root/src/dct.css")) ?: [] as $line) {
-        if (preg_match('~^/\* dct-include: ((?:[a-z0-9-]+/)*[a-z0-9-]+\.css) \*/$~', $line, $match) === 1) {
-            $source .= "\n" . read_file("$root/src/{$match[1]}");
-        }
-    }
-    $source = preg_replace('~/\*.*?\*/~s', '', $source) ?? $source;
-    preg_match_all('/(?<token>--dct-[a-z0-9-]+)\s*:\s*(?<value>[^;{}]+)\s*;/i', $source, $declarations, PREG_SET_ORDER);
-    $defaults = [];
-    foreach ($declarations as $declaration) {
-        $defaults[$declaration['token']] ??= normalize_css_value($declaration['value']);
-    }
-
-    $documented = [];
-    $xpath = new DOMXPath($fundamentals);
-    foreach ($xpath->query('//tr[td[1]/code and td[2]/code]') ?: [] as $row) {
-        if (!$row instanceof DOMElement) {
-            continue;
-        }
-        $cells = $row->getElementsByTagName('td');
-        $token = trim($cells->item(0)?->textContent ?? '');
-        if (!str_starts_with($token, '--dct-')) {
-            continue;
-        }
-        if (isset($documented[$token])) {
-            fail("Fundamentals documents a token value more than once: $token");
-        }
-        $documented[$token] = normalize_css_value($cells->item(1)?->textContent ?? '');
-    }
-    exact_set(array_keys($documented), $manifest['tokens'], 'Tokens with documented default values');
-    foreach ($documented as $token => $value) {
-        if (!isset($defaults[$token])) {
-            fail("Public token has no source declaration: $token");
-        }
-        if ($value !== $defaults[$token]) {
-            fail("Documented value for $token differs from CSS: $value (documented), {$defaults[$token]} (source).");
-        }
-    }
-}
-
 function element_matches_requirement(DOMElement $element, string $requirement): bool
 {
     if (preg_match('/^(?<tag>[a-z][a-z0-9-]*)?(?<class>\.dct-[a-z0-9-]+)?(?<attributes>(?:\[[^\]]+\])*)$/', $requirement, $match) !== 1) {

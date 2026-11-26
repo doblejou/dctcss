@@ -32,8 +32,7 @@ HTML;
 
         <section class="site-reference" id="alcance" aria-labelledby="alcance-title">
           <h2 id="alcance-title">Qué permite evaluar</h2>
-          <p>La pantalla reúne navegación, jerarquía tipográfica, KPIs compuestos, tabla, formulario, mensaje, empty state y dialog. Redimensiona el viewport y cambia la preferencia de color del sistema para revisar móvil, escritorio, claro y oscuro.</p>
-          <div class="site-note"><strong>Separación deliberada</strong>La muestra interior no usa clases <code>site-*</code>, clases <code>app-*</code> ni estilos inline. Los KPI y el empty state se componen con primitives estables sin afirmar que existan componentes dedicados.</div>
+          <p>Consulta los pedidos recientes, ajusta los filtros del informe y abre la confirmación de publicación. Puedes probar el panel tanto en móvil como en escritorio.</p>
         </section>
 
         <section class="site-reference" id="aplicacion-demo" aria-labelledby="aplicacion-demo-title">

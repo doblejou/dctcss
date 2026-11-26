@@ -18,7 +18,7 @@ $page['content'] = static function (string $version, array $build): void {
           <div class="dct-stack site-hero-copy">
             <p class="site-eyebrow"><span aria-hidden="true"></span>CSS nativo. API estable. v<?= escape($version) ?></p>
             <h1>CSS nativo y ligero.<br><span>Diseñado para la IA.</span></h1>
-            <p class="site-hero-lead">Construye interfaces con HTML y una hoja de estilos. La skill guía a tu agente para que use los componentes y sus variantes.</p>
+            <p class="site-hero-lead">Describe la pantalla que necesitas. Tu agente consulta la skill de dctcss para elegir los componentes y darles un estilo coherente con una sola hoja de CSS.</p>
             <div class="dct-cluster site-hero-actions">
               <a class="dct-button dct-is-primary dct-is-medium dct-is-fullwidth-mobile" href="#uso-con-ia">Ver el prompt para mi agente de IA</a>
               <a class="dct-button dct-is-medium dct-is-fullwidth-mobile" href="components.html">Ver componentes <span aria-hidden="true">→</span></a>
@@ -36,7 +36,7 @@ $page['content'] = static function (string $version, array $build): void {
                   <div class="dct-cluster dct-justify-between"><h3 class="dct-card-title">Actividad semanal</h3><span class="dct-badge dct-is-success">Al día</span></div>
                   <p class="dct-card-content">28 tareas completadas esta semana.</p>
                   <div class="site-mini-chart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                  <div class="dct-card-actions dct-cluster"><a class="dct-button dct-is-primary" href="recipes.html#dashboard">Ver receta del panel <span aria-hidden="true">→</span></a></div>
+                  <div class="dct-card-actions dct-cluster"><a class="dct-button dct-is-primary" href="recipes.html#dashboard">Ver el panel <span aria-hidden="true">→</span></a></div>
                 </div>
               </article>
               <details class="dct-disclosure">
@@ -67,7 +67,7 @@ $page['content'] = static function (string $version, array $build): void {
           <article class="dct-card site-feature-card site-feature-card-accent"><div class="dct-card-body"><span class="site-feature-number">02</span><h3 class="dct-card-title">Cero JavaScript distribuido</h3><p class="dct-card-content">dctcss se ocupa de presentar. Tu aplicación mantiene el control total de sus datos y comportamiento.</p></div></article>
           <article class="dct-card site-feature-card"><div class="dct-card-body"><span class="site-feature-number">03</span><h3 class="dct-card-title">Accesible por diseño</h3><p class="dct-card-content">Foco visible, semántica, zoom, modo oscuro y contenido estrecho forman parte del contrato.</p></div></article>
           <article class="dct-card site-feature-card"><div class="dct-card-body"><span class="site-feature-number">04</span><h3 class="dct-card-title">API sin colisiones</h3><p class="dct-card-content">Clases, tokens y animaciones propios empiezan por <code>dct-</code>: sabes qué pertenece al framework.</p></div></article>
-          <article class="dct-card site-feature-card site-feature-wide"><div class="dct-card-body"><span class="site-feature-number">05</span><h3 class="dct-card-title">Del encargo al HTML comprobable</h3><p class="dct-card-content">¿Cómo pedirías a tu agente una ayuda desplegable que funcione con teclado? Sigue el encargo, prueba el resultado y comprueba su estructura.</p><a href="fundamentals.html#trabajar-con-ia">Seguir el ejemplo con IA <span aria-hidden="true">→</span></a></div></article>
+          <article class="dct-card site-feature-card site-feature-wide"><div class="dct-card-body"><span class="site-feature-number">05</span><h3 class="dct-card-title">De una petición a una interfaz</h3><p class="dct-card-content">¿Cómo pedirías a tu agente una ayuda desplegable que funcione con teclado? Lee la petición y prueba el resultado con el teclado.</p><a href="fundamentals.html#ejemplo">Seguir el ejemplo con IA <span aria-hidden="true">→</span></a></div></article>
         </div>
       </section>
 
@@ -127,13 +127,13 @@ $page['content'] = static function (string $version, array $build): void {
 
       <section class="dct-container site-section site-chapter" aria-labelledby="paths-title">
         <div class="dct-stack">
-          <p class="dct-meta">05 / Catálogo técnico</p>
-          <h2 class="dct-title" id="paths-title">Consulta el catálogo por tarea</h2>
+          <p class="dct-meta">05 / Galería</p>
+          <h2 class="dct-title" id="paths-title">Explora las interfaces que puedes pedir</h2>
         </div>
         <nav class="site-topic-list" aria-labelledby="paths-title">
-          <div><h3>Configurar</h3><a href="fundamentals.html">Tokens y temas</a><a href="layout.html">Distribución de página</a><a href="utilities.html">Utilidades responsive</a></div>
-          <div><h3>Construir</h3><a href="components.html">Componentes</a><a href="forms.html">Formularios</a><a href="navigation.html">Menús y navegación</a></div>
-          <div><h3>Integrar</h3><a href="recipes.html">Recetas de interfaz</a><a href="application.html">Aplicación completa</a><a href="changelog.html">Cambios de versión</a></div>
+          <div><h3>Diseño</h3><a href="fundamentals.html#temas">Temas claro y oscuro</a><a href="layout.html">Distribución de página</a><a href="utilities.html">Detalles de diseño</a></div>
+          <div><h3>Piezas</h3><a href="components.html">Componentes</a><a href="forms.html">Formularios</a><a href="navigation.html">Menús y navegación</a></div>
+          <div><h3>Pantallas</h3><a href="recipes.html">Ejemplos de interfaz</a><a href="application.html">Aplicación completa</a><a href="changelog.html">Cambios de versión</a></div>
         </nav>
       </section>
 
@@ -170,10 +170,10 @@ $page['content'] = static function (string $version, array $build): void {
         <div class="dct-container site-cta-inner">
           <p class="site-kicker">Siguiente paso</p>
           <h2 id="cta-title">Crea tu primera interfaz</h2>
-          <p>Instala la skill con tu agente o elige una receta de HTML para adaptarla a tu proyecto.</p>
+          <p>Instala la skill y pide a tu agente una pantalla para tu proyecto.</p>
           <div class="dct-cluster">
             <a class="dct-button dct-is-primary dct-is-medium" href="#uso-con-ia">Usa el prompt</a>
-            <a class="dct-button dct-is-medium" href="recipes.html">Explorar recetas</a>
+            <a class="dct-button dct-is-medium" href="recipes.html">Ver ejemplos</a>
           </div>
         </div>
       </section>

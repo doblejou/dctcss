@@ -52,9 +52,10 @@ gzip; el tamaño de Tailwind depende de la aplicación.
   Expresar en el manifiesto las restricciones verificables (elementos, clases,
   relaciones, atributos y nombres accesibles); explicar en la skill lo que deba
   resolver la aplicación. Usar el mismo contrato para snippets, recetas y skill.
-- La web consume el CSS distribuido como una aplicación externa. Generar la
-  vista y su snippet desde el mismo marcado, sin filtrar atributos privados al
-  ejemplo. Contenido, navegación, snippets y descargas deben funcionar sin JS.
+- La web consume el CSS distribuido como una aplicación externa. Mostrar ejemplos visuales
+  y encargos para el agente. La referencia de uso y el código de las recetas
+  pertenecen a la skill. Contenido, navegación, prompts y descargas deben
+  seguir disponibles sin JS.
 - Clases, tokens documentados, marcado requerido y nombres de artefactos son
   contrato público: corrección → patch, adición compatible → minor, ruptura →
   major. Consultar antes de cambios amplios o irreversibles. Mientras el proyecto

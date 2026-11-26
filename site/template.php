@@ -6,14 +6,14 @@ const GITHUB_REPOSITORY = 'https://github.com/doblejou/dctcss';
 
 const SITE_PAGES = [
     'index' => 'Inicio',
-    'fundamentals' => 'Fundamentos',
+    'fundamentals' => 'Empezar con IA',
     'layout' => 'Layout',
     'components' => 'Componentes',
     'forms' => 'Formularios',
     'navigation' => 'Navegación',
     'utilities' => 'Utilidades',
     'application' => 'Aplicación',
-    'recipes' => 'Recetas',
+    'recipes' => 'Ejemplos',
     'changelog' => 'Cambios',
     'aviso-legal' => 'Aviso legal',
     'privacidad' => 'Política de privacidad',
@@ -21,11 +21,11 @@ const SITE_PAGES = [
 
 const HEADER_PAGES = [
     'index' => 'Inicio',
-    'fundamentals' => 'Documentación',
+    'fundamentals' => 'Empezar con IA',
     'components' => 'Componentes',
     'forms' => 'Formularios',
     'application' => 'Aplicación',
-    'recipes' => 'Recetas',
+    'recipes' => 'Ejemplos',
     'changelog' => 'Cambios',
 ];
 
@@ -68,8 +68,8 @@ function agent_install_prompt(): string
     return code_example(
         'instalar-con-agente',
         'Prompt para tu agente',
-        "Visita dctcss.com y sigue su guía para agentes.\n"
-        . "Instala la skill de dctcss en este proyecto y comprueba que puedes usarla.",
+        "Obtén la skill del repositorio oficial github.com/doblejou/dctcss. Usa la etiqueta de la versión de dctcss del proyecto; si es nuevo, consulta dctcss.com/release.json.\n"
+        . "Instala la carpeta skills/dctcss completa en la ruta de skills que uses para este proyecto. Lee SKILL.md y comprueba que el CSS y la skill corresponden a la misma versión.",
         'instrucciones de instalación para el agente'
     );
 }
@@ -148,34 +148,8 @@ function recipe_code_block(string $heading, string $language): string
     throw new RuntimeException("Missing $language recipe block under: $headingLine");
 }
 
-function html_example(string $id, string $source, string $label, ?string $preview = null, string $previewClass = ''): string
-{
-    return preview_example($id, 'HTML', $source, $label, $preview, $previewClass);
-}
-
-function preview_example(string $id, string $language, string $source, string $label, ?string $preview = null, string $previewClass = ''): string
-{
-    $preview ??= inert_html_preview($source);
-    $classes = trim('dct-card-body ' . $previewClass);
-    $code = code_example($id, $language, $source, $label);
-    $codeBody = substr($code, strlen('<div class="dct-card dct-is-elevated">'), -strlen('</div>'));
-    return '<div class="dct-card dct-is-elevated"><div class="' . escape($classes) . '">' . trim($preview) . '</div>'
-        . $codeBody . '</div>';
-}
-
 function enhance_documentation(string $html): string
 {
-    $html = preg_replace_callback(
-        '~<table class="site-api-table">.*?</table>~s',
-        static fn(array $match): string => '<div class="dct-table-wrap" tabindex="0" role="region" aria-label="Inventario de API dctcss">'
-            . str_replace(
-                '<table class="site-api-table">',
-                '<table class="dct-table dct-is-compact"><caption class="dct-table-caption dct-sr-only">Inventario de API dctcss</caption>',
-                $match[0],
-            )
-            . '</div>',
-        $html,
-    ) ?? $html;
     $html = preg_replace(
         '~<div class="site-note">\s*<strong>(.*?)</strong>\s*(.*?)\s*</div>~s',
         '<aside class="dct-message dct-is-info"><div class="dct-message-body"><p class="dct-message-title">$1</p><div class="dct-message-content">$2</div></div></aside>',
@@ -322,7 +296,7 @@ function render_page(array $page, array $build): string
   <body class="site-page site-page-<?= escape($current) ?>">
     <a class="dct-skip-link" href="#contenido">Saltar al contenido</a>
     <header class="site-header">
-      <nav class="dct-container dct-navbar dct-is-inverse site-navbar" aria-label="Documentación oficial" data-dct-density="compact">
+      <nav class="dct-container dct-navbar dct-is-inverse site-navbar" aria-label="Navegación principal" data-dct-density="compact">
         <a class="dct-navbar-brand" href="index.html" aria-label="dctcss, sitio oficial">
           <img src="assets/favicon.svg" width="32" height="32" alt=""><span>dctcss</span>
         </a>
@@ -374,7 +348,7 @@ function render_page(array $page, array $build): string
       <div class="dct-container site-footer-grid">
         <div><a class="site-footer-brand" href="index.html"><img src="assets/favicon.svg" width="32" height="32" alt="">dctcss</a><p>CSS nativo y ligero.<br>Diseñado para la IA.</p></div>
         <nav aria-label="Enlaces del pie"><strong>Producto</strong><a href="components.html">Componentes</a><a href="application.html">Aplicación</a><a href="index.html#downloads">Descargas</a></nav>
-        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Fundamentos</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a></nav>
+        <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Empezar con IA</a><a href="recipes.html">Ejemplos</a><a href="changelog.html">Cambios</a></nav>
       </div>
       <div class="dct-container site-footer-bottom">
         <span>© <?= escape(substr($build['releaseDate'], 0, 4)) ?> <a href="https://daycomtech.com/">Daycom Technologies</a> · Licencia MIT</span>
