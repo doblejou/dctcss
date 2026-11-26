@@ -13,7 +13,6 @@ esac
 cd -- "$root"
 [ "$(git rev-parse --show-toplevel)" = "$root" ] || fail "Se necesita un clon del proyecto."
 [ -f .env ] || fail "Falta el .env del servidor."
-php scripts/validate.php --assert-production
 
 mkdir -p -- "$dest/$prefix"
 exec 9<"$dest"
@@ -38,7 +37,6 @@ install -m 600 -- .env "$work/src/.env"
     cd "$work/src"
     php scripts/validate.php --assert-production
     make build
-    make check-release
 )
 
 release=$(mktemp -d -- "$dest/${prefix}release.XXXXXX")

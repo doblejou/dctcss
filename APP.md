@@ -92,7 +92,9 @@ gzip; el tamaño de Tailwind depende de la aplicación.
   Se permite HTTP local para desarrollo. Producción exige HTTPS y host público;
   el validador descarta direcciones locales o reservadas sin consultar DNS.
 - Regenerar con la configuración definitiva y ejecutar `make check-release`
-  antes de publicar. Desplegar exclusivamente `public/`. `/release.json` anuncia
+  al preparar la publicación. El servidor no repite la suite: valida la
+  configuración de producción y ejecuta el build con sus validaciones de
+  artefactos antes de activar `public/`. Desplegar exclusivamente `public/`. `/release.json` anuncia
   la release y `/downloads/` sirve la última versión: revisar el changelog y
   probar la actualización antes de sustituir el CSS de una aplicación.
 
