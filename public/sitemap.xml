@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://localhost:8000/</loc></url>
+  <url><loc>http://localhost:8000/fundamentals.html</loc></url>
+  <url><loc>http://localhost:8000/layout.html</loc></url>
+  <url><loc>http://localhost:8000/components.html</loc></url>
+  <url><loc>http://localhost:8000/forms.html</loc></url>
+  <url><loc>http://localhost:8000/navigation.html</loc></url>
+  <url><loc>http://localhost:8000/utilities.html</loc></url>
+  <url><loc>http://localhost:8000/application.html</loc></url>
+  <url><loc>http://localhost:8000/recipes.html</loc></url>
+  <url><loc>http://localhost:8000/changelog.html</loc></url>
+</urlset>

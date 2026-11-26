@@ -1,0 +1,34 @@
+@layer dct-layout {
+  :where(.dct-container) {
+    inline-size: min(100%, calc(var(--dct-container-max) + (var(--dct-container-gutter) * 2)));
+    margin-inline: auto;
+    padding-inline: var(--dct-container-gutter);
+  }
+
+  :where(.dct-stack) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dct-stack-gap);
+  }
+
+  :where(.dct-cluster) {
+    align-items: var(--dct-cluster-align);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dct-cluster-gap);
+    justify-content: var(--dct-cluster-justify);
+  }
+
+  :where(.dct-grid) {
+    display: grid;
+    gap: var(--dct-grid-gap);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--dct-grid-min)), 1fr));
+  }
+
+  :where(.dct-sidebar-layout) { display: grid; gap: var(--dct-space-5); }
+  :where(.dct-sidebar, .dct-main) { min-inline-size: 0; }
+
+  @media (min-width: 64rem) {
+    :where(.dct-sidebar-layout) { grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); }
+  }
+}

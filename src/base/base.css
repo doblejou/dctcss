@@ -1,0 +1,27 @@
+@layer dct-base {
+  :where(html) {
+    background: var(--dct-color-background);
+    color: var(--dct-color-text);
+    font-family: var(--dct-font-family-sans);
+    font-size: var(--dct-font-size-base);
+    line-height: var(--dct-line-height-base);
+  }
+
+  :where([data-dct-theme]) {
+    background: var(--dct-color-background);
+    color: var(--dct-color-text);
+  }
+
+  :where(body) {
+    min-block-size: 100vh;
+  }
+
+  :where(a) {
+    color: var(--dct-color-accent);
+  }
+
+  :where(:focus-visible) {
+    outline: var(--dct-focus-width) solid var(--dct-color-focus);
+    outline-offset: var(--dct-focus-offset);
+  }
+}

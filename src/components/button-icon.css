@@ -1,0 +1,199 @@
+@layer dct-components {
+  :where(.dct-button) {
+    align-items: center;
+    appearance: none;
+    background-color: var(--dct-color-surface);
+    border: 1px solid var(--dct-color-border);
+    border-radius: var(--dct-radius-md);
+    color: var(--dct-color-text);
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: var(--dct-font-weight-bold);
+    gap: var(--dct-control-gap);
+    justify-content: center;
+    line-height: 1.25;
+    min-block-size: var(--dct-control-height);
+    max-inline-size: 100%;
+    padding-block: var(--dct-control-padding-block);
+    padding-inline: var(--dct-control-padding-inline);
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard), box-shadow var(--dct-duration-fast) var(--dct-easing-standard), color var(--dct-duration-fast) var(--dct-easing-standard), transform var(--dct-duration-fast) var(--dct-easing-standard);
+    overflow-wrap: anywhere;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  :where(.dct-button.dct-is-primary) {
+    background-color: var(--dct-color-accent);
+    border-color: var(--dct-color-accent);
+    color: var(--dct-color-accent-contrast);
+  }
+
+  :where(.dct-button.dct-is-secondary) {
+    background-color: transparent;
+    border-color: var(--dct-color-accent);
+    color: var(--dct-color-accent);
+  }
+
+  :where(.dct-button.dct-is-danger) {
+    background-color: var(--dct-color-danger);
+    border-color: var(--dct-color-danger);
+    color: var(--dct-color-danger-contrast);
+  }
+
+  @media (hover: hover) {
+    :where(.dct-button.dct-is-hover-elevated:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+      box-shadow: var(--dct-shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    :where(.dct-button:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+      background-color: var(--dct-color-surface-hover);
+      border-color: var(--dct-color-border-strong);
+    }
+
+    :where(.dct-button.dct-is-primary:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+      background-color: var(--dct-color-accent-hover);
+      border-color: var(--dct-color-accent-hover);
+    }
+
+    :where(.dct-button.dct-is-secondary:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+      background-color: var(--dct-color-accent-soft);
+    }
+
+    :where(.dct-button.dct-is-danger:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+      background-color: var(--dct-color-danger-hover);
+      border-color: var(--dct-color-danger-hover);
+    }
+  }
+
+  :where(.dct-button:active:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading))) {
+    transform: translateY(1px);
+  }
+
+  :where(.dct-button:disabled) {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  :where(.dct-button[aria-disabled="true"]) {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  :where(.dct-button.dct-is-small) {
+    font-size: var(--dct-font-size-sm);
+    min-block-size: 2.25rem;
+    padding-block: var(--dct-space-1);
+    padding-inline: var(--dct-space-3);
+  }
+
+  :where(.dct-button.dct-is-medium) {
+    font-size: var(--dct-font-size-lg);
+    min-block-size: 3.25rem;
+    padding-inline: var(--dct-space-5);
+  }
+
+  :where(.dct-button.dct-is-large) {
+    font-size: var(--dct-font-size-xl);
+    min-block-size: 3.75rem;
+    padding-inline: var(--dct-space-6);
+  }
+
+  :where(.dct-button.dct-is-fullwidth-mobile) {
+    inline-size: 100%;
+  }
+
+  @media (min-width: 40rem) {
+    :where(.dct-button.dct-is-fullwidth-mobile) {
+      inline-size: auto;
+    }
+  }
+
+  :where(.dct-button.dct-is-fullwidth) {
+    inline-size: 100%;
+  }
+
+  :where(.dct-button.dct-is-icon-only) {
+    aspect-ratio: 1;
+    inline-size: var(--dct-control-height);
+    padding: 0;
+  }
+
+  :where(.dct-button.dct-is-icon-only.dct-is-small) { inline-size: 2.25rem; }
+  :where(.dct-button.dct-is-icon-only.dct-is-medium) { inline-size: 3.25rem; }
+  :where(.dct-button.dct-is-icon-only.dct-is-large) { inline-size: 3.75rem; }
+
+  :where(.dct-button.dct-is-loading) {
+    color: transparent;
+    cursor: progress;
+  }
+
+  :where(.dct-button.dct-is-loading)::after {
+    animation: dct-spin 0.75s linear infinite;
+    block-size: 1em;
+    border: 0.15em solid var(--dct-color-text);
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    content: "";
+    inline-size: 1em;
+    inset: 0;
+    margin: auto;
+    position: absolute;
+  }
+
+  :where(.dct-button.dct-is-primary.dct-is-loading)::after {
+    border-color: var(--dct-color-accent-contrast);
+    border-inline-end-color: transparent;
+  }
+
+  :where(.dct-button.dct-is-danger.dct-is-loading)::after {
+    border-color: var(--dct-color-danger-contrast);
+    border-inline-end-color: transparent;
+  }
+
+  :where(.dct-icon) {
+    block-size: 1em;
+    display: inline-block;
+    flex: 0 0 auto;
+    inline-size: 1em;
+    vertical-align: -0.125em;
+  }
+
+  :where(.dct-icon.dct-is-small) {
+    block-size: 0.75em;
+    inline-size: 0.75em;
+  }
+
+  :where(.dct-icon.dct-is-medium) {
+    block-size: 1.25em;
+    inline-size: 1.25em;
+  }
+
+  :where(.dct-icon.dct-is-large) {
+    block-size: 1.5em;
+    inline-size: 1.5em;
+  }
+
+  @keyframes dct-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.dct-button) {
+      transition-duration: 0.01ms;
+    }
+
+    :where(.dct-button.dct-is-hover-elevated:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading, :active))) {
+      transform: none;
+    }
+
+    :where(.dct-button.dct-is-loading)::after {
+      animation: none;
+    }
+  }
+}

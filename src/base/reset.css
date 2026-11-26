@@ -1,0 +1,24 @@
+@layer dct-reset {
+  :where(*),
+  :where(*)::before,
+  :where(*)::after {
+    box-sizing: border-box;
+  }
+
+  :where(html) {
+    text-size-adjust: 100%;
+  }
+
+  :where(body) {
+    margin: 0;
+  }
+
+  :where(button, input, select, textarea) {
+    font: inherit;
+  }
+
+  :where(img, picture, svg, video, canvas) {
+    display: block;
+    max-inline-size: 100%;
+  }
+}

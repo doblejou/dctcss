@@ -1,0 +1,73 @@
+@layer dct-tokens {
+  :root {
+    --dct-font-family-sans: ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
+    --dct-font-family-mono: ui-monospace, sfmono-regular, consolas, "Liberation Mono", monospace;
+    --dct-font-size-sm: 0.875rem;
+    --dct-font-size-base: 1rem;
+    --dct-font-size-lg: 1.125rem;
+    --dct-font-size-xl: 1.25rem;
+    --dct-font-size-2xl: 1.75rem;
+    --dct-font-size-3xl: 2.25rem;
+    --dct-font-weight-normal: 400;
+    --dct-font-weight-medium: 600;
+    --dct-font-weight-bold: 700;
+    --dct-line-height-tight: 1.2;
+    --dct-line-height-base: 1.5;
+    --dct-line-height-relaxed: 1.7;
+    --dct-content-measure: 70ch;
+
+    --dct-space-1: 0.25rem;
+    --dct-space-2: 0.5rem;
+    --dct-space-3: 0.75rem;
+    --dct-space-4: 1rem;
+    --dct-space-5: 1.5rem;
+    --dct-space-6: 2rem;
+
+    --dct-radius-sm: 0.25rem;
+    --dct-radius-md: 0.5rem;
+    --dct-radius-lg: 0.875rem;
+
+    --dct-focus-width: 0.1875rem;
+    --dct-focus-offset: 0.1875rem;
+    --dct-control-height: 2.75rem;
+    --dct-control-padding-block: 0.625rem;
+    --dct-control-padding-inline: var(--dct-space-3);
+    --dct-control-gap: var(--dct-space-2);
+    --dct-panel-padding: var(--dct-space-5);
+    --dct-navigation-padding-block: var(--dct-space-3);
+    --dct-navigation-padding-inline: var(--dct-space-4);
+    --dct-navbar-inverse-background: #10201d;
+    --dct-navbar-inverse-text: #ffffff;
+    --dct-navbar-inverse-text-muted: #c4d2ce;
+    --dct-navbar-inverse-hover: #243a35;
+    --dct-duration-fast: 120ms;
+    --dct-duration-normal: 200ms;
+    --dct-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --dct-container-max: 72rem;
+    --dct-container-gutter: clamp(var(--dct-space-4), 4vw, var(--dct-space-6));
+    --dct-stack-gap: var(--dct-space-4);
+    --dct-cluster-gap: var(--dct-space-3);
+    --dct-cluster-align: center;
+    --dct-cluster-justify: flex-start;
+    --dct-grid-min: 16rem;
+    --dct-grid-gap: var(--dct-space-5);
+    --dct-card-padding: var(--dct-space-5);
+    --dct-card-gap: var(--dct-space-3);
+    --dct-card-media-ratio: 16 / 9;
+    --dct-table-min: 40rem;
+    --dct-table-cell-padding: var(--dct-space-3) var(--dct-space-4);
+  }
+
+  [data-dct-density="compact"] {
+    --dct-control-height: 2.25rem;
+    --dct-control-padding-block: 0.375rem;
+    --dct-control-padding-inline: var(--dct-space-2);
+    --dct-control-gap: var(--dct-space-1);
+    --dct-panel-padding: var(--dct-space-4);
+    --dct-navigation-padding-block: var(--dct-space-2);
+    --dct-navigation-padding-inline: var(--dct-space-3);
+    --dct-card-padding: var(--dct-panel-padding);
+    --dct-card-gap: var(--dct-space-2);
+    --dct-table-cell-padding: var(--dct-space-2) var(--dct-space-3);
+  }
+}

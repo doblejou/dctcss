@@ -1,0 +1,192 @@
+@layer dct-components {
+  :where(.dct-breadcrumb-list, .dct-tabs-list, .dct-pagination-list) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(.dct-breadcrumb-list) {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dct-space-2);
+  }
+
+  :where(.dct-breadcrumb-item) {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--dct-space-2);
+    min-inline-size: 0;
+  }
+
+  :where(.dct-breadcrumb-item + .dct-breadcrumb-item)::before {
+    color: var(--dct-color-text-muted);
+    content: "/";
+  }
+
+  :where(.dct-breadcrumb-item a) {
+    overflow-wrap: anywhere;
+  }
+
+  :where(.dct-breadcrumb-item [aria-current="page"]) {
+    color: var(--dct-color-text);
+    font-weight: var(--dct-font-weight-bold);
+    text-decoration: none;
+  }
+
+  :where(.dct-tabs) {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  :where(.dct-tabs-list) {
+    border-block-end: 1px solid var(--dct-color-border-subtle);
+    display: flex;
+    min-inline-size: max-content;
+  }
+
+  :where(.dct-tab) {
+    border-block-end: 0.1875rem solid transparent;
+    color: var(--dct-color-text-muted);
+    display: inline-flex;
+    font-weight: var(--dct-font-weight-bold);
+    padding-block: var(--dct-navigation-padding-block);
+    padding-inline: var(--dct-navigation-padding-inline);
+    text-decoration: none;
+    transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard), color var(--dct-duration-fast) var(--dct-easing-standard);
+  }
+
+  @media (hover: hover) {
+    :where(.dct-tab:hover) {
+      background-color: var(--dct-color-surface-hover);
+      color: var(--dct-color-accent);
+    }
+  }
+
+  :where(.dct-tab[aria-current="page"]) {
+    border-block-end-color: var(--dct-color-accent);
+    color: var(--dct-color-accent);
+  }
+
+  :where(.dct-pagination) {
+    display: flex;
+    justify-content: center;
+  }
+
+  :where(.dct-pagination-list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dct-space-2);
+    justify-content: center;
+  }
+
+  :where(.dct-pagination-link) {
+    align-items: center;
+    background-color: var(--dct-color-surface);
+    border: 1px solid var(--dct-color-border);
+    border-radius: var(--dct-radius-md);
+    color: var(--dct-color-text);
+    display: inline-flex;
+    justify-content: center;
+    min-block-size: var(--dct-control-height);
+    min-inline-size: var(--dct-control-height);
+    padding-inline: var(--dct-control-padding-inline);
+    text-decoration: none;
+    transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard), color var(--dct-duration-fast) var(--dct-easing-standard);
+  }
+
+  @media (hover: hover) {
+    :where(.dct-pagination-link:hover:not([aria-disabled="true"])) {
+      background-color: var(--dct-color-surface-hover);
+      border-color: var(--dct-color-border-strong);
+    }
+  }
+
+  :where(.dct-pagination-link[aria-current="page"]) {
+    background-color: var(--dct-color-accent);
+    border-color: var(--dct-color-accent);
+    color: var(--dct-color-accent-contrast);
+  }
+
+  :where(.dct-pagination-link[aria-disabled="true"]) {
+    opacity: 0.55;
+  }
+
+  :where(span.dct-pagination-link[aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+
+  :where(a.dct-pagination-link[aria-disabled="true"]) {
+    pointer-events: none;
+  }
+
+  :where(.dct-skip-link) {
+    background: var(--dct-color-text);
+    color: var(--dct-color-background);
+    inset-block-start: var(--dct-space-2);
+    inset-inline-start: var(--dct-space-2);
+    padding-block: var(--dct-space-2);
+    padding-inline: var(--dct-space-3);
+    position: fixed;
+    transform: translateY(calc(-100% - var(--dct-space-4)));
+    z-index: 1000;
+  }
+
+  :where(.dct-skip-link:focus) { transform: translateY(0); }
+
+  :where(.dct-navbar) {
+    align-items: center;
+    background: var(--dct-color-surface);
+    border-block-end: 1px solid var(--dct-color-border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dct-space-3);
+    padding-block: var(--dct-navigation-padding-block);
+    padding-inline: var(--dct-navigation-padding-inline);
+  }
+
+  :where(.dct-navbar-brand) { align-items: center; color: var(--dct-color-text); display: inline-flex; font-weight: var(--dct-font-weight-bold); gap: var(--dct-control-gap); overflow-wrap: anywhere; text-decoration: none; }
+  :where(.dct-navbar-toggle) { margin-inline-start: auto; }
+  :where(.dct-navbar-menu) { flex-basis: 100%; min-inline-size: 0; }
+  :where(.dct-navbar-item) { border-radius: var(--dct-radius-md); color: var(--dct-color-text-muted); display: block; overflow-wrap: anywhere; padding-block: var(--dct-navigation-padding-block); padding-inline: var(--dct-navigation-padding-inline); text-decoration: none; transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), color var(--dct-duration-fast) var(--dct-easing-standard); }
+  :where(.dct-navbar-toggle[hidden], .dct-navbar-menu[hidden]) { display: none; }
+  :where(.dct-navbar-item[aria-current="page"]) { background: var(--dct-color-accent-soft); color: var(--dct-color-accent); font-weight: var(--dct-font-weight-bold); }
+  :where(.dct-navbar-actions) { align-items: center; display: flex; flex-wrap: wrap; gap: var(--dct-space-2); }
+
+  :where(.dct-navbar.dct-is-inverse) {
+    background: var(--dct-navbar-inverse-background);
+    border-block-end-color: transparent;
+    color: var(--dct-navbar-inverse-text);
+  }
+
+  :where(.dct-navbar.dct-is-inverse .dct-navbar-brand) { color: var(--dct-navbar-inverse-text); }
+  :where(.dct-navbar.dct-is-inverse .dct-navbar-item) { color: var(--dct-navbar-inverse-text-muted); }
+  :where(.dct-navbar.dct-is-inverse .dct-navbar-item[aria-current="page"]) { background: var(--dct-navbar-inverse-text); color: var(--dct-navbar-inverse-background); }
+  :where(.dct-navbar.dct-is-inverse .dct-button:not(.dct-is-primary, .dct-is-danger)) { background: transparent; border-color: var(--dct-navbar-inverse-text-muted); color: var(--dct-navbar-inverse-text); }
+  :where(.dct-navbar.dct-is-inverse .dct-button.dct-is-loading) { color: transparent; }
+  :where(.dct-navbar.dct-is-inverse .dct-button.dct-is-loading:not(.dct-is-primary, .dct-is-danger))::after { border-color: var(--dct-navbar-inverse-text); border-inline-end-color: transparent; }
+  :where(.dct-navbar.dct-is-inverse :focus-visible) { outline-color: var(--dct-navbar-inverse-text); }
+
+  @media (min-width: 64rem) {
+    :where(.dct-navbar-toggle) { display: none; }
+    :where(.dct-navbar-menu:not([hidden])) { align-items: center; display: flex; flex: 1 1 auto; flex-basis: auto; gap: var(--dct-space-2); }
+    :where(.dct-navbar-actions) { margin-inline-start: auto; }
+  }
+
+  :where(.dct-menu-list) { list-style: none; margin: 0; padding: 0; }
+  :where(.dct-menu-item) { border-radius: var(--dct-radius-md); color: var(--dct-color-text-muted); display: block; padding-block: var(--dct-navigation-padding-block); padding-inline: var(--dct-navigation-padding-inline); text-decoration: none; transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), color var(--dct-duration-fast) var(--dct-easing-standard); }
+
+  @media (hover: hover) {
+    :where(.dct-navbar-item:hover, .dct-menu-item:hover) { background: var(--dct-color-surface-hover); color: var(--dct-color-text); }
+    :where(.dct-navbar.dct-is-inverse .dct-navbar-item:hover) { background: var(--dct-navbar-inverse-hover); color: var(--dct-navbar-inverse-text); }
+    :where(.dct-navbar.dct-is-inverse .dct-button:hover:not(:is(:disabled, [aria-disabled="true"], .dct-is-loading, .dct-is-primary, .dct-is-danger))) { background: var(--dct-navbar-inverse-hover); border-color: var(--dct-navbar-inverse-text); color: var(--dct-navbar-inverse-text); }
+  }
+
+  :where(.dct-menu-item[aria-current="page"]) { background: var(--dct-color-accent-soft); color: var(--dct-color-accent); font-weight: var(--dct-font-weight-bold); }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.dct-tab, .dct-pagination-link, .dct-navbar-item, .dct-menu-item) {
+      transition-duration: 0.01ms;
+    }
+  }
+}

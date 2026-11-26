@@ -1,0 +1,166 @@
+@layer dct-components {
+  :where(.dct-field) {
+    align-content: start;
+    display: grid;
+    gap: var(--dct-space-2);
+    min-inline-size: 0;
+  }
+
+  :where(.dct-field-group) {
+    display: grid;
+    gap: var(--dct-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  :where(.dct-fieldset) {
+    border: 0;
+    display: grid;
+    gap: var(--dct-space-4);
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+  }
+
+  :where(.dct-legend, .dct-label) {
+    color: var(--dct-color-text);
+    font-weight: var(--dct-font-weight-bold);
+  }
+
+  :where(.dct-legend) {
+    inline-size: 100%;
+    margin-block-end: var(--dct-space-3);
+    padding: 0;
+  }
+
+  :where(.dct-help) {
+    color: var(--dct-color-text-muted);
+    font-size: var(--dct-font-size-sm);
+    margin: 0;
+  }
+
+  :where(.dct-input, .dct-textarea, .dct-select) {
+    background-color: var(--dct-color-surface);
+    border: 1px solid var(--dct-color-border);
+    border-radius: var(--dct-radius-md);
+    color: var(--dct-color-text);
+    inline-size: 100%;
+    min-block-size: var(--dct-control-height);
+    min-inline-size: 0;
+    padding-block: var(--dct-control-padding-block);
+    padding-inline: var(--dct-control-padding-inline);
+    transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard), box-shadow var(--dct-duration-fast) var(--dct-easing-standard);
+  }
+
+  :where(.dct-input, .dct-textarea)::placeholder {
+    color: var(--dct-color-text-muted);
+    opacity: 1;
+  }
+
+  :where(.dct-textarea) {
+    min-block-size: 8rem;
+    resize: vertical;
+  }
+
+  :where(.dct-select) {
+    cursor: pointer;
+  }
+
+  @media (hover: hover) {
+    :where(.dct-input, .dct-textarea):hover:not(:is(:disabled, :read-only, :focus-visible)),
+    :where(.dct-select):hover:not(:is(:disabled, :focus-visible)) {
+      border-color: var(--dct-color-border-strong);
+    }
+  }
+
+  :where(.dct-input, .dct-textarea, .dct-select):focus-visible {
+    border-color: var(--dct-color-focus);
+  }
+
+  :where(.dct-input, .dct-textarea):read-only {
+    background-color: var(--dct-color-surface-subtle);
+  }
+
+  :where(.dct-input, .dct-textarea, .dct-select):disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .dct-field.dct-is-error :is(.dct-input, .dct-textarea, .dct-select) {
+    background-color: var(--dct-color-danger-soft);
+    border-color: var(--dct-color-danger);
+  }
+
+  :where(.dct-field.dct-is-error) :where(.dct-help) {
+    color: var(--dct-color-danger);
+  }
+
+  :where(.dct-field.dct-is-success) :where(.dct-input, .dct-textarea, .dct-select) {
+    background-color: var(--dct-color-success-soft);
+    border-color: var(--dct-color-success);
+  }
+
+  :where(.dct-field.dct-is-success) :where(.dct-help) {
+    color: var(--dct-color-success);
+  }
+
+  :where(.dct-choice) {
+    align-items: flex-start;
+    color: var(--dct-color-text);
+    cursor: pointer;
+    display: inline-flex;
+    gap: var(--dct-control-gap);
+    inline-size: fit-content;
+  }
+
+  :where(.dct-choice > input:is([type="checkbox"], [type="radio"])) {
+    accent-color: var(--dct-color-accent);
+    block-size: 1.125em;
+    flex: 0 0 auto;
+    inline-size: 1.125em;
+    margin: 0;
+    margin-block-start: 0.2em;
+  }
+
+  :where(.dct-choice:has(> input:disabled)) {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  :where(.dct-input-group) { align-items: stretch; display: flex; min-inline-size: 0; }
+  :where(.dct-input-group > :is(.dct-input, .dct-select, .dct-input-addon)) { border-radius: 0; margin-inline-start: -1px; }
+  :where(.dct-input-group > :first-child) { border-end-start-radius: var(--dct-radius-md); border-start-start-radius: var(--dct-radius-md); margin-inline-start: 0; }
+  :where(.dct-input-group > :last-child) { border-end-end-radius: var(--dct-radius-md); border-start-end-radius: var(--dct-radius-md); }
+  :where(.dct-input-addon) { align-items: center; background: var(--dct-color-surface-subtle); border: 1px solid var(--dct-color-border); color: var(--dct-color-text-muted); display: inline-flex; flex: 0 1 auto; max-inline-size: 50%; min-block-size: var(--dct-control-height); overflow-wrap: anywhere; padding-inline: var(--dct-control-padding-inline); }
+
+  :where(.dct-switch) { align-items: center; color: var(--dct-color-text); cursor: pointer; display: inline-flex; gap: var(--dct-control-gap); }
+  :where(.dct-switch > input[type="checkbox"][role="switch"]) { appearance: none; background: var(--dct-color-border); block-size: 1.5rem; border: 1px solid var(--dct-color-border-strong); border-radius: 100vw; cursor: pointer; inline-size: 2.75rem; margin: 0; padding: 0.125rem; transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard); }
+  :where(.dct-switch > input[type="checkbox"][role="switch"])::before { background: var(--dct-color-surface); block-size: 1.125rem; border-radius: 50%; box-shadow: var(--dct-shadow-sm); content: ""; display: block; inline-size: 1.125rem; transition: margin-inline-start var(--dct-duration-fast) var(--dct-easing-standard); }
+  :where(.dct-switch > input[type="checkbox"][role="switch"]:checked) { background: var(--dct-color-accent); }
+  :where(.dct-switch > input[type="checkbox"][role="switch"]:checked)::before { margin-inline-start: 1.25rem; }
+  :where(.dct-switch:has(> input:disabled)) { cursor: not-allowed; opacity: 0.6; }
+  :where(.dct-switch > input:disabled) { cursor: not-allowed; }
+
+  @media (forced-colors: active) {
+    :where(.dct-switch > input[type="checkbox"][role="switch"]) { background: Canvas; border-color: ButtonText; forced-color-adjust: none; }
+    :where(.dct-switch > input[type="checkbox"][role="switch"])::before { background: ButtonText; box-shadow: none; }
+    :where(.dct-switch > input[type="checkbox"][role="switch"]:focus-visible) { outline-color: Highlight; }
+    :where(.dct-switch > input[type="checkbox"][role="switch"]:checked) { background: Highlight; border-color: Highlight; }
+    :where(.dct-switch > input[type="checkbox"][role="switch"]:checked)::before { background: HighlightText; }
+  }
+
+  :where(.dct-file) { background: var(--dct-color-surface); border: 1px solid var(--dct-color-border); border-radius: var(--dct-radius-md); color: var(--dct-color-text-muted); inline-size: 100%; min-block-size: var(--dct-control-height); padding: var(--dct-control-gap); transition: background-color var(--dct-duration-fast) var(--dct-easing-standard), border-color var(--dct-duration-fast) var(--dct-easing-standard); }
+  :where(.dct-file)::file-selector-button { background: var(--dct-color-surface-subtle); border: 1px solid var(--dct-color-border); border-radius: var(--dct-radius-sm); color: var(--dct-color-text); cursor: pointer; font: inherit; font-weight: var(--dct-font-weight-bold); margin-inline-end: var(--dct-control-gap); padding-block: var(--dct-control-padding-block); padding-inline: var(--dct-control-padding-inline); }
+  :where(.dct-file:disabled) { cursor: not-allowed; opacity: 0.6; }
+  :where(.dct-file:disabled)::file-selector-button { cursor: not-allowed; }
+
+  @media (hover: hover) {
+    :where(.dct-file:hover:not(:disabled)) { border-color: var(--dct-color-border-strong); }
+    :where(.dct-file:hover:not(:disabled))::file-selector-button { background: var(--dct-color-surface-hover); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.dct-input, .dct-textarea, .dct-select, .dct-file, .dct-switch > input[type="checkbox"][role="switch"], .dct-switch > input[type="checkbox"][role="switch"]::before) {
+      transition-duration: 0.01ms;
+    }
+  }
+}

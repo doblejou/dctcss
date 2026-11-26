@@ -1,0 +1,88 @@
+@layer dct-components {
+  :where(.dct-message) {
+    align-items: flex-start;
+    background-color: var(--dct-color-surface);
+    border: 1px solid var(--dct-color-border-subtle);
+    border-inline-start-width: 0.25rem;
+    border-radius: var(--dct-radius-md);
+    color: var(--dct-color-text);
+    display: flex;
+    gap: var(--dct-space-3);
+    padding: var(--dct-panel-padding);
+  }
+
+  :where(.dct-message.dct-is-info) {
+    background-color: var(--dct-color-info-soft);
+    border-inline-start-color: var(--dct-color-info);
+  }
+
+  :where(.dct-message.dct-is-success) {
+    background-color: var(--dct-color-success-soft);
+    border-inline-start-color: var(--dct-color-success);
+  }
+
+  :where(.dct-message.dct-is-warning) {
+    background-color: var(--dct-color-warning-soft);
+    border-inline-start-color: var(--dct-color-warning);
+  }
+
+  :where(.dct-message.dct-is-danger) {
+    background-color: var(--dct-color-danger-soft);
+    border-inline-start-color: var(--dct-color-danger);
+  }
+
+  :where(.dct-message-icon) {
+    color: var(--dct-color-text-muted);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: var(--dct-font-size-xl);
+  }
+
+  :where(.dct-message.dct-is-info .dct-message-icon) {
+    color: var(--dct-color-info);
+  }
+
+  :where(.dct-message.dct-is-success .dct-message-icon) {
+    color: var(--dct-color-success);
+  }
+
+  :where(.dct-message.dct-is-warning .dct-message-icon) {
+    color: var(--dct-color-warning);
+  }
+
+  :where(.dct-message.dct-is-danger .dct-message-icon) {
+    color: var(--dct-color-danger);
+  }
+
+  :where(.dct-message-body) {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  :where(.dct-message-title) {
+    color: var(--dct-color-text);
+    font-size: var(--dct-font-size-base);
+    font-weight: var(--dct-font-weight-bold);
+    line-height: var(--dct-line-height-tight);
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  :where(.dct-message-content) {
+    color: var(--dct-color-text-muted);
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  :where(.dct-message-title + .dct-message-content) {
+    margin-block-start: var(--dct-space-1);
+  }
+
+  :where(.dct-message-actions) {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dct-space-2);
+    margin-block-start: var(--dct-space-3);
+  }
+}
