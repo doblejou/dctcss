@@ -191,7 +191,7 @@ function canonical_output_root(string $root, string $requested, bool $inspectCon
             $path = "$candidate/public/$entry";
             if ($entry === 'assets') {
                 if (!is_dir($path)) fail('Managed public assets must be a directory.');
-                assert_managed_entries($path, ['site.css', 'site.js'], 'Managed public assets');
+                assert_managed_entries($path, ['site.css', 'site.js', 'favicon.svg'], 'Managed public assets');
                 foreach (directory_entries($path) as $asset) {
                     if (!is_file("$path/$asset")) fail("Managed public asset is not a file: $asset");
                 }

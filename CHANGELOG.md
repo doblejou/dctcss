@@ -2,6 +2,12 @@
 
 Todos los cambios relevantes de dctcss se documentan en este archivo.
 
+## 1.6.6 - 2026-11-26
+
+- Rediseñadas la portada y la documentación con una demostración de componentes, un índice adaptable y un favicon SVG local.
+- Añadida una guía para integrar CSS y skill con OpenCode, Codex, Claude Code y otros agentes compatibles. La API CSS no cambia.
+- El validador PHP deja de servirse desde `/downloads/`. Sigue incluido en la distribución y `release.json` indica el adjunto de la versión correspondiente en GitHub.
+
 ## 1.6.5 - 2026-11-26
 
 - La web enlaza al código fuente y a las releases de GitHub. Las descargas actuales siguen en el sitio oficial y el mismo build estático sirve para desarrollo y producción.

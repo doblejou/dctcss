@@ -1,9 +1,9 @@
 ---
 name: dctcss
-description: Usa dctcss 1.6.5 para construir aplicaciones web con su API CSS estable, accesible y legible por agentes.
+description: Usa dctcss 1.6.6 para construir aplicaciones web con su API CSS estable, accesible y legible por agentes.
 ---
 
-# dctcss 1.6.5
+# dctcss 1.6.6
 
 Usa esta skill para generar marcado con dctcss. El framework solo aporta CSS: la aplicación controla datos, validación, estado interactivo, foco y navegación. `references/dctcss-api.json`, con `schemaVersion: 2`, inventaría la API, `references/RECIPES.md` contiene composiciones completas y `references/CHANGELOG.md` permite evaluar actualizaciones.
 
@@ -18,7 +18,7 @@ El inventario `attributes` del manifiesto no es una lista blanca de HTML. Solo e
 3. Consulta `references/dctcss-api.json` cuando necesites confirmar nombres, elementos, ancestros, hijos, atributos o modificadores. No necesitas leerlo completo para tareas pequeñas.
 4. Consulta `references/RECIPES.md` para composiciones completas y `references/CHANGELOG.md` antes de actualizar una versión instalada.
 5. Genera solo API inventariada.
-6. Si dispones de la distribución, ejecuta `php dctcss-validate.php --manifest references/dctcss-api.json ruta/al/html` para comprobar contratos estáticos.
+6. Si quieres comprobar el HTML, usa el validador de la distribución. Si no lo tienes, puedes obtener `dctcss-validate.php` de los adjuntos de la [release de GitHub](https://github.com/doblejou/dctcss/releases) que coincida con tu versión de dctcss. Desde la carpeta de la skill, ejecuta `php ruta/al/dctcss-validate.php --manifest references/dctcss-api.json ruta/al/html`.
 7. Ejecuta el checklist de salida antes de entregar el resultado.
 
 ## Matriz de decisión

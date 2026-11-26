@@ -18,18 +18,19 @@ function validate_public(
     sort($slugs);
     $pageNames = array_map(static fn(string $slug): string => "$slug.html", $slugs);
     exact_set(directory_entries($publicDirectory), array_merge($pageNames, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml']), 'Public root entries');
-    exact_set(directory_entries("$publicDirectory/assets"), ['site.css', 'site.js'], 'Public assets');
+    exact_set(directory_entries("$publicDirectory/assets"), ['site.css', 'site.js', 'favicon.svg'], 'Public assets');
     $cssName = $manifest['artifacts']['css'];
     $minifiedName = $manifest['artifacts']['cssMinified'];
     $apiName = $manifest['artifacts']['api'];
     $validatorName = $manifest['artifacts']['validator'];
-    exact_set(directory_entries("$publicDirectory/downloads"), [$cssName, $minifiedName, $apiName, $validatorName], 'Public downloads');
+    exact_set(directory_entries("$publicDirectory/downloads"), [$cssName, $minifiedName, $apiName], 'Public downloads');
     if (read_file("$publicDirectory/assets/site.css") !== read_file("$root/site/site.css")
-        || read_file("$publicDirectory/assets/site.js") !== read_file("$root/site/site.js")) {
+        || read_file("$publicDirectory/assets/site.js") !== read_file("$root/site/site.js")
+        || read_file("$publicDirectory/assets/favicon.svg") !== read_file("$root/site/favicon.svg")) {
         fail('Public assets differ from site sources.');
     }
     validate_css_resources(read_file("$publicDirectory/assets/site.css"), "$publicDirectory/assets/site.css", "$publicDirectory/assets", $publicDirectory);
-    foreach ([$cssName, $minifiedName, $apiName, $validatorName] as $name) {
+    foreach ([$cssName, $minifiedName, $apiName] as $name) {
         if (read_file("$publicDirectory/downloads/$name") !== read_file("$distDirectory/$name")) {
             fail("Public download differs from dist: $name");
         }
@@ -55,7 +56,7 @@ function validate_public(
         'css' => "$siteUrl/downloads/$cssName",
         'cssMinified' => "$siteUrl/downloads/$minifiedName",
         'api' => "$siteUrl/downloads/$apiName",
-        'validator' => "$siteUrl/downloads/$validatorName",
+        'validator' => "https://github.com/doblejou/dctcss/releases/download/v$version/$validatorName",
     ]) {
         fail('release.json artifact URLs are invalid.');
     }
@@ -176,9 +177,6 @@ function validate_public(
                     continue;
                 }
                 if ($tag === 'link' && $attribute === 'href' && $element->getAttribute('rel') === 'canonical') {
-                    continue;
-                }
-                if ($tag === 'link' && $attribute === 'href' && $element->getAttribute('rel') === 'icon' && $reference === 'data:,') {
                     continue;
                 }
                 $references = $attribute === 'srcset'

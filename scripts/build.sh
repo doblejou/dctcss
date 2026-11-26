@@ -173,11 +173,11 @@ cp -- "$ROOT_DIR/CHANGELOG.md" "$STAGE_REFERENCES/CHANGELOG.md"
 ) > "$STAGE_DIST/$CHECKSUM_NAME"
 
 cp -- "$ROOT_DIR/site/site.css" "$STAGE_PUBLIC/assets/site.css"
+cp -- "$ROOT_DIR/site/favicon.svg" "$STAGE_PUBLIC/assets/favicon.svg"
 cp -- "$ROOT_DIR/site/site.js" "$STAGE_PUBLIC/assets/site.js"
 cp -- "$STAGE_DIST/$CSS_NAME" "$STAGE_PUBLIC/downloads/$CSS_NAME"
 cp -- "$STAGE_DIST/$MINIFIED_NAME" "$STAGE_PUBLIC/downloads/$MINIFIED_NAME"
 cp -- "$STAGE_DIST/$API_NAME" "$STAGE_PUBLIC/downloads/$API_NAME"
-cp -- "$STAGE_DIST/$VALIDATOR_NAME" "$STAGE_PUBLIC/downloads/$VALIDATOR_NAME"
 php "$ROOT_DIR/site/build.php" "$STAGE_PUBLIC" "$SITE_URL" "$STAGE_DIST"
 chmod 0755 -- "$STAGE_DIST" "$STAGE_PUBLIC" "$STAGE_PUBLIC/assets" "$STAGE_PUBLIC/downloads" "$STAGE_REFERENCES"
 chmod 0644 -- "$STAGE_DIST"/* "$STAGE_PUBLIC"/*.html "$STAGE_PUBLIC"/*.txt "$STAGE_PUBLIC"/*.xml "$STAGE_PUBLIC/assets"/* "$STAGE_PUBLIC/downloads"/* "$STAGE_REFERENCES"/*

@@ -8,6 +8,7 @@ $page = array (
   'description' => 'Fundamentos de dctcss {{VERSION}}: prefijo público, capas de cascada, tokens, personalización y temas claro y oscuro.',
   'index' => 
   array (
+    'trabajar-con-ia' => 'Trabajar con IA',
     'prefijo' => 'Prefijo público',
     'capas' => 'Capas de cascada',
     'tokens' => 'Tokens públicos',
@@ -25,6 +26,52 @@ $page['content'] = static function (string $version): void {
           <h1 class="dct-display">Una base predecible antes de componer.</h1>
           <p>Aprende qué nombres pertenecen al framework, cómo participa dctcss en la cascada y qué contratos puedes personalizar sin editar el artefacto distribuido.</p>
         </header>
+
+        <section class="site-reference" id="trabajar-con-ia" aria-labelledby="ia-title">
+          <h2 id="ia-title">Trabajar con IA: de un encargo a una interfaz</h2>
+          <p>dctcss está creado para proyectos donde un agente escribe o modifica HTML. Si le pides «añade una ayuda desplegable», hay dos decisiones distintas: qué elemento ofrece esa interacción y qué clases lo presentan. La skill orienta la primera decisión; el manifiesto enumera los nombres y las relaciones que admite esta versión. Así puedes revisar la respuesta contra reglas concretas.</p>
+          <h3>1. Dale al agente las referencias de tu versión</h3>
+          <p>El navegador solo necesita el CSS. La skill es el manual para el agente. OpenCode, Codex y Claude Code pueden descubrirla en el proyecto y cargarla cuando una tarea lo requiere. También puedes invocarla directamente:</p>
+          <ul>
+            <li><strong>OpenCode:</strong> instala la skill en <code>.agents/skills/dctcss/</code> e invócala con <code>@dctcss</code>.</li>
+            <li><strong>Codex:</strong> usa la misma carpeta e invócala con <code>$dctcss</code>.</li>
+            <li><strong>Claude Code:</strong> usa <code>.claude/skills/dctcss/</code> e invócala con <code>/dctcss</code>. Si compartes proyecto con Codex, esa ruta puede ser un enlace simbólico a la carpeta ya instalada.</li>
+          </ul>
+          <p>Otros agentes compatibles con el formato Agent Skills pueden usar la misma carpeta completa. Consulta en la documentación de tu agente dónde busca las skills de proyecto y cómo se activan.</p>
+          <p>Para preparar un proyecto, ábrelo en tu agente y pega este encargo. El agente necesitará acceso a GitHub y permiso para escribir en el proyecto.</p>
+          <?= code_example(
+              'instalar-con-agente',
+              'Instrucciones para tu agente',
+              "Integra dctcss en este proyecto desde el repositorio doblejou/dctcss de GitHub.\n"
+              . "Si ya usamos dctcss, conserva nuestra versión; si no, usa la etiqueta v$version.\n"
+              . "De esa etiqueta, instala skills/dctcss/ completa en la raíz del proyecto: usa .agents/skills/dctcss/ para OpenCode o Codex y .claude/skills/dctcss/ para Claude Code. Si eres otro agente compatible con Agent Skills, usa tu ruta documentada de skills de proyecto.\n"
+              . "Incluye SKILL.md, LICENSE y references/. Conserva los cambios locales si ya existe la carpeta.\n"
+              . "Si el CSS aún no está integrado, guarda dist/dct.min.css y su licencia en los recursos estáticos del proyecto y enlaza el CSS una sola vez desde la plantilla principal.\n"
+              . "Indícame qué versión quedó instalada, dónde se carga el CSS y cómo invocar la skill.",
+              'instrucciones de instalación para el agente'
+          ) ?>
+          <h3>2. Pide un resultado que puedas probar</h3>
+          <blockquote>Usa la skill dctcss. En el formulario de facturación, añade una ayuda titulada «¿Dónde encuentro mi número de cliente?». Debe empezar cerrada y poder abrirse con el teclado, sin JavaScript.</blockquote>
+          <p>Prueba el resultado: lleva el foco a la pregunta con Tab y pulsa Intro para abrirla. El navegador gestiona el estado de <code>details</code>; dctcss da estilo al título y al contenido.</p>
+          <?= html_example(
+              'ayuda-facturacion',
+              <<<'HTML'
+<details class="dct-disclosure">
+  <summary class="dct-disclosure-summary">¿Dónde encuentro mi número de cliente?</summary>
+  <div class="dct-disclosure-content">
+    <p>Lo encontrarás en la primera página de tu factura, junto a la fecha de emisión.</p>
+  </div>
+</details>
+HTML,
+              'HTML de la ayuda de facturación'
+          ) ?>
+          <h3>Aplica el mismo método a otra tarea</h3>
+          <ul>
+            <li><a href="recipes.html#tabla-responsive">Mostrar facturas en una tabla responsive</a>: conserva los encabezados y los importes al reducir el ancho.</li>
+            <li><a href="recipes.html#formulario-completo">Componer un formulario</a>: relaciona cada control con su etiqueta, instrucciones y errores.</li>
+            <li><a href="recipes.html#dashboard">Montar un panel de indicadores</a>: combina tarjetas y layout con datos de tu aplicación.</li>
+          </ul>
+        </section>
 
         <section class="site-reference" id="prefijo" aria-labelledby="prefijo-title">
           <h2 id="prefijo-title">Prefijo público</h2>

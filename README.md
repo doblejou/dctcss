@@ -1,6 +1,6 @@
 # dctcss
 
-Framework CSS reutilizable basado en CSS moderno nativo, sin JavaScript ni dependencias externas de ejecución. La versión actual es `1.6.5` y toda su API pública usa el prefijo `dct-`.
+Framework CSS reutilizable basado en CSS moderno nativo, sin JavaScript ni dependencias externas de ejecución. La versión actual es `1.6.6` y toda su API pública usa el prefijo `dct-`.
 
 dctcss está diseñado principalmente para agentes de IA. El [manifiesto estructurado](src/dctcss-api.json) contiene el inventario de la API y la [skill](skills/dctcss/SKILL.md) define el marcado, las decisiones y las reglas de accesibilidad.
 

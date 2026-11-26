@@ -1,4 +1,4 @@
-# Recetas dctcss 1.6.5
+# Recetas dctcss 1.6.6
 
 Toda API dctcss usada en estas recetas pertenece al inventario estable. Algunas composiciones incluyen CSS o JavaScript de aplicación identificado expresamente y sin prefijo `dct-`. Los atributos HTML ordinarios como `type`, `name`, `autocomplete`, `action` o `accept` siguen siendo necesarios cuando la semántica y la aplicación los requieran; el inventario de atributos del manifiesto no es una lista blanca de HTML.
 

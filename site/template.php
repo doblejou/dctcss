@@ -277,7 +277,7 @@ function render_page(array $page, array $build): string
     <meta property="og:url" content="<?= escape($canonical) ?>">
     <title><?= escape($title) ?></title>
     <link rel="canonical" href="<?= escape($canonical) ?>">
-    <link rel="icon" href="data:,">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="downloads/<?= escape($build['css']['filename']) ?>">
     <link rel="stylesheet" href="assets/site.css">
     <script src="assets/site.js" defer></script>
@@ -287,7 +287,7 @@ function render_page(array $page, array $build): string
     <header class="site-header">
       <nav class="dct-container dct-navbar dct-is-inverse site-navbar" aria-label="Documentación oficial" data-dct-density="compact">
         <a class="dct-navbar-brand" href="index.html" aria-label="dctcss, sitio oficial">
-          <span class="site-brand-mark" aria-hidden="true">d</span><span>dctcss</span>
+          <img src="assets/favicon.svg" width="32" height="32" alt=""><span>dctcss</span>
         </a>
         <button class="dct-navbar-toggle dct-button dct-is-small" type="button" aria-expanded="true" aria-controls="site-global-menu" data-site-navbar-toggle hidden>Menú</button>
         <div class="dct-navbar-menu" id="site-global-menu">
@@ -303,9 +303,9 @@ function render_page(array $page, array $build): string
     <main id="contenido" tabindex="-1"><?= $content ?></main>
 <?php else: ?>
     <div class="dct-container dct-sidebar-layout dct-p-6">
-      <details class="site-mobile-index">
-        <summary>En esta página</summary>
-        <nav class="dct-menu site-mobile-index-menu" aria-label="<?= escape($page['indexLabel']) ?>">
+      <details class="dct-disclosure site-mobile-index">
+        <summary class="dct-disclosure-summary">En esta página: <?= escape(SITE_PAGES[$current]) ?></summary>
+        <nav class="dct-disclosure-content dct-menu site-mobile-index-menu" aria-label="<?= escape($page['indexLabel']) ?>">
           <ul class="dct-menu-list">
 <?php foreach ($page['index'] as $id => $label): ?>
             <li><a class="dct-menu-item" href="#<?= escape($id) ?>"><?= escape($label) ?></a></li>
@@ -330,7 +330,7 @@ function render_page(array $page, array $build): string
 <?php endif; ?>
     <footer class="site-footer">
       <div class="dct-container site-footer-grid">
-        <div><a class="site-footer-brand" href="index.html"><span class="site-brand-mark" aria-hidden="true">d</span>dctcss</a><p>CSS moderno para interfaces<br>que deben durar.</p></div>
+        <div><a class="site-footer-brand" href="index.html"><img src="assets/favicon.svg" width="32" height="32" alt="">dctcss</a><p>CSS nativo y ligero.<br>Diseñado para la IA.</p></div>
         <nav aria-label="Enlaces del pie"><strong>Producto</strong><a href="components.html">Componentes</a><a href="application.html">Aplicación</a><a href="index.html#downloads">Descargas</a></nav>
         <nav aria-label="Recursos del pie"><strong>Recursos</strong><a href="fundamentals.html">Documentación</a><a href="recipes.html">Recetas</a><a href="changelog.html">Cambios</a><a href="<?= escape(GITHUB_REPOSITORY) ?>">Código fuente en GitHub</a></nav>
         <div class="site-footer-meta"><span class="site-version">v<?= escape($version) ?></span><p>MIT License<br>Hecho con CSS nativo.</p></div>

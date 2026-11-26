@@ -188,7 +188,7 @@ $release = [
         'css' => $siteUrl . '/downloads/' . $css['filename'],
         'cssMinified' => $siteUrl . '/downloads/' . $cssMinified['filename'],
         'api' => $siteUrl . '/downloads/' . $manifest['artifacts']['api'],
-        'validator' => $siteUrl . '/downloads/' . $manifest['artifacts']['validator'],
+        'validator' => GITHUB_REPOSITORY . '/releases/download/v' . $version . '/' . $manifest['artifacts']['validator'],
     ],
 ];
 write_output(

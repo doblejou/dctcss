@@ -43,4 +43,4 @@ El framework no transpila CSS, no incluye polyfills ni distribuye JavaScript. La
 
 Durante 1.x, clases, tokens, atributos requeridos y nombres de artefacto permanecen compatibles. Las adiciones usan versiones menores, las correcciones versiones patch y los cambios incompatibles requieren una versión mayor.
 
-`1.6.5` es la versión actual. El HTML válido en 1.2.0 continúa siendo válido; la navbar inversa, la elevación de tablas, la elevación hover de botones y el validador son ampliaciones opcionales. La protección de ajuste de texto en tablas y badges no eleva los mínimos de navegador. `1.0.0` fue la primera publicación y el manifiesto `schemaVersion: 2` continúa definiendo el contrato estructurado público de la serie 1.x.
+`1.6.6` es la versión actual. El HTML válido en 1.2.0 continúa siendo válido; la navbar inversa, la elevación de tablas, la elevación hover de botones y el validador son ampliaciones opcionales. La protección de ajuste de texto en tablas y badges no eleva los mínimos de navegador. `1.0.0` fue la primera publicación y el manifiesto `schemaVersion: 2` continúa definiendo el contrato estructurado público de la serie 1.x.

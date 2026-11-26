@@ -5,7 +5,7 @@ declare(strict_types=1);
 $page = [
     'slug' => 'index',
     'title' => 'Framework CSS nativo',
-    'description' => 'Sitio oficial de dctcss {{VERSION}}: framework CSS nativo, accesible, sin JavaScript distribuido y con una API predecible.',
+    'description' => 'dctcss es un framework CSS nativo para construir interfaces con HTML. Incluye componentes, layouts y una guía para trabajar con agentes de IA.',
     'index' => [],
     'indexLabel' => '',
 ];
@@ -18,8 +18,8 @@ $page['content'] = static function (string $version, array $build): void {
         <div class="dct-container site-hero-grid">
           <div class="dct-stack site-hero-copy">
             <p class="site-eyebrow"><span aria-hidden="true"></span>CSS nativo. API estable. v<?= escape($version) ?></p>
-            <h1>Interfaces sólidas.<br><span>Complejidad mínima.</span></h1>
-            <p class="site-hero-lead">Componentes semánticos, layouts modernos y utilidades precisas en un framework CSS sin dependencias de ejecución. Diseñado para equipos humanos y agentes que necesitan resultados predecibles.</p>
+            <h1>CSS nativo y ligero.<br><span>Diseñado para la IA.</span></h1>
+            <p class="site-hero-lead">dctcss es un framework CSS nativo para construir interfaces con HTML. Incluye componentes, layouts y una guía para trabajar con agentes de IA.</p>
             <div class="dct-cluster site-hero-actions">
               <a class="dct-button dct-is-primary dct-is-medium dct-is-fullwidth-mobile" href="downloads/<?= escape($minified['filename']) ?>" download>Descargar CSS</a>
               <a class="dct-button dct-is-medium dct-is-fullwidth-mobile" href="components.html">Ver componentes <span aria-hidden="true">→</span></a>
@@ -27,40 +27,25 @@ $page['content'] = static function (string $version, array $build): void {
             <p class="site-hero-note"><span aria-hidden="true">✓</span> MIT · Sin JavaScript · Listo para producción</p>
           </div>
 
-          <div class="site-product-window" aria-label="Ejemplo de una interfaz creada con dctcss">
-            <div class="site-window-bar" aria-hidden="true">
-              <span></span><span></span><span></span>
-              <p>proyecto / panel.html</p>
-              <strong>CSS</strong>
+          <section class="site-product-window" data-dct-theme="light" aria-labelledby="sample-title">
+            <div class="site-window-bar dct-cluster dct-justify-between"><span>Cuaderno de interfaz</span><span>DCT / UI</span></div>
+            <div class="site-sample-body dct-stack">
+              <p class="site-kicker">Muestra 01 · Componentes</p>
+              <h2 class="dct-title" id="sample-title">Anatomía de un panel</h2>
+              <article class="dct-card dct-is-elevated">
+                <div class="dct-card-body">
+                  <div class="dct-cluster dct-justify-between"><h3 class="dct-card-title">Actividad semanal</h3><span class="dct-badge dct-is-success">Al día</span></div>
+                  <p class="dct-card-content">28 tareas completadas esta semana.</p>
+                  <div class="site-mini-chart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="dct-card-actions dct-cluster"><a class="dct-button dct-is-primary" href="recipes.html#dashboard">Ver receta del panel <span aria-hidden="true">→</span></a></div>
+                </div>
+              </article>
+              <details class="dct-disclosure">
+                <summary class="dct-disclosure-summary">¿Qué piezas utiliza?</summary>
+                <div class="dct-disclosure-content"><p>Una tarjeta agrupa el indicador y su enlace. La insignia muestra el estado y la fila flexible ajusta el título al espacio disponible. El gráfico usa CSS de la aplicación.</p></div>
+              </details>
             </div>
-            <div class="site-window-body">
-              <div class="site-code-pane" aria-hidden="true">
-                <p><span>01</span><b>.dct-card</b> {</p>
-                <p><span>02</span>&nbsp; display: <em>flex</em>;</p>
-                <p><span>03</span>&nbsp; border-radius: <em>var(--radius)</em>;</p>
-                <p><span>04</span>}</p>
-                <p><span>05</span><b>.dct-button.dct-is-primary</b> {</p>
-                <p><span>06</span>&nbsp; background: <em>var(--accent)</em>;</p>
-                <p><span>07</span>&nbsp; color: <em>var(--contrast)</em>;</p>
-                <p><span>08</span>}</p>
-              </div>
-              <div class="site-preview-pane">
-                <p class="site-preview-label">RESULTADO</p>
-                <article class="dct-card dct-is-elevated">
-                  <div class="dct-card-body">
-                    <div class="dct-cluster dct-justify-between">
-                      <span class="dct-badge dct-is-success">Operativo</span>
-                      <span class="dct-meta">Ahora</span>
-                    </div>
-                    <h2 class="dct-card-title">Operaciones</h2>
-                    <p class="dct-card-content">Todo el equipo trabaja sobre una interfaz clara y consistente.</p>
-                    <div class="site-mini-chart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                    <div class="dct-card-actions dct-cluster"><button class="dct-button dct-is-primary dct-is-fullwidth" type="button">Revisar actividad</button></div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
       </section>
 
@@ -84,7 +69,7 @@ $page['content'] = static function (string $version, array $build): void {
           <article class="dct-card site-feature-card site-feature-card-accent"><div class="dct-card-body"><span class="site-feature-number">02</span><h3 class="dct-card-title">Cero JavaScript distribuido</h3><p class="dct-card-content">dctcss se ocupa de presentar. Tu aplicación mantiene el control total de sus datos y comportamiento.</p></div></article>
           <article class="dct-card site-feature-card"><div class="dct-card-body"><span class="site-feature-number">03</span><h3 class="dct-card-title">Accesible por diseño</h3><p class="dct-card-content">Foco visible, semántica, zoom, modo oscuro y contenido estrecho forman parte del contrato.</p></div></article>
           <article class="dct-card site-feature-card"><div class="dct-card-body"><span class="site-feature-number">04</span><h3 class="dct-card-title">API sin colisiones</h3><p class="dct-card-content">Clases, tokens y animaciones propios empiezan por <code>dct-</code>: sabes qué pertenece al framework.</p></div></article>
-          <article class="dct-card site-feature-card site-feature-wide"><div class="dct-card-body"><span class="site-feature-number">05</span><h3 class="dct-card-title">Un contrato que también entienden los agentes</h3><p class="dct-card-content">Inventarios, estructuras, reglas de decisión y límites explícitos eliminan la API imaginada y hacen la integración más predecible.</p><a href="fundamentals.html">Conocer el contrato <span aria-hidden="true">→</span></a></div></article>
+          <article class="dct-card site-feature-card site-feature-wide"><div class="dct-card-body"><span class="site-feature-number">05</span><h3 class="dct-card-title">Del encargo al HTML comprobable</h3><p class="dct-card-content">¿Cómo pedirías a tu agente una ayuda desplegable que funcione con teclado? Sigue el encargo, prueba el resultado y comprueba su estructura.</p><a href="fundamentals.html#trabajar-con-ia">Seguir el ejemplo con IA <span aria-hidden="true">→</span></a></div></article>
         </div>
       </section>
 
@@ -131,7 +116,7 @@ HTML
           <p class="dct-meta">03 / Descargas</p>
           <h2 class="dct-title" id="downloads-title">La release actual, en dos variantes.</h2>
           <p>Descarga la versión actual desde esta web o consulta las <a href="<?= escape(GITHUB_REPOSITORY) ?>/releases">versiones anteriores en GitHub</a>.</p>
-          <p class="dct-text-muted">Estas URLs son <em>latest</em>: siempre contienen la versión publicada más reciente y no son enlaces históricos inmutables. Consulta <a href="release.json"><code>release.json</code></a> para descubrir la versión y <a href="changelog.html">Cambios</a> antes de actualizar. El <a href="downloads/dctcss-validate.php" download>validador PHP</a> y su <a href="downloads/dctcss-api.json" download>manifiesto</a> permiten comprobar HTML consumidor en CI.</p>
+          <p class="dct-text-muted">Estas URLs son <em>latest</em>: siempre contienen la versión publicada más reciente y no son enlaces históricos inmutables. Consulta <a href="release.json"><code>release.json</code></a> para descubrir la versión y <a href="changelog.html">Cambios</a> antes de actualizar.</p>
         </div>
         <div class="dct-grid">
 <?php foreach ([[$minified, 'Producción', 'CSS minificado recomendado'], [$readable, 'Desarrollo', 'CSS legible para inspección']] as [$artifact, $use, $description]): ?>
@@ -154,20 +139,12 @@ HTML
         </div>
       </section>
 
-      <section class="dct-container dct-grid dct-p-6 site-section" aria-labelledby="validator-title">
-        <div class="dct-stack">
-          <p class="dct-meta">04 / Contratos</p>
-          <h2 class="dct-title" id="validator-title">Detecta API inventada antes del navegador.</h2>
-          <p class="dct-text-muted">Coloca el validador junto a <code>dctcss-api.json</code> y pásale un archivo o directorio. Comprueba clases, modificadores, estructura, atributos y referencias estáticas; no sustituye pruebas de accesibilidad o interacción.</p>
-        </div>
-        <?= code_example('validator', 'Shell', 'php dctcss-validate.php ruta/al/html', 'comando del validador de contratos') ?>
-      </section>
-
       <section class="dct-container dct-grid dct-p-6 site-section site-install" id="install" aria-labelledby="install-title">
         <div class="dct-stack">
-          <p class="dct-meta">05 / Inicio rápido</p>
+          <p class="dct-meta">04 / Inicio rápido</p>
           <h2 class="dct-title" id="install-title">Un enlace absoluto y nada más.</h2>
           <p class="dct-text-muted">Carga una sola variante. Personaliza después mediante tokens, sin editar el archivo generado.</p>
+          <p>La skill de dctcss funciona con OpenCode, Codex, Claude Code y otros agentes compatibles con Agent Skills. <a href="fundamentals.html#trabajar-con-ia">Copia las instrucciones para integrar dctcss con tu agente.</a></p>
         </div>
         <?= code_example('install', 'HTML', $install, 'HTML de instalación') ?>
         <aside class="dct-message dct-is-warning" aria-labelledby="browser-support-title">
@@ -180,7 +157,7 @@ HTML
 
       <section class="dct-container dct-grid dct-p-6 site-section site-catalog" aria-labelledby="paths-title">
         <div class="dct-stack">
-          <p class="dct-meta">06 / Catálogo técnico</p>
+          <p class="dct-meta">05 / Catálogo técnico</p>
           <h2 class="dct-title" id="paths-title">Entra por la tarea que necesitas resolver.</h2>
         </div>
         <div class="dct-grid">
@@ -198,7 +175,7 @@ HTML
 
       <section class="dct-container dct-grid dct-p-6 site-section" aria-labelledby="sizes-title">
         <div class="dct-stack">
-          <p class="dct-meta">07 / Comparativa factual</p>
+          <p class="dct-meta">06 / Comparativa factual</p>
           <h2 class="dct-title" id="sizes-title">Cuánto CSS llega realmente.</h2>
           <p class="dct-text-muted">dctcss y las referencias con cifras en bytes son mediciones reproducibles de archivos completos. Los valores con <code>~</code> son rangos orientativos aportados y no se usan para calcular porcentajes. Gzip usa nivel 9 sin nombre ni fecha en la cabecera.</p>
         </div>
