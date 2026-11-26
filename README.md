@@ -119,11 +119,17 @@ SITE_URL=https://dctcss.com
 Desde ese clon ejecuta en cada despliegue:
 
 ```sh
-sh scripts/deploy.sh /srv/www/dctcss
+sh scripts/deploy.sh
 ```
 
-La raíz web se llama **`public/` en los dos entornos**: en local es `public/`
-del proyecto y en el servidor es `/srv/www/dctcss/public`. Configúrala sin
+Sin argumento, el destino es la raíz del clon (el directorio padre de `scripts/`).
+Por ejemplo, ejecutar `./deploy.sh` desde `/var/www/dctcss.com/scripts`
+publica en `/var/www/dctcss.com/public` y guarda las versiones en `.deploy/`.
+Si `public/` ya es un directorio real, el script se detiene sin reemplazarlo.
+También se admite un destino externo: `sh scripts/deploy.sh /srv/www/dctcss`
+publica en `/srv/www/dctcss/public`.
+
+La raíz web se llama **`public/` en los dos entornos**. Configúrala sin
 ejecución de PHP. El destino debe ser escribible por el usuario de despliegue.
 El script usa `git fetch` y construye el commit remoto en un directorio privado
 con el `.env` del servidor (las variables de proceso mantienen su prioridad).
