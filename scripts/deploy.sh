@@ -35,8 +35,7 @@ tar -xf "$work/src.tar" -C "$work/src"
 install -m 600 -- .env "$work/src/.env"
 (
     cd "$work/src"
-    php scripts/validate.php --assert-production
-    make build
+    sh scripts/build.sh --deploy
 )
 
 release=$(mktemp -d -- "$dest/${prefix}release.XXXXXX")

@@ -64,8 +64,14 @@ cleanup() {
   rm -rf -- "$STAGING"
 }
 
+DEPLOY=false
+if [ "${1:-}" = "--deploy" ]; then
+  DEPLOY=true
+  shift
+  php "$SCRIPT_DIR/validate.php" --assert-production
+fi
 if [ "$#" -gt 1 ]; then
-  printf '%s\n' 'Usage: sh scripts/build.sh [OUTPUT_ROOT]' >&2
+  printf '%s\n' 'Usage: sh scripts/build.sh [--deploy] [OUTPUT_ROOT]' >&2
   exit 2
 fi
 if [ "$#" -eq 1 ]; then
@@ -191,7 +197,9 @@ chmod 0755 -- "$STAGE_DIST" "$STAGE_PUBLIC" "$STAGE_PUBLIC/assets" "$STAGE_PUBLI
 chmod 0644 -- "$STAGE_DIST"/* "$STAGE_PUBLIC"/*.html "$STAGE_PUBLIC"/*.txt "$STAGE_PUBLIC"/*.xml "$STAGE_PUBLIC/assets"/* "$STAGE_PUBLIC/downloads"/* "$STAGE_REFERENCES"/*
 
 php "$SCRIPT_DIR/validate.php" "$STAGE_PUBLIC" "$STAGE_DIST" "$SITE_URL" "$STAGE_REFERENCES" >/dev/null
-sh "$SCRIPT_DIR/audit-site.sh" "$STAGE_PUBLIC"
+if [ "$DEPLOY" = false ]; then
+  sh "$SCRIPT_DIR/audit-site.sh" "$STAGE_PUBLIC"
+fi
 
 DIST_DEST="$OUTPUT_ROOT/dist"
 PUBLIC_DEST="$OUTPUT_ROOT/public"
