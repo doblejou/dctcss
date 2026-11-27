@@ -54,9 +54,9 @@ document.addEventListener("click", async (event) => {
     return;
   }
 
-  const dialogButton = event.target.closest("[data-site-dialog-open]");
+  const dialogButton = event.target.closest('button[aria-haspopup="dialog"][aria-controls]');
   if (dialogButton) {
-    const dialog = document.getElementById(dialogButton.dataset.siteDialogOpen);
+    const dialog = document.getElementById(dialogButton.getAttribute("aria-controls"));
     if (dialog instanceof HTMLDialogElement) {
       dialog.addEventListener("close", () => window.setTimeout(() => dialogButton.focus()), { once: true });
       dialog.showModal();
@@ -87,10 +87,3 @@ document.querySelectorAll("[data-site-navbar-toggle]").forEach((toggle) => {
   desktopNavbar.addEventListener("change", syncNavbar);
   syncNavbar();
 });
-
-const applicationDialogTrigger = document.getElementById("application-dialog-trigger");
-const applicationDialog = document.getElementById("application-dialog");
-if (applicationDialogTrigger && applicationDialog instanceof HTMLDialogElement) {
-  applicationDialogTrigger.addEventListener("click", () => applicationDialog.showModal());
-  applicationDialog.addEventListener("close", () => window.setTimeout(() => applicationDialogTrigger.focus()));
-}

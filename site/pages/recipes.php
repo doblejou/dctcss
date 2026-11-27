@@ -17,16 +17,10 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Ejemplos de interfaz</h1>
-  <p>Del componente a la pantalla: así se ven un panel de indicadores, una lista de actividad y un formulario de contacto.</p>
-</header>
-
 <section class="dct-stack" id="dashboard" aria-labelledby="dashboard-title">
   <h2 id="dashboard-title">Panel de indicadores</h2>
   <div class="dct-card">
     <div class="dct-card-body">
-      <style><?= recipe_code_block('Dashboard básico con KPIs', 'css') ?></style>
       <?= inert_html_preview(recipe_code_block('Dashboard básico con KPIs', 'html')) ?>
     </div>
   </div>
@@ -36,7 +30,6 @@ $page['content'] = static function (): void {
   <h2 id="actividad-title">Actividad reciente</h2>
   <div class="dct-card">
     <div class="dct-card-body">
-      <style><?= recipe_code_block('Lista de actividad', 'css') ?></style>
       <?= inert_html_preview(recipe_code_block('Lista de actividad', 'html')) ?>
     </div>
   </div>
@@ -53,7 +46,6 @@ $page['content'] = static function (): void {
 <section class="dct-stack" id="resumen-contenedor" aria-labelledby="resumen-contenedor-title">
   <h2 id="resumen-contenedor-title">Seguimiento de pedidos</h2>
   <p>Compara las dos fichas: cuando hay espacio, los datos de entrega se reparten en dos columnas.</p>
-  <style><?= recipe_code_block('Resumen por contenedor', 'css') ?></style>
   <?= recipe_code_block('Resumen por contenedor', 'html') ?>
 </section>
 

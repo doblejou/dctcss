@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $page = [
     'slug' => 'forms',
-    'title' => 'Formularios',
+    'title' => 'Formularios HTML: campos, etiquetas y validación',
     'description' => 'Prueba los campos de un perfil, elige cómo recibir novedades y compara un dato válido con otro que necesita corrección.',
     'index' => [
         'controles' => 'Datos del perfil',
@@ -16,11 +16,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Formularios</h1>
-  <p>Prueba los campos de un perfil, elige cómo recibir novedades y compara un dato válido con otro que necesita corrección.</p>
-</header>
-
 <section class="dct-stack" id="controles" aria-labelledby="controles-title">
   <h2 id="controles-title">Datos del perfil</h2>
   <div class="dct-card">

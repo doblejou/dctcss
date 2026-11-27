@@ -67,9 +67,11 @@ function artifact_metadata(string $directory, string $filename): array
     return ['filename' => $filename, 'bytes' => $bytes, 'gzipBytes' => strlen($gzip), 'sha256' => $sha256];
 }
 
-function read_benchmarks(string $path): array
+function read_benchmarks(string $path, string $version, array $minified): array
 {
     $rows = [];
+    $rows[] = ['name' => 'dctcss', 'version' => $version, 'bytes' => $minified['bytes'],
+        'gzipBytes' => $minified['gzipBytes'], 'measurement' => 'Build actual', 'sortBytes' => $minified['bytes']];
     foreach (preg_split('/\R/', read_required_file($path, 'benchmark file')) ?: [] as $line) {
         $line = trim($line);
         if ($line === '' || str_starts_with($line, '#')) {
@@ -79,8 +81,25 @@ function read_benchmarks(string $path): array
         if (count($fields) !== 5 || in_array('', $fields, true)) {
             throw new RuntimeException("Invalid benchmark row: $line");
         }
-        $rows[] = ['name' => $fields[0], 'version' => $fields[1], 'bytes' => $fields[2], 'gzipBytes' => $fields[3]];
+        [$name, $release, $bytes, $gzipBytes] = $fields;
+        $measurement = 'Referencia fijada';
+        $sortBytes = (int) $bytes;
+        if ($bytes === 'variable')
+        {
+            $measurement = 'Depende del proyecto';
+            $sortBytes = PHP_INT_MAX;
+        }
+        elseif (preg_match('/^~(\d+)(?:-\d+)? KB$/', $bytes, $range))
+        {
+            $measurement = 'Estimación';
+            $sortBytes = (int) $range[1] * 1000;
+        }
+
+        $rows[] = ['name' => $name, 'version' => $release, 'bytes' => $bytes,
+            'gzipBytes' => $gzipBytes, 'measurement' => $measurement, 'sortBytes' => $sortBytes];
     }
+
+    usort($rows, static fn(array $a, array $b): int => $a['sortBytes'] <=> $b['sortBytes']);
     return $rows;
 }
 
@@ -150,7 +169,7 @@ $build = [
     'cssMinified' => $cssMinified,
     'changelog' => $changelog,
     'releaseDate' => current_release_date($changelog, $version),
-    'benchmarks' => read_benchmarks($projectRoot . '/benchmarks/framework-sizes.txt'),
+    'benchmarks' => read_benchmarks($projectRoot . '/benchmarks/framework-sizes.txt', $version, $cssMinified),
     'browserMinimums' => read_browser_minimums($projectRoot . '/COMPATIBILITY.md'),
 ];
 
@@ -171,6 +190,14 @@ foreach (array_keys(SITE_PAGES) as $slug) {
 }
 
 $sitemapUrl = $siteUrl . '/sitemap.xml';
+$recipeStyles = [];
+foreach (['Dashboard básico con KPIs', 'Lista de actividad', 'Resumen por contenedor'] as $heading)
+{
+    $recipeStyles[] = recipe_code_block($heading, 'css');
+}
+
+write_output($outputDirectory . '/assets/recipes.css', implode("\n\n", $recipeStyles) . "\n");
+
 write_output($outputDirectory . '/robots.txt', "User-agent: *\nAllow: /\nSitemap: $sitemapUrl\n");
 
 $locations = [];

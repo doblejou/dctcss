@@ -47,9 +47,9 @@ $probe = <<<'"'"'HTML'"'"'
       interactionDetails.navbar = toggle.getAttribute("aria-expanded") === "true" && Boolean(menu) && !menu.hidden;
       interactions = interactions && interactionDetails.navbar;
     }
-    const dialogButton = document.querySelector("[data-site-dialog-open]");
+    const dialogButton = document.querySelector("button[aria-haspopup=dialog][aria-controls]");
     if (dialogButton) {
-      const dialog = document.getElementById(dialogButton.dataset.siteDialogOpen);
+      const dialog = document.getElementById(dialogButton.getAttribute("aria-controls"));
       dialogButton.click();
       interactionDetails.dialogOpened = dialog?.open === true;
       interactions = interactions && interactionDetails.dialogOpened;

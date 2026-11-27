@@ -281,13 +281,13 @@ Los KPI son artículos de aplicación compuestos con card; sus clases `app-*` no
     <h1 class="dct-title">Resumen operativo</h1>
   </header>
   <section class="app-kpi-grid" aria-label="Indicadores principales">
-    <article class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Proyectos activos</p><p class="app-kpi__value">24</p><p class="dct-card-content">Tres requieren atención esta semana.</p></div></article>
-    <article class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Entregas en plazo</p><p class="app-kpi__value">92 %</p><p class="dct-card-content">Dos puntos más que el mes anterior.</p></div></article>
-    <article class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Revisiones abiertas</p><p class="app-kpi__value">7</p><p class="dct-card-content">La revisión más antigua lleva cuatro días.</p></div></article>
+    <div class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Proyectos activos</p><p class="app-kpi__value">24</p><p class="dct-card-content">Tres requieren atención esta semana.</p></div></div>
+    <div class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Entregas en plazo</p><p class="app-kpi__value">92 %</p><p class="dct-card-content">Dos puntos más que el mes anterior.</p></div></div>
+    <div class="app-kpi dct-card"><div class="dct-card-body"><p class="dct-meta">Revisiones abiertas</p><p class="app-kpi__value">7</p><p class="dct-card-content">La revisión más antigua lleva cuatro días.</p></div></div>
   </section>
   <section class="dct-stack" aria-labelledby="dashboard-work-title">
     <h2 class="dct-title" id="dashboard-work-title">Trabajo prioritario</h2>
-    <aside class="dct-message dct-is-warning" aria-labelledby="dashboard-warning-title"><div class="dct-message-body"><h3 class="dct-message-title" id="dashboard-warning-title">Una entrega está bloqueada</h3><p class="dct-message-content">Atlas necesita aprobación legal antes del viernes.</p></div></aside>
+    <aside class="dct-message dct-is-warning" aria-labelledby="dashboard-warning-title"><div class="dct-message-body"><p class="dct-message-title" id="dashboard-warning-title">Una entrega está bloqueada</p><p class="dct-message-content">Atlas necesita aprobación legal antes del viernes.</p></div></aside>
   </section>
 </main>
 ```

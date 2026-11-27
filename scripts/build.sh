@@ -191,6 +191,7 @@ chmod 0755 -- "$STAGE_DIST" "$STAGE_PUBLIC" "$STAGE_PUBLIC/assets" "$STAGE_PUBLI
 chmod 0644 -- "$STAGE_DIST"/* "$STAGE_PUBLIC"/*.html "$STAGE_PUBLIC"/*.txt "$STAGE_PUBLIC"/*.xml "$STAGE_PUBLIC/assets"/* "$STAGE_PUBLIC/downloads"/* "$STAGE_REFERENCES"/*
 
 php "$SCRIPT_DIR/validate.php" "$STAGE_PUBLIC" "$STAGE_DIST" "$SITE_URL" "$STAGE_REFERENCES" >/dev/null
+sh "$SCRIPT_DIR/audit-site.sh" "$STAGE_PUBLIC"
 
 DIST_DEST="$OUTPUT_ROOT/dist"
 PUBLIC_DEST="$OUTPUT_ROOT/public"

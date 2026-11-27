@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $page = [
     'slug' => 'components',
-    'title' => 'Componentes',
+    'title' => 'Componentes CSS para un panel de proyectos',
     'description' => 'Botones, tarjetas e indicadores para un panel de proyectos. Abre los detalles o prueba el diálogo de confirmación.',
     'index' => [
         'button' => 'Acciones',
@@ -18,11 +18,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Componentes</h1>
-  <p>Botones, tarjetas e indicadores para un panel de proyectos. Abre los detalles o prueba el diálogo de confirmación.</p>
-</header>
-
 <section class="dct-stack" id="button" aria-labelledby="button-title">
   <h2 id="button-title">Acciones</h2>
   <div class="dct-card">
@@ -121,7 +116,7 @@ $page['content'] = static function (): void {
   <h2 id="dialog-title">Confirmación</h2>
   <div class="dct-card">
     <div class="dct-card-body">
-      <button class="dct-button dct-is-danger" type="button" data-site-dialog-open="confirm-dialog">Eliminar proyecto</button>
+      <button class="dct-button dct-is-danger" type="button" aria-haspopup="dialog" aria-controls="confirm-dialog">Eliminar proyecto</button>
       <dialog class="dct-dialog" id="confirm-dialog" aria-labelledby="confirm-dialog-title">
         <header class="dct-dialog-header">
           <h3 class="dct-dialog-title" id="confirm-dialog-title">Confirmar eliminación</h3></header>

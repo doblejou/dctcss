@@ -137,11 +137,24 @@ Necesita Git, `flock` y las herramientas de `make build`, incluido el
 minificador de `/opt/dctfrw/`. El servidor comprueba la configuración de
 producción y el build valida los artefactos antes de activarlos. Ejecuta
 `make check-release` durante la preparación de la publicación; el despliegue
-no repite esa suite ni requiere Node, Playwright o Gitleaks.
+no repite esa suite ni requiere Gitleaks.
 Solo cambia el enlace `public` después de pasar las comprobaciones. Si el
 servidor ya apunta a `current`, realiza un despliegue con este script y cambia
 la raíz web a `public`. Conserva las
 publicaciones anteriores en `release.*`; se pueden retirar las que ya no se usen.
+
+### Auditoría obligatoria del build
+
+Cada build regenera `robots.txt` y `sitemap.xml` con `SITE_URL`. Antes de activar la salida, Nu HTML Checker valida todas las páginas (los avisos también bloquean) y axe-core las revisa en Chromium a 320 y 1440 px. También se comprueba que no haya desplazamiento horizontal de página y que Tab y Enter permitan saltar directamente al contenido principal. Un fallo o la ausencia de una herramienta detiene el build. Los distintivos del pie describen estas pruebas automáticas; la evaluación con lectores de pantalla y personas usuarias sigue siendo manual.
+
+El build usa `/opt/dctserver/scripts/dct_vnu/dct_vnu_validate_html.sh` con Java 21. El script descarga `vnu.jar` en la primera ejecución y lo reutiliza desde `${XDG_CACHE_HOME:-$HOME/.cache}/dctcss/vnu.jar`. Para construir sin red, aprovisiona ese fichero de antemano. Node, npm, Playwright y Chromium se usan para la accesibilidad. Con Playwright instalado globalmente, prepara axe y Chromium como el usuario que ejecuta el build:
+
+```sh
+npm install --prefix "$HOME/.local/share/dctcss-audit" --ignore-scripts axe-core@4.14.1
+playwright install chromium
+```
+
+Para otra ubicación, define `DCTCSS_AUDIT_MODULES` con la ruta a `node_modules`. Para repetir solo la auditoría: `sh scripts/audit-site.sh public`.
 
 ### Despliegue manual
 

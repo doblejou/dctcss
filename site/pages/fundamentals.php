@@ -16,11 +16,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Empezar con tu agente</h1>
-  <p>Cuéntale a tu agente qué interfaz necesitas. La skill le enseña a elegir los componentes de dctcss y combinarlos en tu proyecto.</p>
-</header>
-
 <section class="dct-stack" id="trabajar-con-ia" aria-labelledby="trabajar-con-ia-title">
   <h2 id="trabajar-con-ia-title">Instalar la skill</h2>
   <p>Abre tu proyecto y pega este mensaje en tu agente:</p>

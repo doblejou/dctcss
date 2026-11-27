@@ -17,7 +17,7 @@ $page['content'] = static function (string $version, array $build): void {
         <div class="dct-container site-hero-grid">
           <div class="dct-stack site-hero-copy">
             <p class="site-eyebrow"><span aria-hidden="true"></span>CSS nativo. API estable. v<?= escape($version) ?></p>
-            <h1>CSS nativo y ligero.<br><span>Diseñado para la IA.</span></h1>
+            <h1>dctcss: CSS nativo y ligero.<br><span>Diseñado para la IA.</span></h1>
             <p class="site-hero-lead">Describe la pantalla que necesitas. Tu agente consulta la skill de dctcss para elegir los componentes y darles un estilo coherente con una sola hoja de CSS.</p>
             <div class="dct-cluster site-hero-actions">
               <a class="dct-button dct-is-primary dct-is-medium dct-is-fullwidth-mobile" href="#uso-con-ia">Ver el prompt para mi agente de IA</a>
@@ -48,14 +48,14 @@ $page['content'] = static function (string $version, array $build): void {
         </div>
       </section>
 
-      <div class="site-proof" aria-label="Datos principales de dctcss">
+      <section class="site-proof" aria-label="Datos principales de dctcss">
         <div class="dct-container site-proof-grid">
           <p><strong>0</strong><span>JavaScript distribuido</span></p>
           <p><strong>0</strong><span>Dependencias runtime</span></p>
           <p><strong>dct-</strong><span>Prefijo sin colisiones</span></p>
           <p><strong><?= escape($version) ?></strong><span>Release estable</span></p>
         </div>
-      </div>
+      </section>
 
       <section class="dct-container site-section site-benefits" aria-labelledby="benefits-title">
         <div class="site-section-heading">
@@ -143,15 +143,15 @@ $page['content'] = static function (string $version, array $build): void {
           <h2 class="dct-title" id="sizes-title">¿Cuánto pesa el CSS?</h2>
           <p><strong><?= comparison_size($minified['bytes']) ?></strong> minificado · <?= comparison_size($minified['gzipBytes']) ?> con gzip.</p>
           <p class="dct-text-muted">1 KB = 1000 bytes. Las mediciones se redondean a dos decimales; <code>~</code> indica una estimación. Gzip usa el nivel 9.</p>
+          <p>De menor a mayor tamaño minificado sin gzip. Los rangos se ordenan por su límite inferior. Solo dctcss se mide en cada build; las referencias externas son del 28 de julio de 2026.</p>
         </div>
         <div class="dct-table-wrap" tabindex="0" role="region" aria-label="Comparativa de tamaños CSS minificados">
           <table class="dct-table dct-is-striped dct-is-hoverable site-size-table">
             <caption class="dct-table-caption">CSS completo, sin JavaScript, iconos ni fuentes</caption>
             <thead><tr><th scope="col">Framework</th><th scope="col">Versión</th><th class="dct-is-numeric" scope="col">CSS minificado</th><th class="dct-is-numeric" scope="col">Con gzip</th><th scope="col">Medición</th></tr></thead>
             <tbody>
-              <tr class="dct-is-selected"><th scope="row">dctcss</th><td><?= escape($version) ?></td><td class="dct-is-numeric"><?= comparison_size($minified['bytes']) ?></td><td class="dct-is-numeric"><?= comparison_size($minified['gzipBytes']) ?></td><td>Build actual</td></tr>
 <?php foreach ($build['benchmarks'] as $benchmark): ?>
-              <tr><th scope="row"><?= escape($benchmark['name']) ?></th><td><?= escape($benchmark['version']) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['bytes'])) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['gzipBytes'])) ?></td><td><?= ctype_digit($benchmark['bytes']) ? 'Referencia fijada' : ($benchmark['bytes'] === 'variable' ? 'Depende del proyecto' : 'Rango orientativo') ?></td></tr>
+              <tr<?= $benchmark['name'] === 'dctcss' ? ' class="dct-is-selected"' : '' ?>><th scope="row"><?= escape($benchmark['name']) ?></th><td><?= escape($benchmark['version']) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['bytes'])) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['gzipBytes'])) ?></td><td><?= escape($benchmark['measurement']) ?></td></tr>
 <?php endforeach; ?>
             </tbody>
           </table>

@@ -18,7 +18,7 @@ function validate_public(
     sort($slugs);
     $pageNames = array_map(static fn(string $slug): string => "$slug.html", $slugs);
     exact_set(directory_entries($publicDirectory), array_merge($pageNames, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml']), 'Public root entries');
-    exact_set(directory_entries("$publicDirectory/assets"), ['site.css', 'site.js', 'favicon.svg'], 'Public assets');
+    exact_set(directory_entries("$publicDirectory/assets"), ['site.css', 'recipes.css', 'site.js', 'favicon.svg'], 'Public assets');
     $cssName = $manifest['artifacts']['css'];
     $minifiedName = $manifest['artifacts']['cssMinified'];
     $apiName = $manifest['artifacts']['api'];
@@ -102,6 +102,8 @@ function validate_public(
         $idsByPage[$slug] = $ids;
     }
 
+    $titles = array();
+    $descriptions = array();
     foreach ($documents as $slug => $document) {
         $path = "$publicDirectory/$slug.html";
         $ids = $idsByPage[$slug];
@@ -117,6 +119,19 @@ function validate_public(
         }
         $description = $descriptionNodes->item(0)?->getAttribute('content') ?? '';
         $title = $titleNodes->item(0)?->textContent ?? '';
+        if (trim($title) === '' || isset($titles[$title]) || trim($description) === '' || isset($descriptions[$description]))
+        {
+            fail("Each page needs a unique, nonempty title and description: $path");
+        }
+
+        $titles[$title] = true;
+        $descriptions[$description] = true;
+        if ($xpath->evaluate('count(//main)') !== 1.0 || $xpath->evaluate('count(//h1)') !== 1.0
+            || $xpath->evaluate('count(//main//h1[normalize-space()])') !== 1.0)
+        {
+            fail("Expected one main landmark containing the page heading: $path");
+        }
+
         $expectedOg = ['og:type' => 'website', 'og:title' => $title, 'og:description' => $description, 'og:url' => $canonical];
         foreach ($expectedOg as $property => $expected) {
             $nodes = $xpath->query('//meta[@property="' . $property . '"]');

@@ -70,7 +70,7 @@ sed 's#<div class="dct-main dct-stack">#<main class="dct-main dct-stack">#' "$BU
 expect_failure 'a nested main landmark' php "$SCRIPT_DIR/validate.php" "$TEMP_DIR/public-nested-main" "$BUILD_ONE/dist" "$SITE_URL" "$ROOT_DIR/skills/dctcss/references"
 
 cp -R -- "$BUILD_ONE/public" "$TEMP_DIR/public-active-form"
-sed 's#<h2 class="dct-card-title" id="application-settings-title">Filtros del informe</h2><div>#<h2 class="dct-card-title" id="application-settings-title">Filtros del informe</h2><form action="/missing">#' "$BUILD_ONE/public/application.html" > "$TEMP_DIR/public-active-form/application.html"
+sed 's#\(id="application-settings-title">Filtros del informe</h[1-6]>\)<div>#\1<form action="/missing">#' "$BUILD_ONE/public/application.html" > "$TEMP_DIR/public-active-form/application.html"
 expect_failure 'a navigable reference application form' php "$SCRIPT_DIR/validate.php" "$TEMP_DIR/public-active-form" "$BUILD_ONE/dist" "$SITE_URL" "$ROOT_DIR/skills/dctcss/references"
 
 cp -R -- "$ROOT_DIR/skills/dctcss/references" "$TEMP_DIR/references"

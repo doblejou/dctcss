@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $page = [
     'slug' => 'layout',
-    'title' => 'Distribución de página',
+    'title' => 'Distribución de página con Grid y Flexbox',
     'description' => 'Una misma pantalla puede reunir una cuadrícula de proyectos, una fila de acciones y ajustes en columna. Reduce el ancho para ver cómo se reorganizan.',
     'index' => [
         'grid' => 'Resumen de proyectos',
@@ -15,11 +15,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Distribución de página</h1>
-  <p>Una misma pantalla puede reunir una cuadrícula de proyectos, una fila de acciones y ajustes en columna. Reduce el ancho para ver cómo se reorganizan.</p>
-</header>
-
 <section class="dct-stack" id="grid" aria-labelledby="grid-title">
   <h2 id="grid-title">Resumen de proyectos</h2>
   <div class="dct-card">

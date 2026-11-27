@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $page = [
     'slug' => 'utilities',
-    'title' => 'Detalles de diseño',
+    'title' => 'Utilidades CSS de alineación, espacio y ancho',
     'description' => 'La alineación, el espacio entre acciones y el reparto del ancho ayudan a leer una pantalla de un vistazo.',
     'index' => [
         'texto' => 'Alineación del texto',
@@ -15,11 +15,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Detalles de diseño</h1>
-  <p>La alineación, el espacio entre acciones y el reparto del ancho ayudan a leer una pantalla de un vistazo.</p>
-</header>
-
 <section class="dct-stack" id="texto" aria-labelledby="texto-title">
   <h2 id="texto-title">Alineación del texto</h2>
   <div class="dct-card">

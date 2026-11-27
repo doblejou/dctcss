@@ -58,11 +58,11 @@ for theme in light dark; do
 $html = file_get_contents($argv[1]);
 $base = "file://" . rtrim((string) realpath($argv[2]), DIRECTORY_SEPARATOR) . "/";
 $theme = $argv[3];
-$html = str_replace("<html ", "<html data-dct-theme=\"" . htmlspecialchars($theme, ENT_QUOTES) . "\" ", $html);
 $html = str_replace("<head>", "<head>\n    <base href=\"" . htmlspecialchars($base, ENT_QUOTES) . "\">", $html);
 $document = new DOMDocument();
 libxml_use_internal_errors(true);
 $document->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+$document->documentElement->setAttribute("data-dct-theme", $theme);
 libxml_clear_errors();
 $target = $document->getElementById("application-preview");
 $body = $document->getElementsByTagName("body")->item(0);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $page = [
     'slug' => 'navigation',
-    'title' => 'Navegación',
+    'title' => 'Navegación: rutas, pestañas y paginación',
     'description' => 'Tres maneras de orientarse: volver a una sección anterior, moverse entre apartados y recorrer una lista por páginas.',
     'index' => [
         'breadcrumb' => 'Ruta del proyecto',
@@ -15,11 +15,6 @@ $page = [
 ];
 $page['content'] = static function (): void {
 ?>
-<header class="dct-stack">
-  <h1 class="dct-display">Navegación</h1>
-  <p>Tres maneras de orientarse: volver a una sección anterior, moverse entre apartados y recorrer una lista por páginas.</p>
-</header>
-
 <section class="dct-stack" id="breadcrumb" aria-labelledby="breadcrumb-title">
   <h2 id="breadcrumb-title">Ruta del proyecto</h2>
   <div class="dct-card">
@@ -63,7 +58,7 @@ $page['content'] = static function (): void {
       <nav class="dct-pagination" aria-label="Paginación de resultados">
         <ul class="dct-pagination-list">
           <li>
-            <span class="dct-pagination-link" aria-disabled="true">Anterior</span></li>
+            <span class="dct-pagination-link" role="link" aria-disabled="true">Anterior</span></li>
           <li>
             <a class="dct-pagination-link" href="#pagination" aria-current="page">1</a></li>
           <li>
