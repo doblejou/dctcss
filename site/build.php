@@ -72,7 +72,13 @@ function read_benchmarks(string $path, string $version, array $minified): array
     $rows = [];
     $rows[] = ['name' => 'dctcss', 'version' => $version, 'bytes' => $minified['bytes'],
         'gzipBytes' => $minified['gzipBytes'], 'measurement' => 'Build actual', 'sortBytes' => $minified['bytes']];
-    foreach (preg_split('/\R/', read_required_file($path, 'benchmark file')) ?: [] as $line) {
+    $snapshot = read_required_file($path, 'benchmark file');
+    if (!preg_match('/^# measured-at: (\d{4}-\d{2}-\d{2})$/m', $snapshot, $date))
+    {
+        throw new RuntimeException('Missing benchmark measurement date.');
+    }
+
+    foreach (preg_split('/\R/', $snapshot) ?: [] as $line) {
         $line = trim($line);
         if ($line === '' || str_starts_with($line, '#')) {
             continue;
@@ -89,18 +95,13 @@ function read_benchmarks(string $path, string $version, array $minified): array
             $measurement = 'Depende del proyecto';
             $sortBytes = PHP_INT_MAX;
         }
-        elseif (preg_match('/^~(\d+)(?:-\d+)? KB$/', $bytes, $range))
-        {
-            $measurement = 'Estimación';
-            $sortBytes = (int) $range[1] * 1000;
-        }
 
         $rows[] = ['name' => $name, 'version' => $release, 'bytes' => $bytes,
             'gzipBytes' => $gzipBytes, 'measurement' => $measurement, 'sortBytes' => $sortBytes];
     }
 
     usort($rows, static fn(array $a, array $b): int => $a['sortBytes'] <=> $b['sortBytes']);
-    return $rows;
+    return ['date' => $date[1], 'rows' => $rows];
 }
 
 function read_browser_minimums(string $path): array

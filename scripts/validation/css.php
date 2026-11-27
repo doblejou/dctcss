@@ -211,22 +211,12 @@ function validate_benchmarks(string $path): void
         if (isset($rows[$name])) {
             fail("Duplicate benchmark: $name");
         }
-        $isApproximate = str_starts_with($size, '~');
-        if ($isApproximate && preg_match('/^(?:\d+\.\d+(?:\.\d+)?|\d+\.x)$/', $version) !== 1) {
-            fail("Invalid approximate benchmark version for $name.");
-        }
-        if (!$isApproximate && preg_match('/^\d+\.\d+\.\d+$/', $version) !== 1 && !($name === 'Tailwind CSS' && $version === '4.x')) {
+        if (preg_match('/^\d+\.\d+\.\d+$/', $version) !== 1) {
             fail("Invalid benchmark version for $name.");
         }
         if ($name === 'Tailwind CSS') {
             if ($size !== 'variable' || $gzipSize !== 'variable' || preg_match('~^https?://~i', $reference) === 1) {
                 fail('Tailwind CSS must use a variable size and explanatory reference.');
-            }
-        } elseif ($isApproximate) {
-            if (preg_match('/^~[0-9]+(?:-[0-9]+)? KB$/', $size) !== 1
-                || preg_match('/^~[0-9]+(?:-[0-9]+)? KB$/', $gzipSize) !== 1
-                || !str_starts_with($reference, 'comparison-image-2026-07-28:')) {
-                fail("Approximate benchmark $name requires ranges and recorded provenance.");
             }
         } elseif (preg_match('/^[1-9][0-9]*$/', $size) !== 1
             || preg_match('/^[1-9][0-9]*$/', $gzipSize) !== 1

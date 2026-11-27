@@ -183,7 +183,7 @@ Consulta la [política verificable de compatibilidad](COMPATIBILITY.md). dctcss 
 
 ## Comparativa de tamaño
 
-Cada build compara CSS minificado sin gzip y muestra también el tamaño con gzip nivel 9. Las versiones, procedencia y comprobaciones están en [benchmarks/framework-sizes.txt](benchmarks/framework-sizes.txt); el build imprime el tamaño actual de dctcss y la comparación. Las referencias no se descargan durante el build normal, los rangos orientativos no generan porcentajes y Tailwind se trata como variable, no como una cifra universal.
+`make refresh-benchmarks` consulta la versión `latest` en npm y descarga el CSS minificado de cada framework desde una URL con versión fija. Guarda fecha, bytes, tamaño con gzip nivel 9 y SHA-256 en [benchmarks/framework-sizes.txt](benchmarks/framework-sizes.txt). En Tailwind solo registra la versión: el CSS depende del proyecto. `make build` usa esa instantánea sin red para la comparativa y mide el artefacto actual de dctcss.
 
 ## Licencia
 

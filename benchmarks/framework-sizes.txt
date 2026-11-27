@@ -1,20 +1,22 @@
 # name|version|minified_size|gzip_size|reference
-# Procedimiento manual (fuera del build): descargar cada reference con
-# curl -fL --proto '=https' --tlsv1.2 URL -o FILE; ejecutar wc -c FILE,
-# gzip -n -9 -c FILE | wc -c y sha256sum FILE.
-# Referencias exactas descargadas y comprobadas el 2026-07-28.
-# Los rangos con ~ proceden de la comparativa facilitada por el responsable del proyecto el 2026-07-28.
-# No son mediciones reproducibles ni se usan para calcular porcentajes.
-Pure.css|3.0|~17 KB|~4-5 KB|comparison-image-2026-07-28:Pure.css
+# measured-at: 2026-11-27
+# Repetir con: make refresh-benchmarks
+# Verificación: curl -fL --proto '=https' --tlsv1.2 URL -o FILE
+# wc -c FILE; gzip -n -9 -c FILE | wc -c; sha256sum FILE
+# sha256 Pure.css 3.1.0: 09e55dd770f449aabdb59ac23f60d0c04f3f5bc755a2117bcedfac5625e53a91
+Pure.css|3.1.0|15719|3568|https://cdn.jsdelivr.net/npm/purecss@3.1.0/build/pure-min.css
 # sha256 Pico 2.1.1: fbc9a63fc9fc9f72d12fd7fc9806e11fa9f77ae4f9cad146b27003a1119ba3db
 Pico|2.1.1|83319|11617|https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css
-Spectre.css|0.5.9|~110 KB|~14-18 KB|comparison-image-2026-07-28:Spectre.css
-# sha256 Bootstrap 5.3.7: cd1826581e4f2b80af4f1e05897b316c7698441063cffaefbbdeec382ee4cd72
-Bootstrap|5.3.7|232018|30742|https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-Foundation|6.9|~160-170 KB|~20-25 KB|comparison-image-2026-07-28:Foundation
+# sha256 Spectre.css 0.5.9: beb6e5817e7f1f16be8426abc571e4882ee5bfdbf3d24de63623ca5018d8f7aa
+Spectre.css|0.5.9|46656|9714|https://cdn.jsdelivr.net/npm/spectre.css@0.5.9/dist/spectre.min.css
+# sha256 Bootstrap 5.3.9: 9caac977a0af0c2229abd397eee3345899c4020da2a1a0b711c1cc543fe3719d
+Bootstrap|5.3.9|232360|30794|https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css
+# sha256 Foundation 6.9.0: c500decbe33468e54180f1b6238850d810e85dcdfbea7f87f56bcb17051a51e4
+Foundation|6.9.0|131304|17563|https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css
 # sha256 Bulma 1.0.4: 67fa26df1ca9e95d8f2adc7c04fa1b15fa3d24257470ebc10cc68b9aab914bee
 Bulma|1.0.4|677931|65205|https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css
-Materialize|2.3|~200-250 KB|~30-40 KB|comparison-image-2026-07-28:Materialize
-UIkit|3.x|~260-300 KB|~40-50 KB|comparison-image-2026-07-28:UIkit
-# Tailwind no tiene un archivo universal: se mide la salida de cada proyecto, por eso no hay URL ni digest.
-Tailwind CSS|4.x|variable|variable|El tamaño depende de las clases detectadas y la configuración del proyecto.
+# sha256 Materialize 2.4.0: 8cb7d8fc1898c89ee1a08630c4056eacf07d5c905be653e5c42f4f88bc65c961
+Materialize|2.4.0|125931|20075|https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.4.0/dist/css/materialize.min.css
+# sha256 UIkit 3.25.31: a5598a43a9999156fcfc7c5175fb3bcda063228266141ac7a0441552280f6cf0
+UIkit|3.25.31|283830|30931|https://cdn.jsdelivr.net/npm/uikit@3.25.31/dist/css/uikit.min.css
+Tailwind CSS|4.3.5|variable|variable|El tamaño depende del CSS generado para cada proyecto.

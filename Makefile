@@ -1,4 +1,7 @@
-.PHONY: build check check-release contract-test config-test visual-check serve github-release
+.PHONY: build check check-release contract-test config-test visual-check serve github-release refresh-benchmarks
+
+refresh-benchmarks:
+	sh scripts/refresh-benchmarks.sh
 
 build:
 	sh scripts/build.sh

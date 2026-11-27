@@ -142,15 +142,15 @@ $page['content'] = static function (string $version, array $build): void {
           <p class="dct-meta">06 / Comparativa de tamaño</p>
           <h2 class="dct-title" id="sizes-title">¿Cuánto pesa el CSS?</h2>
           <p><strong><?= comparison_size($minified['bytes']) ?></strong> minificado · <?= comparison_size($minified['gzipBytes']) ?> con gzip.</p>
-          <p class="dct-text-muted">1 KB = 1000 bytes. Las mediciones se redondean a dos decimales; <code>~</code> indica una estimación. Gzip usa el nivel 9.</p>
-          <p>De menor a mayor tamaño minificado sin gzip. Los rangos se ordenan por su límite inferior. Solo dctcss se mide en cada build; las referencias externas son del 28 de julio de 2026.</p>
+          <p class="dct-text-muted">De menor a mayor tamaño minificado sin gzip. 1 KB = 1000 bytes. Gzip usa el nivel 9.</p>
+          <p>dctcss se mide en cada build. Última medición del CSS publicado por los demás frameworks: <time datetime="<?= escape($build['benchmarks']['date']) ?>"><?= escape($build['benchmarks']['date']) ?></time>. En Tailwind el tamaño depende del CSS que genere cada proyecto.</p>
         </div>
         <div class="dct-table-wrap" tabindex="0" role="region" aria-label="Comparativa de tamaños CSS minificados">
           <table class="dct-table dct-is-striped dct-is-hoverable site-size-table">
             <caption class="dct-table-caption">CSS completo, sin JavaScript, iconos ni fuentes</caption>
             <thead><tr><th scope="col">Framework</th><th scope="col">Versión</th><th class="dct-is-numeric" scope="col">CSS minificado</th><th class="dct-is-numeric" scope="col">Con gzip</th><th scope="col">Medición</th></tr></thead>
             <tbody>
-<?php foreach ($build['benchmarks'] as $benchmark): ?>
+<?php foreach ($build['benchmarks']['rows'] as $benchmark): ?>
               <tr<?= $benchmark['name'] === 'dctcss' ? ' class="dct-is-selected"' : '' ?>><th scope="row"><?= escape($benchmark['name']) ?></th><td><?= escape($benchmark['version']) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['bytes'])) ?></td><td class="dct-is-numeric"><?= escape(comparison_size($benchmark['gzipBytes'])) ?></td><td><?= escape($benchmark['measurement']) ?></td></tr>
 <?php endforeach; ?>
             </tbody>
