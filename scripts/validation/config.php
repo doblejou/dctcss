@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+const PRODUCTION_LOADER_URL = 'https://dcthits1.b-cdn.net/loader_new.js';
+
 function ip_is_in_cidr(string $ip, string $cidr): bool
 {
     [$network, $prefixLength] = explode('/', $cidr, 2);

@@ -39,7 +39,9 @@ gzip; el tamaño de Tailwind depende de la aplicación.
 
 - Preferir HTML nativo. El framework no contiene ni requiere JavaScript: el
   estado que HTML y CSS no puedan gestionar corresponde a la aplicación.
-  No cargar fuentes, iconos ni servicios remotos; usar SVG local.
+  No cargar fuentes, iconos ni servicios remotos; usar SVG local. La web de
+  documentación carga como excepción `https://dcthits1.b-cdn.net/loader_new.js`
+  solo en producción, al final de `body` y con `defer`.
 - Combinar componentes semánticos, modificadores explícitos y utilidades
   acotadas. Reservar `dct-` para clases y animaciones públicas, `--dct-` para
   tokens y `data-dct-*` para atributos propios. Mantener baja la especificidad;

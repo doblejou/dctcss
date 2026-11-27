@@ -355,6 +355,9 @@ function render_page(array $page, array $build): string
       </div>
     </footer>
     <p class="dct-sr-only" role="status" aria-live="polite" data-site-status></p>
+<?php if ($build['production']): ?>
+    <script defer src="<?= escape(PRODUCTION_LOADER_URL) ?>"></script>
+<?php endif; ?>
   </body>
 </html>
 <?php

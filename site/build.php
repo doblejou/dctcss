@@ -106,7 +106,8 @@ function write_output(string $path, string $contents): void
     chmod($path, 0644);
 }
 
-validate_site_url($siteUrl);
+$environment = load_site_config($projectRoot)['environment'];
+validate_site_url($siteUrl, $environment);
 
 $version = trim(read_required_file($projectRoot . '/VERSION', 'VERSION'));
 if (!preg_match('/^\d+\.\d+\.\d+$/', $version)) {
@@ -131,6 +132,7 @@ if ($frameworkCssTime === false || $siteCssTime === false)
 $build = [
     'version' => $version,
     'siteUrl' => $siteUrl,
+    'production' => $environment === 'production',
     'css' => $css,
     'frameworkCssTime' => $frameworkCssTime,
     'siteCssTime' => $siteCssTime,

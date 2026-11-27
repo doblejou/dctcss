@@ -11,6 +11,7 @@ function validate_public(
     string $version,
 ): void {
     $pageSources = glob("$root/site/pages/*.php") ?: [];
+    $production = load_site_config($root)['environment'] === 'production';
     if ($pageSources === []) {
         fail('No site page sources were found.');
     }
@@ -145,6 +146,17 @@ function validate_public(
             $externalLinks[] = "$repositoryUrl/releases";
         }
         $expectedAbsoluteUrls = [$canonical, $canonical, ...$externalLinks];
+        if ($production)
+        {
+            $expectedAbsoluteUrls[] = PRODUCTION_LOADER_URL;
+            $last = $xpath->query('/html/body/*[last()]')->item(0);
+            if (!$last instanceof DOMElement || $last->tagName !== 'script'
+                || !$last->hasAttribute('defer') || $last->getAttribute('src') !== PRODUCTION_LOADER_URL)
+            {
+                fail("Missing deferred production loader at the end of body in $path.");
+            }
+        }
+
         preg_match_all('~https?://[^\s"<>&]+~', html_entity_decode($htmlByPage[$slug], ENT_QUOTES | ENT_HTML5, 'UTF-8'), $absoluteMatches);
         exact_set($absoluteMatches[0], $expectedAbsoluteUrls, "Absolute URLs in $path");
 
@@ -185,6 +197,9 @@ function validate_public(
                     fail("Unsupported $attribute on <$tag> in $path.");
                 }
                 $reference = $element->getAttribute($attribute);
+                if ($production && $tag === 'script' && $attribute === 'src' && $reference === PRODUCTION_LOADER_URL) {
+                    continue;
+                }
                 if ($tag === 'a' && $attribute === 'href' && (in_array($reference, $externalLinks, true)
                     || (in_array($slug, ['aviso-legal', 'privacidad'], true) && $reference === 'mailto:jose.gm@daycomtech.com'))) {
                     continue;

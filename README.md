@@ -57,7 +57,7 @@ DCTCSS_ENV=development
 SITE_URL=https://dctcss.com
 ```
 
-`SITE_URL` identifica el sitio oficial, no la dirección donde se abre la vista previa. Con el valor anterior, un único `make build` sirve tanto para `http://dctcss.local/` como para `https://dctcss.com/`: navegación, estilos y botones de descarga usan el servidor que visitas. Las URLs absolutas de los metadatos, `release.json` y el ejemplo de instalación apuntan siempre al sitio oficial. Cambiar de entorno no requiere regenerar `public/` si se mantiene `SITE_URL`.
+`SITE_URL` identifica el sitio oficial, no la dirección donde se abre la vista previa. La navegación, los estilos y los botones de descarga usan el servidor que visitas; las URLs absolutas de los metadatos y `release.json` apuntan al sitio oficial. Regenera `public/` al cambiar `DCTCSS_ENV`: solo el HTML de producción incluye el script de DCT Hits.
 
 En `production`, `SITE_URL` debe usar HTTPS y no puede ser local, de loopback, link-local, privada ni tener un hostname de una sola etiqueta.
 
