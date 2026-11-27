@@ -104,20 +104,29 @@ function validate_site_url(string $siteUrl, string $environment = 'development')
 
 function load_site_config(string $root): array
 {
-    $path = is_file("$root/.env") ? "$root/.env" : "$root/.env.example";
-    $config = @parse_ini_file($path, false, INI_SCANNER_RAW);
-    if (!is_array($config)) {
-        fail("Cannot parse site configuration: $path");
+    $keys = ['DCTCSS_ENV', 'SITE_URL'];
+    $config = array();
+    foreach (["$root/.env.example", "$root/.env"] as $path)
+    {
+        if (!is_file($path)) continue;
+        $values = @parse_ini_file($path, false, INI_SCANNER_RAW);
+        if ($values === false)
+        {
+            fail("Cannot parse site configuration: $path");
+        }
+
+        exact_keys($values, [], $keys, $path);
+        $config = array_replace($config, $values);
     }
-    exact_set(array_keys($config), ['DCTCSS_ENV', 'SITE_URL'], 'Site configuration keys');
-    $environmentValue = getenv('DCTCSS_ENV');
-    $siteUrlValue = getenv('SITE_URL');
-    $environment = $environmentValue !== false ? $environmentValue : $config['DCTCSS_ENV'];
-    $siteUrl = $siteUrlValue !== false ? $siteUrlValue : $config['SITE_URL'];
-    if (!is_string($environment) || !is_string($siteUrl)) {
-        fail('DCTCSS_ENV and SITE_URL must be strings.');
+
+    foreach ($keys as $key)
+    {
+        $override = getenv($key);
+        if ($override !== false) $config[$key] = $override;
+        if (!is_string($config[$key] ?? null)) fail("$key must be a string.");
     }
-    return ['environment' => $environment, 'siteUrl' => validate_site_url($siteUrl, $environment)];
+
+    return ['environment' => $config['DCTCSS_ENV'], 'siteUrl' => validate_site_url($config['SITE_URL'], $config['DCTCSS_ENV'])];
 }
 
 function load_site_url(string $root): string

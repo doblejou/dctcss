@@ -14,17 +14,21 @@ expect_invalid() {
   label=$1
   html=$2
   printf '%s\n' "$html" > "$TEMP_DIR/invalid-case.html"
-  if php "$VALIDATOR" --manifest "$MANIFEST" "$TEMP_DIR/invalid-case.html" >/dev/null 2>&1; then
-    printf 'contract-validator: %s was accepted\n' "$label" >&2
+  expect_contract_error "$label" "$TEMP_DIR/invalid-case.html"
+}
+
+expect_contract_error() {
+  status=0
+  php "$VALIDATOR" --manifest "$MANIFEST" "$2" >/dev/null 2>"$TEMP_DIR/error" || status=$?
+  if [ "$status" != 1 ]; then
+    cat "$TEMP_DIR/error" >&2
+    printf 'contract-validator: expected exit 1 for %s, got %s\n' "$1" "$status" >&2
     exit 1
   fi
 }
 
 php "$VALIDATOR" --manifest "$MANIFEST" "$FIXTURES/valid.html" >/dev/null
-if php "$VALIDATOR" --manifest "$MANIFEST" "$FIXTURES/invalid.html" >/dev/null 2>&1; then
-  printf '%s\n' 'contract-validator: invalid fixture was accepted' >&2
-  exit 1
-fi
+expect_contract_error 'invalid fixture' "$FIXTURES/invalid.html"
 json=$(php "$VALIDATOR" --manifest "$MANIFEST" --format json "$FIXTURES/valid.html")
 # PHP source is intentionally single-quoted against shell expansion.
 # shellcheck disable=SC2016

@@ -32,6 +32,10 @@ async function checkRecipes(engine)
       getComputedStyle(item).gridTemplateColumns.split(" ").length === 1 && item.scrollWidth <= item.clientWidth + 1)), true);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true,
       "La página no debe desbordarse al ampliar el texto");
+    await page.goto(pathToFileURL(resolve(process.argv[2], "fundamentals.html")).href);
+    const copyButton = page.locator("[data-site-copy]").first();
+    assert.ok(await copyButton.count(), "La guía debe incluir un ejemplo copiable");
+    assert.equal(await copyButton.isVisible(), false, "Sin JavaScript el botón de copia debe permanecer oculto");
     console.log(`${engine.name()} ${browser.version()}: recetas sin JavaScript verificadas`);
   }
   finally

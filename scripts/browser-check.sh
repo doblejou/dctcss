@@ -54,7 +54,6 @@ $probe = <<<'"'"'HTML'"'"'
       interactionDetails.dialogOpened = dialog?.open === true;
       interactions = interactions && interactionDetails.dialogOpened;
       dialog?.close();
-      dialog?.dispatchEvent(new Event("close"));
       await new Promise((resolve) => window.setTimeout(resolve, 100));
       interactionDetails.dialogFocus = document.activeElement === dialogButton;
       interactionDetails.dialogActiveElement = document.activeElement?.outerHTML || null;
@@ -82,7 +81,7 @@ file_put_contents($argv[3], $html);
     output=$(
       width=${viewport%,*}
       height=${viewport#*,}
-      node "$PLAYWRIGHT_RUNNER" dump "file://$instrumented" "$width" "$height" 2>/dev/null
+      node "$PLAYWRIGHT_RUNNER" dump "file://$instrumented" "$width" "$height"
     )
     case "$output" in
       *'data-browser-check="passed"'*) ;;
@@ -206,9 +205,11 @@ cat > "$PROBE" <<'HTML'
       };
       const contrast = (left, right) => { const values = [luminance(left), luminance(right)].sort((a, b) => b - a); return (values[0] + 0.05) / (values[1] + 0.05); };
       const ruleText = [];
+      const selectors = [];
       const collect = (rules) => {
         for (const rule of rules) {
           ruleText.push(rule.cssText);
+          if (rule.selectorText) selectors.push(rule.selectorText);
           if (rule.cssRules) collect(rule.cssRules);
         }
       };
@@ -216,16 +217,6 @@ cat > "$PROBE" <<'HTML'
         try { collect(sheet.cssRules); } catch (error) { failures.push("read stylesheet rules"); }
       }
       const css = ruleText.join("\n");
-      const selectors = [];
-      const collectSelectors = (rules) => {
-        for (const rule of rules) {
-          if (rule.selectorText) selectors.push(rule.selectorText);
-          if (rule.cssRules) collectSelectors(rule.cssRules);
-        }
-      };
-      for (const sheet of document.styleSheets) {
-        try { collectSelectors(sheet.cssRules); } catch (error) { failures.push("read stylesheet selectors"); }
-      }
       const selectorParts = selectors.flatMap((selector) => selector.split(",").map((part) => part.trim()));
       check(css.includes(":hover"), "parsed hover rules");
       check(/\.dct-navbar-item[^,{]*:hover|:hover[^,{]*\.dct-navbar-item/.test(css), "parsed navbar hover rule");
@@ -301,8 +292,8 @@ HTML
 
 run_probe() {
   label=$1
-  query=$3
-  output=$(node "$PLAYWRIGHT_RUNNER" dump "file://$PROBE$query" 844 900 2>/dev/null)
+  query=${2:-}
+  output=$(node "$PLAYWRIGHT_RUNNER" dump "file://$PROBE$query" 844 900)
   case "$output" in
     *'data-browser-check="passed"'*) ;;
     *)
@@ -314,16 +305,16 @@ run_probe() {
   esac
 }
 
-run_probe default '' ''
-run_probe dark '' '?dark=1'
-run_probe reduced-motion '--force-prefers-reduced-motion' '?reduced=1'
-run_probe zoom-200 '' '?scale=200'
-run_probe zoom-400 '' '?scale=400'
+run_probe default
+run_probe dark '?dark=1'
+run_probe reduced-motion '?reduced=1'
+run_probe zoom-200 '?scale=200'
+run_probe zoom-400 '?scale=400'
 
 MINIFIED_PROBE="$TEMP_DIR/system-probe-minified.html"
 sed 's#downloads/dct\.css#downloads/dct.min.css#' "$PROBE" > "$MINIFIED_PROBE"
 PROBE=$MINIFIED_PROBE
-run_probe minified '' ''
-run_probe minified-dark '' '?dark=1'
+run_probe minified
+run_probe minified-dark '?dark=1'
 
 printf '%s\n' 'Browser checks passed.'

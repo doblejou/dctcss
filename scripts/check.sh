@@ -28,7 +28,7 @@ sh "$SCRIPT_DIR/test-config.sh"
 for php_file in "$SCRIPT_DIR"/*.php "$SCRIPT_DIR/validation"/*.php "$ROOT_DIR/site"/*.php "$ROOT_DIR/site/pages"/*.php; do
   php -l "$php_file" >/dev/null || fail "PHP syntax failed: $php_file"
 done
-for node_file in "$SCRIPT_DIR"/*.cjs; do
+for node_file in "$SCRIPT_DIR"/*.cjs "$ROOT_DIR/site/site.js"; do
   node --check "$node_file" || fail "Node syntax failed: $node_file"
 done
 if command -v shellcheck >/dev/null 2>&1; then

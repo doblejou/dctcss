@@ -59,9 +59,6 @@ try {
         fail('The obsolete demo directory still exists.');
     }
     fwrite(STDOUT, "Validation passed.\n");
-} catch (ValidationFailure $error) {
-    fwrite(STDERR, "validate: {$error->getMessage()}\n");
-    exit(1);
 } catch (Throwable $error) {
     fwrite(STDERR, "validate: {$error->getMessage()}\n");
     exit(1);

@@ -23,6 +23,11 @@
     overflow-x: hidden;
   }
 
+  [data-site-copy][hidden]
+  {
+    display: none;
+  }
+
   .site-header {
     background: rgb(7 27 24 / 0.94);
     border-block-end: 1px solid rgb(255 255 255 / 0.1);
@@ -553,12 +558,6 @@
   .site-footer nav a {
     color: #d9e3e0;
     text-decoration: none;
-  }
-
-  .site-footer-meta {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
   }
 
   .site-footer-bottom a

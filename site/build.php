@@ -4,6 +4,9 @@
 declare(strict_types=1);
 
 require __DIR__ . '/template.php';
+require_once __DIR__ . '/../scripts/validation/common.php';
+require_once __DIR__ . '/../scripts/validation/config.php';
+require_once __DIR__ . '/../scripts/validation/distribution.php';
 
 if ($argc !== 4) {
     fwrite(STDERR, "Usage: php site/build.php OUTPUT_PUBLIC_DIR SITE_URL STAGED_DIST_DIR\n");
@@ -24,27 +27,6 @@ function read_required_file(string $path, string $label): string
     return $contents;
 }
 
-function validate_site_url(string $siteUrl): void
-{
-    if ($siteUrl === '' || trim($siteUrl) !== $siteUrl || str_ends_with($siteUrl, '/')) {
-        throw new InvalidArgumentException('SITE_URL must be an absolute HTTP/HTTPS URL without a trailing slash.');
-    }
-
-    $parts = parse_url($siteUrl);
-    if (filter_var($siteUrl, FILTER_VALIDATE_URL) === false
-        || $parts === false
-        || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
-        || ($parts['host'] ?? '') === ''
-        || isset($parts['path'])
-        || isset($parts['query'])
-        || isset($parts['fragment'])
-        || isset($parts['user'])
-        || isset($parts['pass'])
-    ) {
-        throw new InvalidArgumentException('SITE_URL must be an absolute HTTP/HTTPS origin without credentials, path, query or fragment.');
-    }
-}
-
 function artifact_metadata(string $directory, string $filename): array
 {
     if ($filename !== basename($filename) || !str_ends_with($filename, '.css')) {
@@ -56,15 +38,13 @@ function artifact_metadata(string $directory, string $filename): array
         throw new RuntimeException("Missing staged CSS artifact: $path");
     }
 
-    $bytes = filesize($path);
-    $sha256 = hash_file('sha256', $path);
-    $contents = file_get_contents($path);
-    $gzip = $contents === false ? false : gzencode($contents, 9, ZLIB_ENCODING_GZIP);
-    if ($bytes === false || $sha256 === false || $gzip === false) {
+    $contents = read_file($path);
+    $gzip = gzencode($contents, 9, ZLIB_ENCODING_GZIP);
+    if ($gzip === false) {
         throw new RuntimeException("Cannot inspect staged CSS artifact: $path");
     }
 
-    return ['filename' => $filename, 'bytes' => $bytes, 'gzipBytes' => strlen($gzip), 'sha256' => $sha256];
+    return ['filename' => $filename, 'bytes' => strlen($contents), 'gzipBytes' => strlen($gzip)];
 }
 
 function read_benchmarks(string $path, string $version, array $minified): array
@@ -118,19 +98,6 @@ function read_browser_minimums(string $path): array
     return $minimums;
 }
 
-function current_release_date(string $changelog, string $version): string
-{
-    $pattern = '/^## ' . preg_quote($version, '/') . ' - (\d{4}-\d{2}-\d{2})$/m';
-    if (preg_match_all($pattern, $changelog, $matches) !== 1) {
-        throw new RuntimeException("CHANGELOG.md must contain exactly one release entry for $version.");
-    }
-    [$year, $month, $day] = array_map('intval', explode('-', $matches[1][0]));
-    if (!checkdate($month, $day, $year)) {
-        throw new RuntimeException("CHANGELOG.md contains an invalid release date for $version.");
-    }
-    return $matches[1][0];
-}
-
 function write_output(string $path, string $contents): void
 {
     if (file_put_contents($path, $contents) === false) {
@@ -173,10 +140,6 @@ $build = [
     'benchmarks' => read_benchmarks($projectRoot . '/benchmarks/framework-sizes.txt', $version, $cssMinified),
     'browserMinimums' => read_browser_minimums($projectRoot . '/COMPATIBILITY.md'),
 ];
-
-if (!is_dir($outputDirectory) && !mkdir($outputDirectory, 0755, true) && !is_dir($outputDirectory)) {
-    throw new RuntimeException("Cannot create output directory: $outputDirectory");
-}
 
 foreach (array_keys(SITE_PAGES) as $slug) {
     $source = __DIR__ . '/pages/' . $slug . '.php';

@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-final class ValidationFailure extends RuntimeException
-{
-}
-
 function fail(string $message): never
 {
-    throw new ValidationFailure($message);
+    throw new RuntimeException($message);
 }
 
 function read_file(string $path): string

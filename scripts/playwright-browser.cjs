@@ -19,9 +19,9 @@ async function main() {
     const context = await browser.newContext({ viewport: { width, height }, reducedMotion });
     const page = await context.newPage();
     await page.goto(target, { waitUntil: "load" });
-    await page.waitForTimeout(500);
 
     if (mode === "dump") {
+      await page.waitForSelector("body[data-browser-check]", { state: "attached", timeout: 10000 });
       process.stdout.write(await page.content());
       return;
     }
