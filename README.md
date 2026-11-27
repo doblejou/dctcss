@@ -131,8 +131,13 @@ publica en `/srv/www/dctcss/public`.
 
 La raíz web se llama **`public/` en los dos entornos**. Configúrala sin
 ejecución de PHP. El destino debe ser escribible por el usuario de despliegue.
-El script usa `git fetch` y construye el commit remoto en un directorio privado
-con el `.env` del servidor (las variables de proceso mantienen su prioridad).
+`deploy.sh` exige `DCTCSS_ENV=production` y un `SITE_URL` válido de producción
+antes de ejecutar Git. En desarrollo usa `make build`: trabaja con los archivos
+locales, incluidos los cambios sin commit, y no hace `git pull`.
+En producción, el script actualiza la rama con `git pull --ff-only` y ejecuta la construcción
+y la activación desde el commit remoto en un directorio privado. Si las ramas
+han divergido o hay commits solo locales, se detiene sin cambiar `public/`.
+Usa el `.env` del servidor (las variables de proceso mantienen su prioridad).
 Necesita Git, `flock` y las herramientas de `make build`, incluido el
 minificador de `/opt/dctfrw/`. El servidor comprueba la configuración de
 producción y el build valida los artefactos antes de activarlos. Ejecuta

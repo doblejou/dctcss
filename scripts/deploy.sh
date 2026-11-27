@@ -11,6 +11,7 @@ case "$dest" in
     *) prefix='' ;;
 esac
 cd -- "$root"
+php scripts/validate.php --assert-production
 [ "$(git rev-parse --show-toplevel)" = "$root" ] || fail "Se necesita un clon del proyecto."
 [ -f .env ] || fail "Falta el .env del servidor."
 
@@ -23,8 +24,9 @@ fi
 branch=$(git symbolic-ref --short HEAD)
 remote=$(git config --get "branch.$branch.remote")
 upstream=$(git config --get "branch.$branch.merge")
-git fetch -- "$remote" "$upstream"
+git pull --ff-only --no-rebase -- "$remote" "$upstream"
 commit=$(git rev-parse --verify 'FETCH_HEAD^{commit}')
+[ "$(git rev-parse HEAD)" = "$commit" ] || fail "La rama contiene commits locales sin publicar."
 
 work=$(mktemp -d -- "$dest/$prefix.build.XXXXXX")
 trap 'rm -rf -- "$work"' EXIT
@@ -33,14 +35,5 @@ mkdir "$work/src"
 git archive --output="$work/src.tar" "$commit"
 tar -xf "$work/src.tar" -C "$work/src"
 install -m 600 -- .env "$work/src/.env"
-(
-    cd "$work/src"
-    sh scripts/build.sh --deploy
-)
-
-release=$(mktemp -d -- "$dest/${prefix}release.XXXXXX")
-mv -- "$work/src/public" "$release/public"
-chmod 755 "$release"
-ln -s -- "$prefix$(basename -- "$release")/public" "$work/public"
-mv -Tf -- "$work/public" "$dest/public"
+sh "$work/src/scripts/activate-site.sh" "$work" "$dest" "$prefix"
 echo "Publicado $commit en $dest/public"
