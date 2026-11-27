@@ -18,7 +18,12 @@ function validate_public(
     $slugs = array_map(static fn(string $path): string => basename($path, '.php'), $pageSources);
     sort($slugs);
     $pageNames = array_map(static fn(string $slug): string => "$slug.html", $slugs);
-    exact_set(directory_entries($publicDirectory), array_merge($pageNames, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml']), 'Public root entries');
+    exact_set(directory_entries($publicDirectory), array_merge($pageNames, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml', '.custom_apache_rules.conf']), 'Public root entries');
+    if (read_file("$publicDirectory/.custom_apache_rules.conf") !== read_file("$root/site/.custom_apache_rules.conf"))
+    {
+        fail('Public Apache rules differ from their source.');
+    }
+
     exact_set(directory_entries("$publicDirectory/assets"), ['site.css', 'recipes.css', 'site.js', 'favicon.svg'], 'Public assets');
     $cssName = $manifest['artifacts']['css'];
     $minifiedName = $manifest['artifacts']['cssMinified'];

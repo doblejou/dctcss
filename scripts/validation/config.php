@@ -197,7 +197,7 @@ function canonical_output_root(string $root, string $requested, bool $inspectCon
     if (is_dir("$candidate/public")) {
         $slugs = array_map(static fn(string $path): string => basename($path, '.php'), glob("$root/site/pages/*.php") ?: []);
         $pages = array_map(static fn(string $slug): string => "$slug.html", $slugs);
-        assert_managed_entries("$candidate/public", array_merge($pages, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml']), 'Managed public');
+        assert_managed_entries("$candidate/public", array_merge($pages, ['assets', 'downloads', 'release.json', 'robots.txt', 'sitemap.xml', '.custom_apache_rules.conf']), 'Managed public');
         foreach (directory_entries("$candidate/public") as $entry) {
             $path = "$candidate/public/$entry";
             if ($entry === 'assets') {

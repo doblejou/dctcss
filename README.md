@@ -166,7 +166,7 @@ Para otra ubicación, define `DCTCSS_AUDIT_MODULES` con la ruta a `node_modules`
 
 Ejecuta `make check-release` con `DCTCSS_ENV=production` y el `SITE_URL` público definitivo. Después despliega el contenido generado de `public/` haciendo que ese directorio sea el document root del dominio. No publiques la raíz del repositorio: `site/`, `src/`, `dist/`, `skills/`, `scripts/` y `.env` no forman parte de la superficie web.
 
-`public/` es un conjunto cerrado y reemplazable. Incluye las páginas estáticas, assets, robots, sitemap y las descargas actuales; no debe editarse manualmente.
+`public/` es un conjunto cerrado y reemplazable. Incluye las páginas estáticas, assets, robots, sitemap, las descargas actuales y `.custom_apache_rules.conf`; no debe editarse manualmente. El build copia las reglas desde `site/.custom_apache_rules.conf`. Si Apache no tiene ya una integración para ese nombre, inclúyelo en el bloque `<Directory>` del document root con `mod_rewrite` habilitado. El archivo por sí solo no activa la redirección de `/index.html` a `/`.
 
 ## Familias
 
